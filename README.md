@@ -19,7 +19,7 @@ To install the `v2_devel` version of the requirements run
 ```
 pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2_devel/frozen_requirements.txt;
 pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2_devel/torch_requirements.txt;.
-git checkout https://github.com/intro-stat-learning/ISLP.git;
+git clone https://github.com/intro-stat-learning/ISLP.git;
 cd ISLP;
 git checkout v2_devel;
 pip install -e .
