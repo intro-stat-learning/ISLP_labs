@@ -10,7 +10,7 @@ the results in this repo.
 To install the `v1` version of the requirements run
 
 ```
-pip install -r https://github.com/intro-stat-learning/ISLP_labs/blob/v1/frozen_requirements.txt;
-pip install -r https://github.com/intro-stat-learning/ISLP_labs/blob/v1/torch_requirements.txt;
+pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v1/frozen_requirements.txt;
+pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v1/torch_requirements.txt;.
 pip install ISLP==0.3.17;
 ```
