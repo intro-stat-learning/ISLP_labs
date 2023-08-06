@@ -8,4 +8,9 @@ statsmodels==0.14.0
 lifelines==0.27.7
 pygam==0.9.0
 l0bnb==1.0.0
+torch==2.0.1
+torchvision==0.15.2
+pytorch-lightning==2.0.6
+torchinfo==1.8.0
+torchmetrics==1.0.1
 
