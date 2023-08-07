@@ -16,7 +16,7 @@ To install the current version of the requirements run
 pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/main/requirements.txt;
 ```
 
-The labs can now be run from the `notebooks` directory:
+The labs can now be run from this directory:
 
 ```
 cd notebook;
