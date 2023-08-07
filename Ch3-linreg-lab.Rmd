@@ -2,7 +2,7 @@
 jupyter:
   jupytext:
     cell_metadata_filter: -all
-    formats: notebooks///ipynb,Rmarkdown///Rmd
+    formats: ipynb,Rmd
     main_language: python
     text_representation:
       extension: .Rmd
