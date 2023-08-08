@@ -26,8 +26,7 @@ jobs:
       - name: Install dependencies 
         run: |
           pip install -r requirements.txt
-	  pip install ISLP
-          pip install jupyter
+          pip install ISLP jupyter
 
       # Runs a set of commands using the runners shell
       - name: Build notebook
