@@ -20,6 +20,6 @@ The labs can now be run from this directory:
 
 ```
 cd notebook;
-jupyter lab Ch2-statlearning-lab.ipynb
+jupyter lab Ch02-statlearning-lab.ipynb
 ```
 
