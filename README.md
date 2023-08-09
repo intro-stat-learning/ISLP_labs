@@ -19,7 +19,6 @@ pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v
 The labs can now be run from this directory:
 
 ```
-cd notebook;
 jupyter lab Ch02-statlearning-lab.ipynb
 ```
 
