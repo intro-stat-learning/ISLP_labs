@@ -1303,8 +1303,8 @@ The plot methods of a data frame return a familiar object:
 an axes. We can use it to update the plot as we did previously: 
 
 ```{python}
-ax = Auto.plot.scatter('horsepower', 'mpg');
-ax.set_title('Horsepower vs. MPG')
+ax = Auto.plot.scatter('horsepower', 'mpg')
+ax.set_title('Horsepower vs. MPG');
 ```
 If we want to save
 the figure that contains a given axes, we can find the relevant figure
