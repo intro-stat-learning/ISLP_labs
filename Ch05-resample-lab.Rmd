@@ -62,7 +62,7 @@ argument `test_size=196`. It is generally a good idea to set a random seed
 when performing operations like this that contain an
 element of randomness, so that the results obtained can be reproduced
 precisely at a later time. We set the random seed of the splitter
-with the argument `random_state=0`. 
+with the argument `random_state=0`.
 
 ```{python}
 Auto = load_data('Auto')
@@ -173,11 +173,11 @@ than `statsmodels`, the code we have been using to fit GLMs.
 This is a problem which often confronts data scientists: "I have a function to do task $A$, and need to feed it into something that performs task $B$, so that I can compute $B(A(D))$, where $D$ is my data." When $A$ and $B$ don’t naturally speak to each other, this
 requires the use of a *wrapper*.
 In the `ISLP` package,
-we provide 
+we provide
 a wrapper, `sklearn_sm()`, that enables us to easily use the cross-validation tools of `sklearn` with
 models fit by `statsmodels`.
 
-The class `sklearn_sm()` 
+The class `sklearn_sm()`
 has  as its first argument
 a model from `statsmodels`. It can take two additional
 optional arguments: `model_str` which can be
@@ -204,9 +204,9 @@ cv_err
 The arguments to `cross_validate()` are as follows: an
 object with the appropriate `fit()`, `predict()`,
 and `score()` methods,  an
-array of features `X` and a response `Y`. 
+array of features `X` and a response `Y`.
 We also included an additional argument `cv` to `cross_validate()`; specifying an integer
-$K$ results in $K$-fold cross-validation. We have provided a value 
+$K$ results in $K$-fold cross-validation. We have provided a value
 corresponding to the total number of observations, which results in
 leave-one-out cross-validation (LOOCV). The `cross_validate()`  function produces a dictionary with several components;
 we simply want the cross-validated test score here (MSE), which is estimated to be 24.23.
@@ -245,7 +245,7 @@ that has two arguments, such as `add()`, `min()`, or
 It has two arrays as
 arguments, and then forms a larger
 array where the operation is applied to each pair of elements of the
-two arrays. 
+two arrays.
 
 ```{python}
 A = np.array([3, 5, 9])
@@ -343,7 +343,7 @@ create a function
 `alpha_func()`, which takes as input a dataframe `D` assumed
 to have columns `X` and `Y`, as well as a
 vector `idx` indicating which observations should be used to
-estimate 
+estimate
 $\alpha$. The function then outputs the estimate for $\alpha$ based on
 the selected observations.
 
@@ -405,7 +405,7 @@ Notice the use of `_` as a loop variable in `for _ in range(B)`. This is often u
 unimportant and simply makes sure  the loop is executed `B` times.
 
 Let’s use our function to evaluate the accuracy of our
-estimate of $\alpha$ using $B=1{,}000$ bootstrap replications. 
+estimate of $\alpha$ using $B=1{,}000$ bootstrap replications.
 
 ```{python}
 alpha_SE = boot_SE(alpha_func,

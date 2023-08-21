@@ -64,7 +64,7 @@ age = Wage['age']
 ```
 
 Throughout most of this lab, our response is `Wage['wage']`, which
-we have stored as `y` above. 
+we have stored as `y` above.
 As in Section 3.6.6, we will use the `poly()` function to create a model matrix
 that will fit a $4$th degree polynomial in `age`.
 
@@ -80,10 +80,10 @@ This polynomial is constructed using the function `poly()`,
 which creates
 a special *transformer* `Poly()` (using `sklearn` terminology
 for feature transformations such as `PCA()` seen in Section 6.5.3) which
-allows for easy evaluation of the polynomial at new data points. Here `poly()` is referred to as a *helper* function, and sets up the transformation; `Poly()` is the actual workhorse that computes the transformation. See also 
-the 
+allows for easy evaluation of the polynomial at new data points. Here `poly()` is referred to as a *helper* function, and sets up the transformation; `Poly()` is the actual workhorse that computes the transformation. See also
+the
 discussion of transformations on
-page 129. 
+page 129.
 
 In the code above, the first line executes the `fit()` method
 using the dataframe
@@ -93,7 +93,7 @@ evaluations of the `transform()` method. For example, it is used
 on the second line, as well as in the plotting function developed below.
 
 
-    
+
 
 
 
@@ -115,10 +115,10 @@ takes in a model specification (here a basis specified by a
 transform), as well as a grid of `age` values. The function
 produces a fitted curve as well as 95% confidence bands. By using
 an argument for `basis` we can produce and plot the results with several different
-transforms, such as the splines we will see shortly. 
+transforms, such as the splines we will see shortly.
 
 ```{python}
-def plot_wage_fit(age_df, 
+def plot_wage_fit(age_df,
                   basis,
                   title):
 
@@ -155,14 +155,14 @@ We now plot the fit of the fourth-degree polynomial using this
 function.
 
 ```{python}
-plot_wage_fit(age_df, 
+plot_wage_fit(age_df,
               poly_age,
               'Degree-4 Polynomial');
 
 ```
- 
 
-    
+
+
 
 
 With  polynomial regression we must decide on the degree of
@@ -188,7 +188,7 @@ models and sequentially compare the simpler model to the more complex
 model.
 
 ```{python}
-models = [MS([poly('age', degree=d)]) 
+models = [MS([poly('age', degree=d)])
           for d in range(1, 6)]
 Xs = [model.fit_transform(Wage) for model in models]
 anova_lm(*[sm.OLS(y, X_).fit()
@@ -198,7 +198,7 @@ anova_lm(*[sm.OLS(y, X_).fit()
 
 Notice the `*` in the `anova_lm()` line above. This
 function takes a variable number of non-keyword arguments, in this case fitted models.
-When these models are provided as a list (as is done here), it must be 
+When these models are provided as a list (as is done here), it must be
 prefixed by `*`.
 
 The p-value comparing the linear `models[0]` to the quadratic
@@ -224,7 +224,7 @@ summarize(M)
 
 Notice that the p-values are the same, and in fact the square of
 the  t-statistics are equal to the F-statistics from the
-`anova_lm()`  function;  for example: 
+`anova_lm()`  function;  for example:
 
 ```{python}
 (-11.983)**2
@@ -353,11 +353,11 @@ bs_age = bs_.transform(age)
 bs_age.shape
 
 ```
-This results in a seven-column matrix, which is what is expected for a cubic-spline basis with 3 interior knots. 
+This results in a seven-column matrix, which is what is expected for a cubic-spline basis with 3 interior knots.
 We can form this same matrix using the `bs()` object,
 which facilitates adding this to a model-matrix builder (as in `poly()` versus its workhorse `Poly()`) described in Section 7.8.1.
 
-We now fit a cubic spline model to the `Wage`  data. 
+We now fit a cubic spline model to the `Wage`  data.
 
 ```{python}
 bs_age = MS([bs('age', internal_knots=[25,40,60])])
@@ -380,7 +380,7 @@ summarize(M)
 
 Notice that there are 6 spline coefficients rather than 7. This is because, by default,
 `bs()` assumes `intercept=False`, since we typically have an overall intercept in the model.
-So it generates the spline basis with the given knots,  and then discards one of the basis functions to account for the intercept. 
+So it generates the spline basis with the given knots,  and then discards one of the basis functions to account for the intercept.
 
 We could also use the `df` (degrees of freedom) option to
 specify the complexity of the spline.  We see above that with 3 knots,
@@ -406,7 +406,7 @@ in piecewise constant functions, as in our example with
 
 ```{python}
 bs_age0 = MS([bs('age',
-                 df=3, 
+                 df=3,
                  degree=0)]).fit(Wage)
 Xbs0 = bs_age0.transform(Wage)
 summarize(sm.OLS(y, Xbs0).fit())
@@ -427,16 +427,16 @@ the `qcut()` uses $\leq$, while `bs()` uses $<$ when
 deciding bin membership.
 
 
-    
- 
-
- 
-
-    
- 
 
 
-In order to fit a natural spline, we use the `NaturalSpline()` 
+
+
+
+
+
+
+
+In order to fit a natural spline, we use the `NaturalSpline()`
 transform with the corresponding helper `ns()`.  Here we fit a natural spline with five
 degrees of freedom (excluding the intercept) and plot the results.
 
@@ -476,7 +476,7 @@ gam.fit(X_age, y)
 The `pygam` library generally expects a matrix of features so we reshape `age` to be a matrix (a two-dimensional array) instead
 of a vector (i.e. a one-dimensional array). The `-1` in the call to the `reshape()` method tells `numpy` to impute the
 size of that dimension based on the remaining entries of the shape tuple.
- 
+
 Let’s investigate how the fit changes with the smoothing parameter `lam`.
 The function `np.logspace()` is similar to `np.linspace()` but spaces points
 evenly on the log-scale. Below we vary `lam` from $10^{-2}$ to $10^6$.
@@ -575,7 +575,7 @@ gam_bh = sm.OLS(y, X_bh).fit()
 Here the function `NaturalSpline()` is the workhorse supporting
 the `ns()` helper function.  We chose to use all columns of the
 indicator matrix for the categorical variable `education`, making an intercept redundant.
-Finally, we stacked the three component matrices horizontally to form the model matrix `X_bh`. 
+Finally, we stacked the three component matrices horizontally to form the model matrix `X_bh`.
 
 We now show how to construct partial dependence plots for each of the terms in our rudimentary GAM. We can do this by hand,
 given grids for `age` and `year`.
@@ -607,7 +607,7 @@ Let's explain in some detail what we did above. The idea is to create a new pred
 
 * We made a grid of length 100 in `age`, and created a matrix `X_age_bh` with 100 rows and the same number of columns as `X_bh`.
 * We replaced every row of this matrix with the column means of the original.
-* We then replace just the first four columns representing `age` with the natural spline basis computed at the values in `age_grid`. 
+* We then replace just the first four columns representing `age` with the natural spline basis computed at the values in `age_grid`.
 
 The remaining steps should by now be familiar.
 
@@ -671,7 +671,7 @@ ax.set_title('Partial dependence of age on wage - default lam=0.6', fontsize=20)
 
 ```
 
-We see that the function is somewhat wiggly. It is more natural to specify the `df` than a value for `lam`. 
+We see that the function is somewhat wiggly. It is more natural to specify the `df` than a value for `lam`.
 We refit a GAM using four degrees of freedom each for
 `age` and  `year`. Recall that the addition of one below takes into account the intercept
 of the smoothing spline.
@@ -699,7 +699,7 @@ ax.set_ylabel('Effect on wage')
 ax.set_title('Partial dependence of year on wage', fontsize=20)
 
 ```
-Finally we plot `education`, which is categorical. The partial dependence plot is different, and more suitable for the set of fitted constants for each level of this variable. 
+Finally we plot `education`, which is categorical. The partial dependence plot is different, and more suitable for the set of fitted constants for each level of this variable.
 
 ```{python}
 fig, ax = subplots(figsize=(8, 8))
@@ -776,11 +776,11 @@ Yhat = gam_full.predict(Xgam)
 
 ```
 
-In order to fit a logistic regression GAM, we use `LogisticGAM()` 
+In order to fit a logistic regression GAM, we use `LogisticGAM()`
 from `pygam`.
 
 ```{python}
-gam_logit = LogisticGAM(age_term + 
+gam_logit = LogisticGAM(age_term +
                         l_gam(1, lam=0) +
                         f_gam(2, lam=0))
 gam_logit.fit(Xgam, high_earn)
@@ -828,7 +828,7 @@ high_earn_ = Wage_['high_earn']
 ```
 In the second-to-last line above, we subtract one  from the codes of the category, due to a bug in `pygam`. It just relabels
 the education values and hence has no effect on the fit.
- 
+
 We now fit the model.
 
 ```{python}
@@ -875,7 +875,7 @@ ax.set_title('Partial dependence of high earner status on age', fontsize=20);
 
 
 ## Local Regression
-We illustrate the use of local regression using  the `lowess()` 
+We illustrate the use of local regression using  the `lowess()`
 function from `sm.nonparametric`. Some implementations of
 GAMs allow terms to be local regression operators; this is not the case in `pygam`.
 
@@ -901,6 +901,6 @@ ax.set_ylabel('Wage', fontsize=20);
 ax.legend(title='span', fontsize=15);
 
 ```
-  
- 
+
+
 

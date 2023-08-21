@@ -147,7 +147,7 @@ principal component loading vector.
 
 
 ```{python}
-pcaUS.components_ 
+pcaUS.components_
 
 ```
 
@@ -206,7 +206,7 @@ the `explained_variance_` attribute.
 pcaUS.explained_variance_
 
 ```
-The proportion of variance explained by each principal 
+The proportion of variance explained by each principal
 component (PVE) is stored as `explained_variance_ratio_`:
 
 ```{python}
@@ -265,9 +265,9 @@ We saw  in Section 12.2.2  that solving the optimization
 problem (12.6)   on a centered data matrix $\bf X$ is
 equivalent to computing the first $M$ principal
 components of the data.  We use our scaled
-and centered `USArrests` data as $\bf X$ below. The *singular value decomposition* 
+and centered `USArrests` data as $\bf X$ below. The *singular value decomposition*
 (SVD)  is a general algorithm for solving
-(12.6). 
+(12.6).
 
 ```{python}
 X = USArrests_scaled
@@ -325,7 +325,7 @@ Here the array `r_idx`
 contains 20 integers from 0 to 49; this represents the states (rows of `X`) that are selected to contain missing values. And `c_idx` contains
 20 integers from 0 to 3, representing the features (columns in `X`) that contain the missing values for each of the selected states.
 
-We now write some code to implement Algorithm 12.1. 
+We now write some code to implement Algorithm 12.1.
 We first write a  function that takes in a matrix, and returns an approximation to the matrix using the `svd()` function.
 This will be needed in Step 2 of Algorithm 12.1.
 
@@ -466,11 +466,11 @@ ax.set_title("K-Means Clustering Results with K=3");
 
 ```
 When $K=3$, $K$-means clustering  splits up the two clusters.
-We have used the `n_init` argument to run the $K$-means with 20 
+We have used the `n_init` argument to run the $K$-means with 20
 initial cluster assignments (the default is 10). If a
 value of `n_init` greater than one is used, then $K$-means
 clustering will be performed using multiple random assignments in
-Step 1 of  Algorithm 12.2, and the `KMeans()` 
+Step 1 of  Algorithm 12.2, and the `KMeans()`
 function will report only the best results. Here we compare using
 `n_init=1` to `n_init=20`.
 
@@ -486,7 +486,7 @@ kmeans1.inertia_, kmeans20.inertia_
 ```
 Note that `kmeans.inertia_` is the total within-cluster sum
 of squares, which we seek to minimize by performing $K$-means
-clustering (12.17). 
+clustering (12.17).
 
 We *strongly* recommend always running $K$-means clustering with
 a large value of `n_init`, such as 20 or 50, since otherwise an
@@ -589,7 +589,7 @@ dendrogram(linkage_comp,
 ```
 
 To determine the cluster labels for each observation associated with a
-given cut of the dendrogram, we can use the `cut_tree()` 
+given cut of the dendrogram, we can use the `cut_tree()`
 function from `scipy.cluster.hierarchy`:
 
 ```{python}
@@ -708,7 +708,7 @@ We now plot the first few principal component score vectors, in order
 to visualize the data. The observations (cell lines) corresponding to
 a given cancer type will be plotted in the same color, so that we can
 see to what extent the observations within a cancer type are similar
-to each other. 
+to each other.
 
 ```{python}
 cancer_types = list(np.unique(nci_labs))
@@ -737,7 +737,7 @@ vectors. This indicates that cell lines from the same cancer type tend
 to have pretty similar gene expression levels.
 
 
-    
+
 
 
 We can also plot the percent variance
@@ -802,7 +802,7 @@ def plot_nci(linkage, ax, cut=-np.inf):
 Let’s  plot our results.
 
 ```{python}
-fig, axes = plt.subplots(3, 1, figsize=(15,30))      
+fig, axes = plt.subplots(3, 1, figsize=(15,30))
 ax = axes[0]; hc_comp = plot_nci('Complete', ax)
 ax = axes[1]; hc_avg = plot_nci('Average', ax)
 ax = axes[2]; hc_sing = plot_nci('Single', ax)
@@ -819,7 +819,7 @@ linkage.  Clearly cell lines within a single cancer type do tend to
 cluster together, although the clustering is not perfect. We will use
 complete linkage hierarchical clustering for the analysis that
 follows.
- 
+
 We can cut the dendrogram at the height that will yield a particular
 number of clusters, say four:
 
@@ -859,7 +859,7 @@ results.  How do these `NCI60` hierarchical clustering results compare
 to what we get if we perform $K$-means clustering with $K=4$?
 
 ```{python}
-nci_kmeans = KMeans(n_clusters=4, 
+nci_kmeans = KMeans(n_clusters=4,
                     random_state=0,
                     n_init=20).fit(nci_scaled)
 pd.crosstab(pd.Series(comp_cut, name='HClust'),
@@ -904,7 +904,7 @@ pd.crosstab(nci_labs['label'], pca_labels)
 
 ```
 
- 
- 
+
+
 
 

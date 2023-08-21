@@ -15,7 +15,7 @@ jupyter:
 # Chapter 13
 
 # Lab: Multiple Testing
- 
+
 
 
 We include our usual imports seen in earlier labs.
@@ -75,7 +75,7 @@ The $p$-value comes out to 0.931, which is not low enough to
 reject the null hypothesis at level $\alpha=0.05$.  In this case,
 $\mu_1=0.5$, so the null hypothesis is false. Therefore, we have made
 a Type II error by failing to reject the null hypothesis when the null
-hypothesis is false. 
+hypothesis is false.
 
 We now test $H_{0,j}: \mu_j=0$ for $j=1,\ldots,100$. We compute the
 100 $p$-values, and then construct a vector recording whether the
@@ -121,7 +121,7 @@ amounts to quite a weak signal, and it resulted in a high number of
 Type II errors.  Let’s instead simulate data with a stronger signal,
 so that the ratio of the mean to the standard deviation for the false
 null hypotheses equals $1$. We make only 10 Type II errors.
- 
+
 
 ```{python}
 true_mean = np.array([1]*50 + [0]*50)
@@ -142,7 +142,7 @@ pd.crosstab(decision,
             colnames=['H0'])
 
 ```
-    
+
 
 
 ## Family-Wise Error Rate
@@ -175,7 +175,7 @@ a low value is that we are likely to make a number of Type II errors:
 in other words, our power is very low.
 
 We now conduct a one-sample $t$-test for each of the first five
-managers in the  
+managers in the
 `Fund`   dataset, in order to test the null
 hypothesis that the $j$th fund manager’s mean return equals zero,
 $H_{0,j}: \mu_j=0$.
@@ -244,7 +244,7 @@ mult_test(fund_mini_pvals, method = "holm", alpha=0.05)[:2]
 
 As discussed previously, Manager One seems to perform particularly
 well, whereas Manager Two has poor performance.
- 
+
 
 ```{python}
 fund_mini.mean()
@@ -409,7 +409,7 @@ testing data, which results in observations on 83 patients for
 2,308 genes.
 
 ```{python}
-Khan = load_data('Khan')      
+Khan = load_data('Khan')
 D = pd.concat([Khan['xtrain'], Khan['xtest']])
 D['Y'] = pd.concat([Khan['ytrain'], Khan['ytest']])
 D['Y'].value_counts()
@@ -420,7 +420,7 @@ D['Y'].value_counts()
 There are four classes of cancer. For each gene, we compare the mean
 expression in the second class (rhabdomyosarcoma) to the mean
 expression in the fourth class (Burkitt’s lymphoma).  Performing a
-standard two-sample $t$-test  
+standard two-sample $t$-test
 using `ttest_ind()`  from `scipy.stats` on the $11$th
 gene produces a test-statistic of -2.09 and an associated $p$-value
 of 0.0412, suggesting modest evidence of a difference in mean
@@ -576,5 +576,5 @@ ax.set_xlabel("Number of Rejections")
 ax.set_ylabel("False Discovery Rate");
 
 ```
- 
+
 

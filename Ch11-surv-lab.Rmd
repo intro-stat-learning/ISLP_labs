@@ -19,8 +19,8 @@ jupyter:
 
 # Lab: Survival Analysis
  In this lab, we perform survival analyses on three separate data
-sets. In  Section 11.8.1 we analyze the  `BrainCancer` 
-data  that was first described in Section 11.3. In Section 11.8.2, we examine the  `Publication` 
+sets. In  Section 11.8.1 we analyze the  `BrainCancer`
+data  that was first described in Section 11.3. In Section 11.8.2, we examine the  `Publication`
 data  from Section 11.5.4. Finally,  Section 11.8.3  explores
 a simulated call-center data set.
 
@@ -344,7 +344,7 @@ from $5$ to $15$), `Center` (either A, B, or C), and
 `Time` of day (Morning, Afternoon, or Evening). We generate data
 for these covariates so that all possibilities are equally likely: for
 instance, morning, afternoon and evening calls are equally likely, and
-any number of operators from $5$ to $15$ is equally likely. 
+any number of operators from $5$ to $15$ is equally likely.
 
 ```{python}
 rng = np.random.default_rng(10)
@@ -411,7 +411,7 @@ uses the relationship between the survival function
 and cumulative hazard $S(t) = \exp(-H(t))$ and the specific
 form of the cumulative hazard function in the Cox model
 to simulate data based on values of the linear predictor
-`true_linpred` and the cumulative hazard. 
+`true_linpred` and the cumulative hazard.
  We need to provide the cumulative hazard function, which we do here.
 
 ```{python}
@@ -551,7 +551,7 @@ are very small. It is also clear that the
 hazard --- that is, the instantaneous risk that a call will be
 answered --- increases with the number of operators. Since we
 generated the data ourselves, we know that the true coefficients for
- `Operators`, `Center = B`, `Center = C`, 
+ `Operators`, `Center = B`, `Center = C`,
 `Time = Even.` and `Time = Morn.`   are $0.04$, $-0.3$,
 $0$,   $0.2$, and $-0.2$, respectively. The coefficient estimates
 from the fitted Cox model are fairly accurate.

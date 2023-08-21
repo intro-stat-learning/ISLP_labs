@@ -102,11 +102,11 @@ that can be used to compute the sum of the array `A` as can be seen by typing `A
 A.sum()
 
 ```
-    
+
 
 
 ## Simple Linear Regression
-In this section we will  construct model 
+In this section we will  construct model
 matrices (also called design matrices) using the `ModelSpec()`  transform from `ISLP.models`.
 
 We  will use the `Boston` housing data set, which is contained in the `ISLP` package.  The `Boston` dataset records  `medv`  (median house value) for $506$ neighborhoods
@@ -150,11 +150,11 @@ results = model.fit()
 
 ```
 Note that `sm.OLS()` does
-not fit the model; it specifies the model, and then `model.fit()` does the actual fitting.  
+not fit the model; it specifies the model, and then `model.fit()` does the actual fitting.
 
 Our `ISLP` function `summarize()` produces a simple table of the parameter estimates,
 their standard errors, t-statistics and p-values.
-The function takes a single argument, such as the object `results` 
+The function takes a single argument, such as the object `results`
 returned here by the `fit`
 method, and returns such a summary.
 
@@ -166,7 +166,7 @@ summarize(results)
 
 Before we describe other methods for working with fitted models, we outline a more useful and general framework for constructing a model matrix~`X`.
 ### Using Transformations: Fit and Transform
-Our model above has a single predictor, and constructing `X` was straightforward. 
+Our model above has a single predictor, and constructing `X` was straightforward.
 In practice  we often fit models with more than one predictor, typically selected from an array or data frame.
 We may wish to introduce transformations to the variables before fitting the model, specify interactions between variables, and expand some particular variables into sets of variables (e.g. polynomials).
 The `sklearn`  package has a particular notion
@@ -191,7 +191,7 @@ In our case the transform is created by the expression
 The `fit()`  method takes the original array and may do some
 initial computations on it, as specified in the transform object.
 For example, it may compute means and standard deviations for centering and scaling.
-The `transform()` 
+The `transform()`
 method applies the fitted transformation to the array of data, and produces the model matrix.
 
 
@@ -218,7 +218,7 @@ Let's return to our fitted regression model.
 The object
 `results` has several methods that can be used for inference.
 We already presented a function `summarize()` for showing the essentials of the fit.
-For a full and somewhat exhaustive summary of the fit, we can use the `summary()` 
+For a full and somewhat exhaustive summary of the fit, we can use the `summary()`
 method.
 
 ```{python}
@@ -274,7 +274,7 @@ prediction intervals are centered around the same point (a predicted
 value of 25.05 for  `medv`  when  `lstat`  equals
 10), but the latter are substantially wider.
 
-Next we will plot  `medv`  and  `lstat` 
+Next we will plot  `medv`  and  `lstat`
 using `DataFrame.plot.scatter()`, \definelongblankMR{plot.scatter()}{plot.slashslashscatter()}
 and wish to
 add the regression line to the resulting plot.
@@ -422,7 +422,7 @@ So we may wish to run a regression excluding this predictor.
 The following syntax results in a regression using all predictors except  `age`.
 
 ```{python}
-minus_age = Boston.columns.drop(['medv', 'age']) 
+minus_age = Boston.columns.drop(['medv', 'age'])
 Xma = MS(minus_age).fit_transform(Boston)
 model1 = sm.OLS(y, Xma)
 summarize(model1.fit())
@@ -464,7 +464,7 @@ vif
 
 ```
 The function `VIF()` takes two arguments: a dataframe or array,
-and a variable column index. In the code above we call `VIF()` on the fly for all columns in `X`.  
+and a variable column index. In the code above we call `VIF()` on the fly for all columns in `X`.
 We have excluded column 0 above (the intercept), which is not of interest. In this case the VIFs are not that exciting.
 
 The object `vals` above could have been constructed with the following for loop:
@@ -578,7 +578,7 @@ Carseats = load_data('Carseats')
 Carseats.columns
 
 ```
-The `Carseats`  
+The `Carseats`
  data includes qualitative predictors such as
  `ShelveLoc`, an indicator of the quality of the shelving
  location --- that is,
@@ -602,7 +602,7 @@ summarize(model.fit())
 
 ```
 In the first line above, we made `allvars` a list, so that we
-could add the interaction terms two lines down. 
+could add the interaction terms two lines down.
 Our model-matrix builder has created a `ShelveLoc[Good]`
 dummy variable that takes on a value of 1 if the
 shelving location is good, and 0 otherwise. It has also created a `ShelveLoc[Medium]`

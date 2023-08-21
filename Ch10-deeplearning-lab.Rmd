@@ -175,7 +175,7 @@ Y = Hitters['Salary'].to_numpy()
 The `to_numpy()`  method above converts `pandas`
 data frames or series to `numpy` arrays.
 We do this because we will need to  use `sklearn` to fit the lasso model,
-and it requires this conversion. 
+and it requires this conversion.
 We also use  a linear regression method from `sklearn`, rather than the method
 in Chapter~3 from `statsmodels`, to facilitate the comparisons.
 
@@ -184,7 +184,7 @@ We now split the data into test and training, fixing the random
 state used by `sklearn` to do the split.
 
 ```{python}
-(X_train, 
+(X_train,
  X_test,
  Y_train,
  Y_test) = train_test_split(X,
@@ -204,10 +204,10 @@ np.abs(Yhat_test - Y_test).mean()
 
 Next we fit the lasso using `sklearn`. We are using
 mean absolute error to select and evaluate a model, rather than mean squared error.
-The specialized solver we used in Section 6.5.2 uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.  
+The specialized solver we used in Section 6.5.2 uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.
 
 We encode a pipeline with two steps: we first normalize the features using a `StandardScaler()` transform,
-and then fit the lasso without further normalization. 
+and then fit the lasso without further normalization.
 
 ```{python}
 scaler = StandardScaler(with_mean=True, with_std=True)
@@ -216,7 +216,7 @@ standard_lasso = Pipeline(steps=[('scaler', scaler),
                                  ('lasso', lasso)])
 ```
 
-We need to create a grid of values for $\lambda$. As is common practice, 
+We need to create a grid of values for $\lambda$. As is common practice,
 we choose a grid of 100 values of $\lambda$, uniform on the log scale from `lam_max` down to  `0.01*lam_max`. Here  `lam_max` is the smallest value of
 $\lambda$ with an  all-zero solution. This value equals the largest absolute inner-product between any predictor and the (centered) response. {The derivation of this result is beyond the scope of this book.}
 
@@ -321,15 +321,15 @@ is then mapped to a ReLU layer followed by a 40% dropout layer, and finally a
 linear map down to 1 dimension, again with a bias. The total number of
 trainable parameters is therefore $50\times 19+50+50+1=1051$.
 
-    
+
 
 
 The package `torchinfo` provides a `summary()` function that neatly summarizes
 this information. We specify the size of the input and see the size
-of each tensor as it passes through layers of the network. 
+of each tensor as it passes through layers of the network.
 
 ```{python}
-summary(hit_model, 
+summary(hit_model,
         input_size=X_train.shape,
         col_names=['input_size',
                    'output_size',
@@ -545,11 +545,11 @@ be turned off, i.e. no weights will be randomly
 dropped in predicting on new data.
 
 ```{python}
-hit_model.eval() 
+hit_model.eval()
 preds = hit_module(X_test_t)
 torch.abs(Y_test_t - preds).mean()
 ```
-    
+
 
 
 ### Cleanup
@@ -557,7 +557,7 @@ In setting up our data module, we had initiated
 several worker processes that will remain running.
 We delete all references to the torch objects to ensure these processes
 will be killed.
- 
+
 
 ```{python}
 del(Hitters,
@@ -581,7 +581,7 @@ the training and test data sets; the `MNIST()` function within
 data will be downloaded the first time this function is executed, and stored in the directory `data/MNIST`.
 
 ```{python}
-(mnist_train, 
+(mnist_train,
  mnist_test) = [MNIST(root='data',
                       train=train,
                       download=True,
@@ -728,7 +728,7 @@ arithmetic, we see that an epoch corresponds to 188 gradient steps.
 `SimpleModule.classification()` includes
 an accuracy metric by default. Other
 classification metrics can be added from `torchmetrics`.
-We will use  our `summary_plot()` function to display 
+We will use  our `summary_plot()` function to display
 accuracy across epochs.
 
 ```{python}
@@ -753,7 +753,7 @@ mnist_trainer.test(mnist_module,
 
 Table 10.1 also reports the error rates resulting from LDA (Chapter 4) and multiclass logistic
 regression. For LDA we refer the reader to Section 4.7.3.
-Although we could use the `sklearn` function `LogisticRegression()` to fit  
+Although we could use the `sklearn` function `LogisticRegression()` to fit
 multiclass logistic regression, we are set up here to fit such a model
 with `torch`.
 We just have an input layer and an output layer, and omit the hidden layers!
@@ -809,7 +809,7 @@ In this section we fit a CNN to the `CIFAR100` data, which is available in the `
 package. It is arranged in a similar fashion as the `MNIST` data.
 
 ```{python}
-(cifar_train, 
+(cifar_train,
  cifar_test) = [CIFAR100(root="data",
                          train=train,
                          download=True)
@@ -1037,7 +1037,7 @@ manufacturers have produced special libraries that can
 often speed up the gradient-descent steps.
 
 For instance, Mac OS devices with the M1 chip may have the *Metal* programming framework
-enabled, which can speed up the  `torch` 
+enabled, which can speed up the  `torch`
 computations. We present an example of how to use this acceleration.
 
 The main changes are to the `Trainer()` call as well as to the metrics
@@ -1070,12 +1070,12 @@ images, and demonstrate how we produced Figure 10.10.
 We copied six JPEG images from a digital photo album into the
 directory `book_images`. These images are available
 from the data section of  <www.statlearning.com>, the ISLP book website. Download `book_images.zip`; when
-clicked it creates the `book_images` directory. 
+clicked it creates the `book_images` directory.
 
 The pretrained network we use is called `resnet50`; specification details can be found on the web.
 We will read in the images, and
 convert them into the array format expected by the `torch`
-software to match the specifications in `resnet50`. 
+software to match the specifications in `resnet50`.
 The conversion involves a resize, a crop and then a predefined standardization for each of the three channels.
 We now read in the images and preprocess them.
 
@@ -1134,7 +1134,7 @@ In order to see the class labels, we must download the index file associated wit
 
 ```{python}
 labs = json.load(open('imagenet_class_index.json'))
-class_labels = pd.DataFrame([(int(k), v[1]) for k, v in 
+class_labels = pd.DataFrame([(int(k), v[1]) for k, v in
                            labs.items()],
                            columns=['idx', 'label'])
 class_labels = class_labels.set_index('idx')
@@ -1274,7 +1274,7 @@ summary(imdb_model,
 We’ll again use
 a smaller learning rate for these data,
 hence we pass an `optimizer` to the
-`SimpleModule`. 
+`SimpleModule`.
 Since the reviews are classified into
 positive or negative sentiment, we use
 `SimpleModule.binary_classification()`. {Our use of
@@ -1340,10 +1340,10 @@ lam_val = lam_max * np.exp(np.linspace(np.log(1),
 With `LogisticRegression()` the regularization parameter
 $C$ is specified as the inverse of $\lambda$. There are several
 solvers for logistic regression; here we use `liblinear` which
-works well with the sparse input format. 
+works well with the sparse input format.
 
 ```{python}
-logit = LogisticRegression(penalty='l1', 
+logit = LogisticRegression(penalty='l1',
                            C=1/lam_max,
                            solver='liblinear',
                            warm_start=True,
@@ -1443,7 +1443,7 @@ Section 10.5.
 Here we  fit a simple  LSTM RNN for sentiment prediction to
 the `IMDb` movie-review data, as discussed in Section 10.5.1.
 For an RNN we use the sequence of words in a document, taking their
-order into account. We loaded the preprocessed 
+order into account. We loaded the preprocessed
 data at the beginning of
 Section 10.9.5.
 A script that details the preprocessing can be found in the
@@ -1613,7 +1613,7 @@ For a categorical series in `pandas`, we can form the indicators
 using the `get_dummies()`  method.
 
 ```{python}
-X_day = pd.merge(X, 
+X_day = pd.merge(X,
                  pd.get_dummies(NYSE['day_of_week']),
                  on='date')
 ```
@@ -1640,7 +1640,7 @@ The `nn.RNN()` layer also expects the first row of each
 observation to be earliest in time, so we must reverse the current order.  Hence we loop over
 `range(5,0,-1)` below, which is
 an example of using a  `slice()`  to index
-iterable objects. The general notation is `start:end:step`. 
+iterable objects. The general notation is `start:end:step`.
 
 ```{python}
 ordered_cols = []
@@ -1745,7 +1745,7 @@ nyse_module = SimpleModule.regression(nyse_model,
 ```
 
 Fitting the model should by now be familiar.
-The results on the test data are very similar to the linear AR model. 
+The results on the test data are very similar to the linear AR model.
 
 ```{python}
 nyse_trainer = Trainer(deterministic=True,
@@ -1759,8 +1759,8 @@ nyse_trainer.test(nyse_module,
 
 
 We could also fit a model without the `nn.RNN()` layer by just
-using a `nn.Flatten()` layer instead. This would be a nonlinear AR model. If in addition we excluded the 
-hidden layer, this would be equivalent to our earlier linear AR model.  
+using a `nn.Flatten()` layer instead. This would be a nonlinear AR model. If in addition we excluded the
+hidden layer, this would be equivalent to our earlier linear AR model.
 
 Instead we will fit a nonlinear AR model using the feature set `X_day` that includes the `day_of_week` indicators.
 To do so, we
@@ -1823,9 +1823,9 @@ nl_trainer = Trainer(deterministic=True,
                          max_epochs=20,
                          callbacks=[ErrorTracker()])
 nl_trainer.fit(nl_module, datamodule=day_dm)
-nl_trainer.test(nl_module, datamodule=day_dm) 
+nl_trainer.test(nl_module, datamodule=day_dm)
 ```
-              
 
- 
+
+
 

@@ -24,7 +24,7 @@ jupyter:
 
 ## The Stock Market Data
 
-In this lab we will examine the `Smarket` 
+In this lab we will examine the `Smarket`
 data, which is part of the `ISLP`
 library. This data set consists of percentage returns for the S&P 500
 stock index over 1,250 days, from the beginning of 2001 until the end
@@ -79,7 +79,7 @@ Smarket.columns
 We compute the correlation matrix using the `corr()` method
 for data frames, which produces a matrix that contains all of
 the pairwise correlations among the variables.
- 
+
 By instructing `pandas` to use only numeric variables, the `corr()` method does not report a correlation for the `Direction`  variable because it is
  qualitative.
 
@@ -384,7 +384,7 @@ results.predict(newX)
 
 
 We begin by performing LDA on the  `Smarket`  data, using the function
-`LinearDiscriminantAnalysis()`, which we have abbreviated `LDA()`. We 
+`LinearDiscriminantAnalysis()`, which we have abbreviated `LDA()`. We
 fit the model using only the observations before 2005.
 
 ```{python}
@@ -392,7 +392,7 @@ lda = LDA(store_covariance=True)
 
 ```
 
-Since the `LDA` estimator automatically 
+Since the `LDA` estimator automatically
 adds an intercept, we should remove the column corresponding to the
 intercept in both `X_train` and `X_test`. We can also directly
 use the labels rather than the Boolean vectors `y_train`.

@@ -53,7 +53,7 @@ from ISLP.bart import BART
 
 We first use classification trees to analyze the  `Carseats`  data set.
 In these data, `Sales` is a continuous variable, and so we begin
-by recoding it as a binary variable. We use the `where()` 
+by recoding it as a binary variable. We use the `where()`
 function to create a variable, called `High`, which takes on a
 value of `Yes` if the `Sales` variable exceeds 8, and takes
 on a value of `No` otherwise.
@@ -69,7 +69,7 @@ High = np.where(Carseats.Sales > 8,
 We now use `DecisionTreeClassifier()`  to fit a classification tree in
 order to predict `High` using all variables but `Sales`.
 To do so, we must form a model matrix as we did when fitting regression
-models.  
+models.
 
 ```{python}
 model = MS(Carseats.columns.drop('Sales'), intercept=False)
@@ -89,7 +89,7 @@ We also set `random_state` for reproducibility; ties in the split criterion are 
 ```{python}
 clf = DTC(criterion='entropy',
           max_depth=3,
-          random_state=0)        
+          random_state=0)
 clf.fit(X, High)
 
 ```
@@ -102,7 +102,7 @@ matrix, using the formula notation of `statsmodels`.
 As mentioned in Section 8.1, there is a more
 natural way to handle qualitative features when building a decision
 tree, that does not require such dummy variables; each split amounts to partitioning the levels into two groups.
-However, 
+However,
 the `sklearn` implementation of decision trees does not take
 advantage of this approach; instead it simply treats the one-hot-encoded levels as separate variables.
 
@@ -133,7 +133,7 @@ resid_dev
 This is closely related to the *entropy*, defined in (8.7).
 A small deviance indicates a
 tree that provides a good fit to the (training) data.
- 
+
 One of the most attractive properties of trees is that they can
 be graphically displayed. Here we use the `plot()`  function
 to display the tree structure.
@@ -150,8 +150,8 @@ The most important indicator of `Sales` appears to be `ShelveLoc`.
 We can see a text representation of the tree using
 `export_text()`, which displays the split
 criterion (e.g. `Price <= 92.5`) for each branch.
-For leaf nodes it shows the overall prediction  
-(`Yes` or `No`). 
+For leaf nodes it shows the overall prediction
+(`Yes` or `No`).
  We can also see the number of observations in that
 leaf that take on values of `Yes` and `No` by specifying  `show_weights=True`.
 
@@ -183,7 +183,7 @@ results = skm.cross_validate(clf,
 results['test_score']
 
 ```
-    
+
 
 
 Next, we consider whether pruning the tree might lead to improved
@@ -200,7 +200,7 @@ set.
                                    High,
                                    test_size=0.5,
                                    random_state=0)
-                                   
+
 ```
 We first refit the full tree on the training set; here we do not set a `max_depth` parameter, since we will learn that through cross-validation.
 
@@ -212,7 +212,7 @@ accuracy_score(High_test, clf.predict(X_test))
 
 ```
 Next we use the `cost_complexity_pruning_path()` method of
-`clf` to extract cost-complexity values. 
+`clf` to extract cost-complexity values.
 
 ```{python}
 ccp_path = clf.cost_complexity_pruning_path(X_train, High_train)
@@ -268,7 +268,7 @@ confusion
 
 Now 72.0% of the test observations are correctly classified, which is slightly worse than the error for the full tree (with 35 leaves). So cross-validation has not helped us much here; it only pruned off 5 leaves, at a cost of a slightly worse error. These results would change if we were to change the random number seeds above; even though cross-validation gives an unbiased approach to model selection, it does have variance.
 
-  
+
 
 
 ## Fitting Regression Trees
@@ -362,8 +362,8 @@ plot_tree(G.best_estimator_,
           ax=ax);
 
 ```
- 
- 
+
+
 
 
 ## Bagging and Random Forests
@@ -440,13 +440,13 @@ feature_imp.sort_values(by='importance', ascending=False)
 ```
  This
 is a relative measure of the total decrease in node impurity that results from
-splits over that variable, averaged over all trees (this was plotted in Figure 8.9 for a model fit to the `Heart` data). 
+splits over that variable, averaged over all trees (this was plotted in Figure 8.9 for a model fit to the `Heart` data).
 
 The results indicate that across all of the trees considered in the
 random forest, the wealth level of the community (`lstat`) and the
 house size (`rm`) are by far the two most important variables.
 
-  
+
 
 
 ## Boosting
@@ -523,7 +523,7 @@ np.mean((y_test - y_hat_boost)**2)
 In this case, using $\lambda=0.2$ leads to a almost the same test MSE
 as when using $\lambda=0.001$.
 
- 
+
 
 
 ## Bayesian Additive Regression Trees
@@ -560,8 +560,8 @@ var_inclusion = pd.Series(bart_boston.variable_inclusion_.mean(0),
 var_inclusion
 
 ```
-    
-  
- 
+
+
+
 
 

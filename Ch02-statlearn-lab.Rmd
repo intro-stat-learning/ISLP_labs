@@ -24,25 +24,25 @@ jupyter:
 
 To run the labs in this book, you will need two things:
 
-* An installation of `Python3`, which is the specific version of `Python`  used in the labs. 
-* Access to  `Jupyter`, a very popular `Python` interface that runs code through a file called a *notebook*. 
+* An installation of `Python3`, which is the specific version of `Python`  used in the labs.
+* Access to  `Jupyter`, a very popular `Python` interface that runs code through a file called a *notebook*.
 
 
-You can download and install  `Python3`   by following the instructions available at [anaconda.com](http://anaconda.com). 
+You can download and install  `Python3`   by following the instructions available at [anaconda.com](http://anaconda.com).
 
 
  There are a number of ways to get access to `Jupyter`. Here are just a few:
- 
- * Using Google's `Colaboratory` service: [colab.research.google.com/](https://colab.research.google.com/). 
- * Using `JupyterHub`, available at [jupyter.org/hub](https://jupyter.org/hub). 
- * Using your own `jupyter` installation. Installation instructions are available at [jupyter.org/install](https://jupyter.org/install). 
- 
-Please see the `Python` resources page on the book website [statlearning.com](https://www.statlearning.com) for up-to-date information about getting `Python` and `Jupyter` working on your computer. 
+
+ * Using Google's `Colaboratory` service: [colab.research.google.com/](https://colab.research.google.com/).
+ * Using `JupyterHub`, available at [jupyter.org/hub](https://jupyter.org/hub).
+ * Using your own `jupyter` installation. Installation instructions are available at [jupyter.org/install](https://jupyter.org/install).
+
+Please see the `Python` resources page on the book website [statlearning.com](https://www.statlearning.com) for up-to-date information about getting `Python` and `Jupyter` working on your computer.
 
 You will need to install the `ISLP` package, which provides access to the datasets and custom-built functions that we provide.
 Inside a macOS or Linux terminal type `pip install ISLP`; this also installs most other packages needed in the labs. The `Python` resources page has a link to the `ISLP` documentation website.
 
-To run this lab, download the file `Ch2-statlearn-lab.ipynb` from the `Python` resources page. 
+To run this lab, download the file `Ch2-statlearn-lab.ipynb` from the `Python` resources page.
 Now run the following code at the command line: `jupyter lab Ch2-statlearn-lab.ipynb`.
 
 If you're using Windows, you can use the `start menu` to access `anaconda`, and follow the links. For example, to install `ISLP` and run this lab, you can run the same code above in an `anaconda` shell.
@@ -53,11 +53,11 @@ If you're using Windows, you can use the `start menu` to access `anaconda`, and 
 
 
 
-In this lab, we will introduce some simple `Python` commands. 
- For more resources about `Python` in general, readers may want to consult the tutorial at [docs.python.org/3/tutorial/](https://docs.python.org/3/tutorial/). 
+In this lab, we will introduce some simple `Python` commands.
+ For more resources about `Python` in general, readers may want to consult the tutorial at [docs.python.org/3/tutorial/](https://docs.python.org/3/tutorial/).
 
 
- 
+
 
 
 
@@ -92,7 +92,7 @@ Adding two integers in `Python` is pretty intuitive.
 In `Python`, textual data is handled using
 *strings*. For instance, `"hello"` and
 `'hello'`
-are strings. 
+are strings.
 We can concatenate them using the addition `+` symbol.
 
 ```{python}
@@ -100,9 +100,9 @@ We can concatenate them using the addition `+` symbol.
 
 ```
 
- A string is actually a type of *sequence*: this is a generic term for an ordered list. 
- The three most important types of sequences are lists, tuples, and strings.  
-We introduce lists now. 
+ A string is actually a type of *sequence*: this is a generic term for an ordered list.
+ The three most important types of sequences are lists, tuples, and strings.
+We introduce lists now.
 
 
 The following command instructs `Python` to join together
@@ -117,7 +117,7 @@ x
 ```
 
 Note that we used the brackets
-`[]` to construct this list. 
+`[]` to construct this list.
 
 We will often want to add two sets of numbers together. It is reasonable to try the following code,
 though it will not produce the desired results.
@@ -129,32 +129,32 @@ x + y
 ```
 
 The result may appear slightly counterintuitive: why did `Python` not add the entries of the lists
-element-by-element? 
- In `Python`, lists hold *arbitrary* objects, and  are added using  *concatenation*. 
- In fact, concatenation is the behavior that we saw earlier when we entered `"hello" + " " + "world"`. 
- 
+element-by-element?
+ In `Python`, lists hold *arbitrary* objects, and  are added using  *concatenation*.
+ In fact, concatenation is the behavior that we saw earlier when we entered `"hello" + " " + "world"`.
 
 
-This example reflects the fact that 
+
+This example reflects the fact that
  `Python` is a general-purpose programming language. Much of `Python`'s  data-specific
 functionality comes from other packages, notably `numpy`
-and `pandas`. 
-In the next section, we will introduce the  `numpy` package. 
+and `pandas`.
+In the next section, we will introduce the  `numpy` package.
 See [docs.scipy.org/doc/numpy/user/quickstart.html](https://docs.scipy.org/doc/numpy/user/quickstart.html) for more information about `numpy`.
 
 
 
 ## Introduction to Numerical Python
 
-As mentioned earlier, this book makes use of functionality   that is contained in the `numpy` 
- *library*, or *package*. A package is a collection of modules that are not necessarily included in 
- the base `Python` distribution. The name `numpy` is an abbreviation for *numerical Python*. 
+As mentioned earlier, this book makes use of functionality   that is contained in the `numpy`
+ *library*, or *package*. A package is a collection of modules that are not necessarily included in
+ the base `Python` distribution. The name `numpy` is an abbreviation for *numerical Python*.
 
 
   To access `numpy`, we must first `import` it.
 
 ```{python}
-import numpy as np 
+import numpy as np
 ```
 In the previous line, we named the `numpy` *module* `np`; an abbreviation for easier referencing.
 
@@ -168,45 +168,45 @@ x = np.array([3, 4, 5])
 y = np.array([4, 9, 7])
 ```
 Note that if you forgot to run the `import numpy as np` command earlier, then
-you will encounter an error in calling the `np.array()` function in the previous line. 
+you will encounter an error in calling the `np.array()` function in the previous line.
  The syntax `np.array()` indicates that the function being called
-is part of the `numpy` package, which we have abbreviated as `np`. 
+is part of the `numpy` package, which we have abbreviated as `np`.
 
 
 Since `x` and `y` have been defined using `np.array()`, we get a sensible result when we add them together. Compare this to our results in the previous section,
- when we tried to add two lists without using `numpy`. 
+ when we tried to add two lists without using `numpy`.
 
 ```{python}
 x + y
 ```
-    
- 
+
+
 
 
 
 In `numpy`, matrices are typically represented as two-dimensional arrays, and vectors as one-dimensional arrays. {While it is also possible to create matrices using  `np.matrix()`, we will use `np.array()` throughout the labs in this book.}
-We can create a two-dimensional array as follows. 
+We can create a two-dimensional array as follows.
 
 ```{python}
 x = np.array([[1, 2], [3, 4]])
 x
 ```
-    
 
 
 
 
-The object `x` has several 
+
+The object `x` has several
 *attributes*, or associated objects. To access an attribute of `x`, we type `x.attribute`, where we replace `attribute`
-with the name of the attribute. 
-For instance, we can access the `ndim` attribute of  `x` as follows. 
+with the name of the attribute.
+For instance, we can access the `ndim` attribute of  `x` as follows.
 
 ```{python}
 x.ndim
 ```
 
-The output indicates that `x` is a two-dimensional array.  
-Similarly, `x.dtype` is the *data type* attribute of the object `x`. This indicates that `x` is 
+The output indicates that `x` is a two-dimensional array.
+Similarly, `x.dtype` is the *data type* attribute of the object `x`. This indicates that `x` is
 comprised of 64-bit integers:
 
 ```{python}
@@ -215,7 +215,7 @@ x.dtype
 Why is `x` comprised of integers? This is because we created `x` by passing in exclusively integers to the `np.array()` function.
   If
 we had passed in any decimals, then we would have obtained an array of
-*floating point numbers* (i.e. real-valued numbers). 
+*floating point numbers* (i.e. real-valued numbers).
 
 ```{python}
 np.array([[1, 2], [3.0, 4]]).dtype
@@ -223,9 +223,9 @@ np.array([[1, 2], [3.0, 4]]).dtype
 ```
 
 
-Typing `fun?` will cause `Python` to display 
+Typing `fun?` will cause `Python` to display
 documentation associated with the function `fun`, if it exists.
-We can try this for `np.array()`. 
+We can try this for `np.array()`.
 
 ```{python}
 # np.array?
@@ -249,10 +249,10 @@ x.shape
 
 
 A *method* is a function that is associated with an
-object. 
+object.
 For instance, given an array `x`, the expression
 `x.sum()` sums all of its elements, using the `sum()`
-method for arrays. 
+method for arrays.
 The call `x.sum()` automatically provides `x` as the
 first argument to its `sum()` method.
 
@@ -260,7 +260,7 @@ first argument to its `sum()` method.
 x = np.array([1, 2, 3, 4])
 x.sum()
 ```
-We could also sum the elements of `x` by passing in `x` as an argument to the `np.sum()` function. 
+We could also sum the elements of `x` by passing in `x` as an argument to the `np.sum()` function.
 
 ```{python}
 x = np.array([1, 2, 3, 4])
@@ -270,9 +270,9 @@ np.sum(x)
 `reshape()` method returns a new array with the same elements as
 `x`, but a different shape.
  We do this by passing in a `tuple` in our call to
- `reshape()`, in this case `(2, 3)`.  This tuple specifies that we would like to create a two-dimensional array with 
+ `reshape()`, in this case `(2, 3)`.  This tuple specifies that we would like to create a two-dimensional array with
 $2$ rows and $3$ columns. {Like lists, tuples represent a sequence of objects. Why do we need more than one way to create a sequence? There are a few differences between tuples and lists, but perhaps the most important is that elements of a tuple cannot be modified, whereas elements of a list can be.}
- 
+
 In what follows, the
 `\n` character creates a *new line*.
 
@@ -285,24 +285,24 @@ print('reshaped x:\n', x_reshape)
 ```
 
 The previous output reveals that `numpy` arrays are specified as a sequence
-of *rows*. This is  called *row-major ordering*, as opposed to *column-major ordering*. 
+of *rows*. This is  called *row-major ordering*, as opposed to *column-major ordering*.
 
 
 `Python` (and hence `numpy`) uses 0-based
-indexing. This means that to access the top left element of `x_reshape`, 
+indexing. This means that to access the top left element of `x_reshape`,
 we type in `x_reshape[0,0]`.
 
 ```{python}
-x_reshape[0, 0] 
+x_reshape[0, 0]
 ```
-Similarly, `x_reshape[1,2]` yields the element in the second row and the third column 
-of `x_reshape`. 
+Similarly, `x_reshape[1,2]` yields the element in the second row and the third column
+of `x_reshape`.
 
 ```{python}
-x_reshape[1, 2] 
+x_reshape[1, 2]
 ```
 Similarly, `x[2]` yields the
-third entry of `x`. 
+third entry of `x`.
 
 Now, let's modify the top left element of `x_reshape`.  To our surprise, we discover that the first element of `x` has been modified as well!
 
@@ -318,9 +318,9 @@ print('x after we modify top left element of x_reshape:\n', x)
 ```
 
 Modifying `x_reshape` also modified `x` because the two objects occupy the same space in memory.
- 
 
-    
+
+
 
 
 We just saw that we can modify an element of an array. Can we also modify a tuple? It turns out that we cannot --- and trying to do so introduces
@@ -334,18 +334,18 @@ my_tuple[0] = 2
 
 
 We now briefly mention some attributes of arrays that will come in handy. An array's `shape` attribute contains its dimension; this is always a tuple.
-The  `ndim` attribute yields the number of dimensions, and `T` provides its transpose. 
+The  `ndim` attribute yields the number of dimensions, and `T` provides its transpose.
 
 ```{python}
 x_reshape.shape, x_reshape.ndim, x_reshape.T
 
 ```
 
-Notice that the three individual outputs `(2,3)`, `2`, and `array([[5, 4],[2, 5], [3,6]])` are themselves output as a tuple. 
- 
-We will often want to apply functions to arrays. 
+Notice that the three individual outputs `(2,3)`, `2`, and `array([[5, 4],[2, 5], [3,6]])` are themselves output as a tuple.
+
+We will often want to apply functions to arrays.
 For instance, we can compute the
-square root of the entries using the `np.sqrt()` function: 
+square root of the entries using the `np.sqrt()` function:
 
 ```{python}
 np.sqrt(x)
@@ -367,16 +367,16 @@ x**0.5
 ```
 
 
-Throughout this book, we will often want to generate random data. 
+Throughout this book, we will often want to generate random data.
 The `np.random.normal()`  function generates a vector of random
 normal variables. We can learn more about this function by looking at the help page, via a call to `np.random.normal?`.
-The first line of the help page  reads `normal(loc=0.0, scale=1.0, size=None)`. 
+The first line of the help page  reads `normal(loc=0.0, scale=1.0, size=None)`.
  This  *signature* line tells us that the function's arguments are  `loc`, `scale`, and `size`. These are *keyword* arguments, which means that when they are passed into
  the function, they can be referred to by name (in any order). {`Python` also uses *positional* arguments. Positional arguments do not need to use a keyword. To see an example, type in `np.sum?`. We see that `a` is a positional argument, i.e. this function assumes that the first unnamed argument that it receives is the array to be summed. By contrast, `axis` and `dtype` are keyword arguments: the position in which these arguments are entered into `np.sum()` does not matter.}
- By default, this function will generate random normal variable(s) with mean (`loc`) $0$ and standard deviation (`scale`) $1$; furthermore, 
- a single random variable will be generated unless the argument to `size` is changed. 
+ By default, this function will generate random normal variable(s) with mean (`loc`) $0$ and standard deviation (`scale`) $1$; furthermore,
+ a single random variable will be generated unless the argument to `size` is changed.
 
-We now generate 50 independent random variables from a $N(0,1)$ distribution. 
+We now generate 50 independent random variables from a $N(0,1)$ distribution.
 
 ```{python}
 x = np.random.normal(size=50)
@@ -389,31 +389,31 @@ We create an array `y` by adding an independent $N(50,1)$ random variable to eac
 ```{python}
 y = x + np.random.normal(loc=50, scale=1, size=50)
 ```
-The `np.corrcoef()` function computes the correlation matrix between `x` and `y`. The off-diagonal elements give the 
-correlation between `x` and `y`. 
+The `np.corrcoef()` function computes the correlation matrix between `x` and `y`. The off-diagonal elements give the
+correlation between `x` and `y`.
 
 ```{python}
 np.corrcoef(x, y)
 ```
 
-If you're following along in your own `Jupyter` notebook, then you probably noticed that you got a different set of results when you ran the past few 
-commands. In particular, 
+If you're following along in your own `Jupyter` notebook, then you probably noticed that you got a different set of results when you ran the past few
+commands. In particular,
  each
 time we call `np.random.normal()`, we will get a different answer, as shown in the following example.
 
 ```{python}
 print(np.random.normal(scale=5, size=2))
-print(np.random.normal(scale=5, size=2)) 
+print(np.random.normal(scale=5, size=2))
 
 ```
-    
+
 
 
 In order to ensure that our code provides exactly the same results
-each time it is run, we can set a *random seed* 
-using the 
+each time it is run, we can set a *random seed*
+using the
 `np.random.default_rng()` function.
-This function takes an arbitrary, user-specified integer argument. If we set a random seed before 
+This function takes an arbitrary, user-specified integer argument. If we set a random seed before
 generating random data, then re-running our code will yield the same results. The
 object `rng` has essentially all the random number generating methods found in `np.random`. Hence, to
 generate normal data we use `rng.normal()`.
@@ -422,7 +422,7 @@ generate normal data we use `rng.normal()`.
 rng = np.random.default_rng(1303)
 print(rng.normal(scale=5, size=2))
 rng2 = np.random.default_rng(1303)
-print(rng2.normal(scale=5, size=2)) 
+print(rng2.normal(scale=5, size=2))
 ```
 
 Throughout the labs in this book, we use `np.random.default_rng()`  whenever we
@@ -441,7 +441,7 @@ rng = np.random.default_rng(3)
 y = rng.standard_normal(10)
 np.mean(y), y.mean()
 ```
-    
+
 
 
 ```{python}
@@ -457,15 +457,15 @@ than $n-1$; see the `ddof` argument in `np.var?`.
 np.sqrt(np.var(y)), np.std(y)
 ```
 
-The `np.mean()`,  `np.var()`, and `np.std()` functions can also be applied to the rows and columns of a matrix. 
-To see this, we construct a $10 \times 3$ matrix of $N(0,1)$ random variables, and consider computing its row sums. 
+The `np.mean()`,  `np.var()`, and `np.std()` functions can also be applied to the rows and columns of a matrix.
+To see this, we construct a $10 \times 3$ matrix of $N(0,1)$ random variables, and consider computing its row sums.
 
 ```{python}
 X = rng.standard_normal((10, 3))
 X
 ```
 
-Since arrays are row-major ordered, the first axis, i.e. `axis=0`, refers to its rows. We pass this argument into the `mean()` method for the object `X`. 
+Since arrays are row-major ordered, the first axis, i.e. `axis=0`, refers to its rows. We pass this argument into the `mean()` method for the object `X`.
 
 ```{python}
 X.mean(axis=0)
@@ -476,24 +476,24 @@ The following yields the same result.
 ```{python}
 X.mean(0)
 ```
-    
+
 
 
 ## Graphics
 In `Python`, common practice is to use  the library
 `matplotlib` for graphics.
 However, since `Python` was not written with data analysis in mind,
-  the notion of plotting is not intrinsic to the language. 
+  the notion of plotting is not intrinsic to the language.
 We will use the `subplots()` function
 from `matplotlib.pyplot` to create a figure and the
 axes onto which we plot our data.
 For many more examples of how to make plots in `Python`,
 readers are encouraged to visit [matplotlib.org/stable/gallery/](https://matplotlib.org/stable/gallery/index.html).
 
-In `matplotlib`, a plot consists of a *figure* and one or more *axes*. You can think of the figure as the blank canvas upon which 
-one or more plots will be displayed: it is the entire plotting window. 
+In `matplotlib`, a plot consists of a *figure* and one or more *axes*. You can think of the figure as the blank canvas upon which
+one or more plots will be displayed: it is the entire plotting window.
 The *axes* contain important information about each plot, such as its $x$- and $y$-axis labels,
-title,  and more. (Note that in `matplotlib`, the word *axes* is not the plural of *axis*: a plot's *axes* contains much more information 
+title,  and more. (Note that in `matplotlib`, the word *axes* is not the plural of *axis*: a plot's *axes* contains much more information
 than just the $x$-axis and  the $y$-axis.)
 
 We begin by importing the `subplots()` function
@@ -503,7 +503,7 @@ The function returns a tuple of length two: a figure
 object as well as the relevant axes object. We will typically
 pass `figsize` as a keyword argument.
 Having created our axes, we attempt our first plot using its  `plot()` method.
-To learn more about it, 
+To learn more about it,
 type `ax.plot?`.
 
 ```{python}
@@ -533,7 +533,7 @@ ax.plot(x, y, 'o');
 ```
 Different values
 of this additional argument can be used to produce different colored lines
-as well as different linestyles. 
+as well as different linestyles.
 
 
 
@@ -546,8 +546,8 @@ ax.scatter(x, y, marker='o');
 
 Notice that in the code blocks above, we have ended
 the last line with a semicolon. This prevents `ax.plot(x, y)` from printing
-text  to the notebook. However, it does not prevent a plot from being produced. 
- If we omit the trailing semi-colon, then we obtain the following output:  
+text  to the notebook. However, it does not prevent a plot from being produced.
+ If we omit the trailing semi-colon, then we obtain the following output:
 
 ```{python}
 fig, ax = subplots(figsize=(8, 8))
@@ -565,7 +565,7 @@ germane to the discussion at hand.
 
 To label our plot, we  make use of the `set_xlabel()`,  `set_ylabel()`, and  `set_title()` methods
 of `ax`.
-  
+
 
 ```{python}
 fig, ax = subplots(figsize=(8, 8))
@@ -583,17 +583,17 @@ ax.set_title("Plot of X vs Y");
 fig.set_size_inches(12,3)
 fig
 ```
- 
+
 
 
 Occasionally we will want to create several plots within a figure. This can be
-achieved by passing additional arguments to `subplots()`. 
+achieved by passing additional arguments to `subplots()`.
 Below, we create a  $2 \times 3$ grid of plots
 in a figure of size determined by the `figsize` argument. In such
 situations, there is often a relationship between the axes in the plots. For example,
 all plots may have a common $x$-axis. The `subplots()` function can automatically handle
 this situation when passed the keyword argument `sharex=True`.
-The `axes` object below is an array pointing to different plots in the figure. 
+The `axes` object below is an array pointing to different plots in the figure.
 
 ```{python}
 fig, axes = subplots(nrows=2,
@@ -608,8 +608,8 @@ axes[0,1].plot(x, y, 'o')
 axes[1,2].scatter(x, y, marker='+')
 fig
 ```
-Type  `subplots?` to learn more about 
-`subplots()`. 
+Type  `subplots?` to learn more about
+`subplots()`.
 
 
 
@@ -626,7 +626,7 @@ fig.savefig("Figure.pdf", dpi=200);
 ```
 
 
-We can continue to modify `fig` using step-by-step updates; for example, we can modify the range of the $x$-axis, re-save the figure, and even re-display it. 
+We can continue to modify `fig` using step-by-step updates; for example, we can modify the range of the $x$-axis, re-save the figure, and even re-display it.
 
 ```{python}
 axes[0,1].set_xlim([-1,1])
@@ -634,8 +634,8 @@ fig.savefig("Figure_updated.jpg")
 fig
 ```
 
-We now create some more sophisticated plots. The 
-`ax.contour()` method  produces a  *contour plot* 
+We now create some more sophisticated plots. The
+`ax.contour()` method  produces a  *contour plot*
 in order to represent three-dimensional data, similar to a
 topographical map.  It takes three arguments:
 
@@ -644,7 +644,7 @@ topographical map.  It takes three arguments:
 * A matrix whose elements correspond to the `z` value (the third
 dimension) for each pair of `(x,y)` coordinates.
 
-To create `x` and `y`, we’ll use the command  `np.linspace(a, b, n)`, 
+To create `x` and `y`, we’ll use the command  `np.linspace(a, b, n)`,
 which returns a vector of `n` numbers starting at  `a` and  ending at `b`.
 
 ```{python}
@@ -664,8 +664,8 @@ ax.contour(x, y, f, levels=45);
 To fine-tune the output of the
 `ax.contour()`  function, take a
 look at the help file by typing `?plt.contour`.
- 
-The `ax.imshow()`  method is similar to 
+
+The `ax.imshow()`  method is similar to
 `ax.contour()`, except that it produces a color-coded plot
 whose colors depend on the `z` value. This is known as a
 *heatmap*, and is sometimes used to plot temperature in
@@ -702,8 +702,8 @@ seq2
 
 ```
 
-Why isn't $10$ output above? This has to do with *slice* notation in `Python`. 
-Slice notation  
+Why isn't $10$ output above? This has to do with *slice* notation in `Python`.
+Slice notation
 is used to index sequences such as lists, tuples and arrays.
 Suppose we want to retrieve the fourth through sixth (inclusive) entries
 of a string. We obtain a slice of the string using the indexing  notation  `[3:6]`.
@@ -712,36 +712,36 @@ of a string. We obtain a slice of the string using the indexing  notation  `[3:6
 "hello world"[3:6]
 ```
 In the code block above, the notation `3:6` is shorthand for  `slice(3,6)` when used inside
-`[]`. 
+`[]`.
 
 ```{python}
 "hello world"[slice(3,6)]
 
 ```
 
-You might have expected  `slice(3,6)` to output the fourth through seventh characters in the text string (recalling that  `Python` begins its indexing at zero),  but instead it output  the fourth through sixth. 
- This also explains why the earlier `np.arange(0, 10)` command output only the integers from $0$ to $9$. 
-See the documentation `slice?` for useful options in creating slices. 
-
-    
+You might have expected  `slice(3,6)` to output the fourth through seventh characters in the text string (recalling that  `Python` begins its indexing at zero),  but instead it output  the fourth through sixth.
+ This also explains why the earlier `np.arange(0, 10)` command output only the integers from $0$ to $9$.
+See the documentation `slice?` for useful options in creating slices.
 
 
 
-    
 
 
-    
-
- 
-
-    
-
- 
-
-    
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -763,7 +763,7 @@ A[1,2]
 ```
 
 The first number after the open-bracket symbol `[`
- refers to the row, and the second number refers to the column. 
+ refers to the row, and the second number refers to the column.
 
 ### Indexing Rows, Columns, and Submatrices
  To select multiple rows at a time, we can pass in a list
@@ -775,7 +775,7 @@ A[[1,3]]
 ```
 
 To select the first and third columns, we pass in  `[0,2]` as the second argument in the square brackets.
-In this case we need to supply the first argument `:` 
+In this case we need to supply the first argument `:`
 which selects all rows.
 
 ```{python}
@@ -783,7 +783,7 @@ A[:,[0,2]]
 
 ```
 
-Now, suppose that we want to select the submatrix made up of the second and fourth 
+Now, suppose that we want to select the submatrix made up of the second and fourth
 rows as well as the first and third columns. This is where
 indexing gets slightly tricky. It is natural to try  to use lists to retrieve the rows and columns:
 
@@ -815,7 +815,7 @@ One easy way to do this is as follows. We first create a submatrix by subsetting
 A[[1,3]][:,[0,2]]
 
 ```
-    
+
 
 
 There are more efficient ways of achieving the same result.
@@ -831,7 +831,7 @@ A[idx]
 
 
 Alternatively, we can subset matrices efficiently using slices.
-  
+
 The slice
 `1:4:2` captures the second and fourth items of a sequence, while the slice `0:3:2` captures
 the first and third items (the third element in a slice sequence is the step size).
@@ -840,7 +840,7 @@ the first and third items (the third element in a slice sequence is the step siz
 A[1:4:2,0:3:2]
 
 ```
-    
+
 
 
 Why are we able to retrieve a submatrix directly using slices but not using lists?
@@ -851,24 +851,24 @@ Slices can be used to extract objects from arbitrary sequences, such as strings,
 
 
 
-    
 
- 
 
-    
 
- 
+
+
+
+
 
 
 ### Boolean Indexing
 In `numpy`, a *Boolean* is a type  that equals either   `True` or  `False` (also represented as $1$ and $0$, respectively).
-The next line creates a vector of $0$'s, represented as Booleans, of length equal to the first dimension of `A`. 
+The next line creates a vector of $0$'s, represented as Booleans, of length equal to the first dimension of `A`.
 
 ```{python}
 keep_rows = np.zeros(A.shape[0], bool)
 keep_rows
 ```
-We now set two of the elements to `True`. 
+We now set two of the elements to `True`.
 
 ```{python}
 keep_rows[[1,3]] = True
@@ -890,14 +890,14 @@ all entries of an array are `True`. A similar function, `np.any()`, can be used 
 
 
    However, even though `np.array([0,1,0,1])`  and `keep_rows` are equal according to `==`, they index different sets of rows!
-The former retrieves the first, second, first, and second rows of `A`. 
+The former retrieves the first, second, first, and second rows of `A`.
 
 ```{python}
 A[np.array([0,1,0,1])]
 
 ```
 
- By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `TRUE`. 
+ By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `TRUE`.
 
 ```{python}
 A[keep_rows]
@@ -926,7 +926,7 @@ idx_mixed = np.ix_([1,3], keep_cols)
 A[idx_mixed]
 
 ```
-    
+
 
 
 For more details on indexing in `numpy`, readers are referred
@@ -936,9 +936,9 @@ to the `numpy` tutorial mentioned earlier.
 
 ## Loading Data
 
-Data sets often contain different types of data, and may have names associated with the rows or columns. 
+Data sets often contain different types of data, and may have names associated with the rows or columns.
 For these reasons, they typically are best accommodated using a
- *data frame*. 
+ *data frame*.
  We can think of a data frame  as a sequence
 of arrays of identical length; these are the columns. Entries in the
 different arrays can be combined to form a row.
@@ -949,18 +949,18 @@ library can be used to create and work with data frame objects.
 ### Reading in a Data Set
 
 The first step of most analyses involves importing a data set into
-`Python`.  
+`Python`.
  Before attempting to load
-a data set, we must make sure that `Python` knows where to find the file containing it. 
+a data set, we must make sure that `Python` knows where to find the file containing it.
 If the
 file is in the same location
-as this notebook file, then we are all set. 
-Otherwise, 
+as this notebook file, then we are all set.
+Otherwise,
 the command
-`os.chdir()`  can be used to *change directory*. (You will need to call `import os` before calling `os.chdir()`.) 
+`os.chdir()`  can be used to *change directory*. (You will need to call `import os` before calling `os.chdir()`.)
 
 
-We will begin by reading in `Auto.csv`, available on the book website. This is a comma-separated file, and can be read in using `pd.read_csv()`: 
+We will begin by reading in `Auto.csv`, available on the book website. This is a comma-separated file, and can be read in using `pd.read_csv()`:
 
 ```{python}
 import pandas as pd
@@ -982,15 +982,15 @@ a text editor or other software, such as Microsoft Excel.
 
 
 
-We now take a look at the column of `Auto` corresponding to the variable `horsepower`: 
+We now take a look at the column of `Auto` corresponding to the variable `horsepower`:
 
 ```{python}
 Auto['horsepower']
 
 ```
-We see that the `dtype` of this column is `object`. 
+We see that the `dtype` of this column is `object`.
 It turns out that all values of the `horsepower` column were interpreted as strings when reading
-in the data. 
+in the data.
 We can find out why by looking at the unique values.
 
 ```{python}
@@ -1024,7 +1024,7 @@ Auto.shape
 ```
 
 There are
-various ways to deal with  missing data. 
+various ways to deal with  missing data.
 In this case, since only five of the rows contain missing
 observations,  we choose to use the `Auto.dropna()` method to simply remove these rows.
 
@@ -1036,7 +1036,7 @@ Auto_new.shape
 
 
 ### Basics of Selecting Rows and Columns
- 
+
 We can use `Auto.columns`  to check the variable names.
 
 ```{python}
@@ -1046,10 +1046,10 @@ Auto.columns
 ```
 
 
-Accessing the rows and columns of a data frame is similar, but not identical, to accessing the rows and columns of an array. 
+Accessing the rows and columns of a data frame is similar, but not identical, to accessing the rows and columns of an array.
 Recall that the first argument to the `[]` method
-is always applied to the rows of the array.  
-Similarly, 
+is always applied to the rows of the array.
+Similarly,
 passing in a slice to the `[]` method creates a data frame whose *rows* are determined by the slice:
 
 ```{python}
@@ -1063,7 +1063,7 @@ idx_80 = Auto['year'] > 80
 Auto[idx_80]
 
 ```
-However, if we pass  in a list of strings to the `[]` method, then we obtain a data frame containing the corresponding set of *columns*. 
+However, if we pass  in a list of strings to the `[]` method, then we obtain a data frame containing the corresponding set of *columns*.
 
 ```{python}
 Auto[['mpg', 'horsepower']]
@@ -1077,7 +1077,7 @@ Auto.index
 
 ```
 We can use the
-`set_index()` method to re-name the rows using the contents of `Auto['name']`. 
+`set_index()` method to re-name the rows using the contents of `Auto['name']`.
 
 ```{python}
 Auto_re = Auto.set_index('name')
@@ -1090,8 +1090,8 @@ Auto_re.columns
 
 ```
 We see that the column `'name'` is no longer there.
- 
-Now that the index has been set to `name`, we can  access rows of the data 
+
+Now that the index has been set to `name`, we can  access rows of the data
 frame by `name` using the `{loc[]`} method of
 `Auto`:
 
@@ -1126,7 +1126,7 @@ Auto_re.loc['ford galaxie 500', ['mpg', 'origin']]
 
 ```
 ### More on Selecting Rows and Columns
-Suppose now that we want to create a data frame consisting of the  `weight` and `origin`  of the subset of cars with 
+Suppose now that we want to create a data frame consisting of the  `weight` and `origin`  of the subset of cars with
 `year` greater than 80 --- i.e. those built after 1980.
 To do this, we first create a Boolean array that indexes the rows.
 The `loc[]` method allows for Boolean entries as well as strings:
@@ -1138,7 +1138,7 @@ Auto_re.loc[idx_80, ['weight', 'origin']]
 ```
 
 
-To do this more concisely, we can use an anonymous function called a `lambda`: 
+To do this more concisely, we can use an anonymous function called a `lambda`:
 
 ```{python}
 Auto_re.loc[lambda df: df['year'] > 80, ['weight', 'origin']]
@@ -1159,7 +1159,7 @@ Auto_re.loc[lambda df: (df['year'] > 80) & (df['mpg'] > 30),
 ```
 The symbol `&` computes an element-wise *and* operation.
 As another example, suppose that we want to retrieve all `Ford` and `Datsun`
-cars with `displacement` less than 300. We check whether each `name` entry contains either the string `ford` or `datsun` using the  `str.contains()` method of the `index` attribute of 
+cars with `displacement` less than 300. We check whether each `name` entry contains either the string `ford` or `datsun` using the  `str.contains()` method of the `index` attribute of
 of the dataframe:
 
 ```{python}
@@ -1171,7 +1171,7 @@ Auto_re.loc[lambda df: (df['displacement'] < 300)
 
 ```
 Here, the symbol `|` computes an element-wise *or* operation.
- 
+
 In summary, a powerful set of operations is available to index the rows and columns of data frames. For integer based queries, use the `iloc[]` method. For string and Boolean
 selections, use the `loc[]` method. For functional queries that filter rows, use the `loc[]` method
 with a function (typically a `lambda`) in the rows argument.
@@ -1300,7 +1300,7 @@ Alternatively, we can use the `plot()` method with the call `Auto.plot()`.
 Using this method,
 the variables  can be accessed by name.
 The plot methods of a data frame return a familiar object:
-an axes. We can use it to update the plot as we did previously: 
+an axes. We can use it to update the plot as we did previously:
 
 ```{python}
 ax = Auto.plot.scatter('horsepower', 'mpg')
@@ -1328,11 +1328,11 @@ Auto.plot.scatter('horsepower', 'mpg', ax=axes[1]);
 
 ```
 
-Note also that the columns of a data frame can be accessed as attributes: try typing in `Auto.horsepower`. 
+Note also that the columns of a data frame can be accessed as attributes: try typing in `Auto.horsepower`.
 
 
-We now consider the `cylinders` variable. Typing in `Auto.cylinders.dtype` reveals that it is being treated as a quantitative variable. 
-However, since there is only a small number of possible values for this variable, we may wish to treat it as 
+We now consider the `cylinders` variable. Typing in `Auto.cylinders.dtype` reveals that it is being treated as a quantitative variable.
+However, since there is only a small number of possible values for this variable, we may wish to treat it as
  qualitative.  Below, we replace
 the `cylinders` column with a categorical version of `Auto.cylinders`. The function `pd.Series()`  owes its name to the fact that `pandas` is often used in time series applications.
 
@@ -1366,7 +1366,7 @@ Auto.hist('mpg', color='red', bins=12, ax=ax);
 ```
  See `Auto.hist?` for more plotting
 options.
- 
+
 We can use the `pd.plotting.scatter_matrix()`   function to create a *scatterplot matrix* to visualize all of the pairwise relationships between the columns in
 a data frame.
 
@@ -1398,6 +1398,6 @@ Auto['mpg'].describe()
 ```
 To exit `Jupyter`,  select `File / Close and Halt`.
 
- 
+
 
 

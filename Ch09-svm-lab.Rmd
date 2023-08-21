@@ -132,7 +132,7 @@ Since the support vector machine is an estimator in `sklearn`, we
 can use the usual machinery to tune it.
 
 ```{python}
-kfold = skm.KFold(5, 
+kfold = skm.KFold(5,
                   random_state=0,
                   shuffle=True)
 grid = skm.GridSearchCV(svm_linear,
@@ -218,7 +218,7 @@ confusion_table(y_hat, y)
 We fit the
 support vector classifier and plot the resulting hyperplane, using a
 very large value of `C` so that no observations are
-misclassified. 
+misclassified.
 
 ```{python}
 fig, ax = subplots(figsize=(8,8))
@@ -295,7 +295,7 @@ fit the training data using the `SVC()`  estimator with a
 radial kernel and $\gamma=1$:
 
 ```{python}
-(X_train, 
+(X_train,
  X_test,
  y_train,
  y_test) = skm.train_test_split(X,
@@ -308,7 +308,7 @@ svm_rbf.fit(X_train, y_train)
 ```
 
 The plot shows that the resulting SVM has a decidedly non-linear
-boundary. 
+boundary.
 
 ```{python}
 fig, ax = subplots(figsize=(8,8))
@@ -341,7 +341,7 @@ best choice of $\gamma$ and `C` for an SVM with a radial
 kernel:
 
 ```{python}
-kfold = skm.KFold(5, 
+kfold = skm.KFold(5,
                   random_state=0,
                   shuffle=True)
 grid = skm.GridSearchCV(svm_rbf,
@@ -418,7 +418,7 @@ $\gamma$ we can produce a more flexible fit and generate further
 improvements in accuracy.
 
 ```{python}
-svm_flex = SVC(kernel="rbf", 
+svm_flex = SVC(kernel="rbf",
               gamma=50,
               C=1)
 svm_flex.fit(X_train, y_train)
@@ -530,8 +530,8 @@ We will use a support vector approach to predict cancer subtype using
 gene expression measurements.  In this data set, there is a very
 large number of features relative to the number of observations. This
 suggests that we should use a linear kernel, because the additional
-flexibility that will result from using a polynomial or radial kernel 
-is unnecessary. 
+flexibility that will result from using a polynomial or radial kernel
+is unnecessary.
 
 ```{python}
 khan_linear = SVC(kernel='linear', C=10)
