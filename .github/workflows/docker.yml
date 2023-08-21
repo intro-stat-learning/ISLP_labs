@@ -6,7 +6,7 @@ on:
       LABS:
         description: 'Labs version'
         required: true
-        default: 'v2.1'
+        default: 'v2.1.1'
         type: string
 
 jobs:
