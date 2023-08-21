@@ -3,9 +3,6 @@ name: Publish Docker image
 on:
   workflow_dispatch:
     inputs: null
-  push:    
-    branches:
-      - 'tschm_main'
 
 jobs:
 
