@@ -2,13 +2,12 @@ name: Publish Docker image
 
 on:
   workflow_dispatch:
-    inputs:
-      LABS:
-        description: 'Labs version'
-        required: true
-        default: 'v2.1.1'
-        type: string
-
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - 'stable'
+      
 jobs:
 
   push_to_registry:
@@ -17,8 +16,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.LABS }}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -30,8 +27,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          tags: |
-            type=semver,pattern={{raw}}
           images: jetaylor74/islp_labs
 
       - name: Build and push Docker image
