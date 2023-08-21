@@ -23,7 +23,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: jetaylor74/islp_labs
+          images: jetaylor74/ISLP_labs
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
