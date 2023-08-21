@@ -1,4 +1,4 @@
-FROM docker.io/jupyter/scipy-notebook:lab-4.0.4
+FROM docker.io/jupyter/minimal-notebook:lab-4.0.5
 
 # Copy everything from the current directory
 # to the Home Directory (/home/jovyan) inside the container
