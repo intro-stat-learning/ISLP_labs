@@ -2,3 +2,6 @@
 .git
 docker
 .dockerignore
+*.Rmd
+README.md
+LICENSE
