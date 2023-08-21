@@ -1,16 +1,3 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: ipynb,Rmd
-    main_language: python
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
----
-
 
 # Chapter 11
 
@@ -37,7 +24,7 @@ from ISLP.models import ModelSpec as MS
 from ISLP import load_data
 
 ```
-
+ 
 We  also collect the new imports
 needed for this lab.
 
@@ -61,7 +48,7 @@ BrainCancer = load_data('BrainCancer')
 BrainCancer.columns
 
 ```
-
+    
 The rows index the 88 patients, while the 8 columns contain the predictors and outcome variables.
 We first briefly examine the data.
 
@@ -69,20 +56,20 @@ We first briefly examine the data.
 BrainCancer['sex'].value_counts()
 
 ```
-
+    
 
 ```{python}
 BrainCancer['diagnosis'].value_counts()
 
 ```
-
+    
 
 ```{python}
 BrainCancer['status'].value_counts()
 
 ```
-
-
+    
+ 
 Before beginning an analysis, it is important to know how the
 `status` variable has been coded.  Most software
 uses the convention that a `status` of 1 indicates an
@@ -109,7 +96,7 @@ km_brain = km.fit(BrainCancer['time'], BrainCancer['status'])
 km_brain.plot(label='Kaplan Meier estimate', ax=ax)
 
 ```
-
+ 
 Next we create Kaplan-Meier survival curves that are stratified by
 `sex`, in order to reproduce  Figure 11.3.
 We  do this using the `groupby()` method of  a  dataframe.
@@ -138,7 +125,7 @@ for sex, df in BrainCancer.groupby('sex'):
     km_sex.plot(label='Sex=%s' % sex, ax=ax)
 
 ```
-
+ 
 As discussed in Section 11.4, we can perform a
 log-rank test to compare the survival of males to females. We use
 the `logrank_test()` function from the `lifelines.statistics` module.
@@ -152,8 +139,8 @@ logrank_test(by_sex['Male']['time'],
              by_sex['Female']['status'])
 
 ```
-
-
+    
+ 
 The resulting $p$-value is $0.23$, indicating no evidence of a
 difference in survival between the two sexes.
 
@@ -172,7 +159,7 @@ cox_fit = coxph().fit(model_df,
 cox_fit.summary[['coef', 'se(coef)', 'p']]
 
 ```
-
+    
 The first argument to `fit` should be a data frame containing
 at least the event time (the second argument `time` in this case),
 as well as an optional censoring variable (the argument `status` in this case).
@@ -186,7 +173,7 @@ with no features as follows:
 cox_fit.log_likelihood_ratio_test()
 
 ```
-
+    
 Regardless of which test we use, we see that there is no clear
 evidence for a difference in survival between males and females.  As
 we learned in this chapter, the score test from the Cox model is
@@ -206,7 +193,7 @@ fit_all = coxph().fit(all_df,
 fit_all.summary[['coef', 'se(coef)', 'p']]
 
 ```
-
+    
  The `diagnosis` variable has been coded so that the baseline
 corresponds to HG glioma. The results indicate that the risk associated with HG glioma
 is more than eight times (i.e. $e^{2.15}=8.62$) the risk associated
@@ -233,7 +220,7 @@ def representative(series):
 modal_data = cleaned.apply(representative, axis=0)
 
 ```
-
+ 
 We make four
 copies of the column means and assign the `diagnosis` column to be the four different
 diagnoses.
@@ -245,7 +232,7 @@ modal_df['diagnosis'] = levels
 modal_df
 
 ```
-
+ 
 We then construct the model matrix based on the model specification `all_MS` used to fit
 the model, and name the rows according to the levels of `diagnosis`.
 
@@ -272,7 +259,7 @@ fig, ax = subplots(figsize=(8, 8))
 predicted_survival.plot(ax=ax);
 
 ```
-
+ 
 
 ## Publication Data
 The  `Publication`  data   presented in Section 11.5.4  can be
@@ -291,7 +278,7 @@ for result, df in Publication.groupby('posres'):
     km_result.plot(label='Result=%d' % result, ax=ax)
 
 ```
-
+ 
 As discussed previously, the $p$-values from fitting Cox’s
 proportional hazards model to the `posres` variable are quite
 large, providing no evidence of a difference in time-to-publication
@@ -308,8 +295,8 @@ posres_fit = coxph().fit(posres_df,
 posres_fit.summary[['coef', 'se(coef)', 'p']]
 
 ```
-
-
+    
+ 
 However, the results change dramatically when we include other
 predictors in the model. Here we exclude the funding mechanism
 variable.
@@ -322,7 +309,7 @@ coxph().fit(model.fit_transform(Publication),
             'status').summary[['coef', 'se(coef)', 'p']]
 
 ```
-
+    
 We see that there are a number of statistically significant variables,
 including whether the trial focused on a clinical endpoint, the impact
 of the study, and whether the study had positive or negative results.
@@ -372,7 +359,7 @@ model = MS(['Operators',
            intercept=False)
 X = model.fit_transform(D)
 ```
-
+ 
 It is worthwhile to take a peek at the model matrix `X`, so
 that we can be sure that we understand how the variables have been coded. By default,
 the levels of categorical variables are sorted and, as usual, the first column of the one-hot encoding
@@ -382,7 +369,7 @@ of the variable is dropped.
 X[:5]
 
 ```
-
+    
 Next,  we specify the coefficients and the hazard function.
 
 ```{python}
@@ -431,7 +418,7 @@ W = np.array([sim_time(l, cum_hazard, rng)
 D['Wait time'] = np.clip(W, 0, 1000)
 
 ```
-
+ 
 We now simulate our censoring variable, for which we assume
 90% of calls were answered (`Failed==1`) before the
 customer hung up (`Failed==0`).
@@ -443,13 +430,13 @@ D['Failed'] = rng.choice([1, 0],
 D[:5]
 
 ```
-
+    
 
 ```{python}
 D['Failed'].mean()
 
 ```
-
+ 
 We now plot  Kaplan-Meier survival curves. First, we stratify by `Center`.
 
 ```{python}
@@ -462,7 +449,7 @@ for center, df in D.groupby('Center'):
 ax.set_title("Probability of Still Being on Hold")
 
 ```
-
+ 
 Next, we stratify by `Time`.
 
 ```{python}
@@ -475,7 +462,7 @@ for time, df in D.groupby('Time'):
 ax.set_title("Probability of Still Being on Hold")
 
 ```
-
+ 
 It seems that calls at Call Center B take longer to be answered than
 calls at Centers A and C. Similarly, it appears that wait times are
 longest in the morning and shortest in the evening hours. We can use a
@@ -488,8 +475,8 @@ multivariate_logrank_test(D['Wait time'],
                           D['Failed'])
 
 ```
-
-
+    
+ 
 Next, we consider the  effect of `Time`.
 
 ```{python}
@@ -498,8 +485,8 @@ multivariate_logrank_test(D['Wait time'],
                           D['Failed'])
 
 ```
-
-
+    
+ 
 As in the case of a categorical variable with 2 levels, these
 results are similar to the likelihood ratio test
 from the Cox proportional hazards model. First, we
@@ -514,8 +501,8 @@ F = coxph().fit(X, 'Wait time', 'Failed')
 F.log_likelihood_ratio_test()
 
 ```
-
-
+    
+ 
 Next, we look at the results for `Time`.
 
 ```{python}
@@ -527,8 +514,8 @@ F = coxph().fit(X, 'Wait time', 'Failed')
 F.log_likelihood_ratio_test()
 
 ```
-
-
+    
+ 
 We find that differences between centers are highly significant, as
 are differences between times of day.
 
@@ -544,8 +531,8 @@ fit_queuing = coxph().fit(
 fit_queuing.summary[['coef', 'se(coef)', 'p']]
 
 ```
-
-
+    
+ 
 The $p$-values for Center B and evening time
 are very small. It is also clear that the
 hazard --- that is, the instantaneous risk that a call will be

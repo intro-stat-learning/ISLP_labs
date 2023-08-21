@@ -1,20 +1,5 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: ipynb,Rmd
-    main_language: python
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
----
-
 
 # Chapter 3
-
-
 
 
 # Lab: Linear Regression
@@ -29,7 +14,7 @@ import pandas as pd
 from matplotlib.pyplot import subplots
 
 ```
-
+ 
 
 ### New imports
 Throughout this lab we will introduce new functions and libraries. However,
@@ -105,7 +90,7 @@ A.sum()
 
 ```
     
-
+ 
 
 ## Simple Linear Regression
 In this section we will  construct model 
@@ -127,7 +112,7 @@ Boston = load_data("Boston")
 Boston.columns
 
 ```
-
+    
 Type `Boston?` to find out more about these data.
 
 We start by using the `sm.OLS()`  function to fit a
@@ -142,7 +127,7 @@ X = pd.DataFrame({'intercept': np.ones(Boston.shape[0]),
 X[:4]
 
 ```
-
+    
 We extract the response, and fit the model.
 
 ```{python}
@@ -164,7 +149,7 @@ method, and returns such a summary.
 summarize(results)
 
 ```
-
+    
 
 Before we describe other methods for working with fitted models, we outline a more useful and general framework for constructing a model matrix~`X`.
 ### Using Transformations: Fit and Transform
@@ -235,8 +220,8 @@ The fitted coefficients can also be retrieved as the
 results.params
 
 ```
-
-
+    
+ 
 The `get_prediction()`  method can be used to obtain predictions, and produce confidence intervals and
 prediction intervals for the prediction of  `medv`  for  given values of  `lstat`.
 
@@ -277,7 +262,7 @@ value of 25.05 for  `medv`  when  `lstat`  equals
 10), but the latter are substantially wider.
 
 Next we will plot  `medv`  and  `lstat` 
-using `DataFrame.plot.scatter()`, 
+using `DataFrame.plot.scatter()`, \definelongblankMR{plot.scatter()}{plot.slashslashscatter()}
 and wish to
 add the regression line to the resulting plot.
 
@@ -399,14 +384,14 @@ Notice how we have compacted the first line into a succinct expression describin
 
 The  `Boston`   data set contains 12 variables, and so it would be cumbersome
 to have to type all of these in order to perform a regression using all of the predictors.
-Instead, we can use the following short-hand:
+Instead, we can use the following short-hand:\definelongblankMR{columns.drop()}{columns.slashslashdrop()}
 
 ```{python}
 terms = Boston.columns.drop('medv')
 terms
 
 ```
-
+ 
 We can now fit the model with all the variables in `terms` using
 the same model matrix builder.
 
@@ -417,7 +402,7 @@ results = model.fit()
 summarize(results)
 
 ```
-
+ 
 What if we would like to perform a regression using all of the variables but one?  For
 example, in the above regression output,   `age`  has a high $p$-value.
 So we may wish to run a regression excluding this predictor.
@@ -492,7 +477,7 @@ model2 = sm.OLS(y, X)
 summarize(model2.fit())
 
 ```
-
+ 
 
 ## Non-linear Transformations of the Predictors
 The model matrix builder can include terms beyond
@@ -567,7 +552,7 @@ there is little discernible pattern in the residuals.
 In order to create a cubic or higher-degree polynomial fit, we can simply change the degree argument
 to `poly()`.
 
-
+ 
 
 ## Qualitative Predictors
 Here we use the  `Carseats`  data, which is included in the
