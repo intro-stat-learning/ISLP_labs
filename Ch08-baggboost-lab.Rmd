@@ -1,3 +1,16 @@
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,Rmd
+    main_language: python
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.14.7
+---
+
 
 # Chapter 8
 
@@ -33,10 +46,10 @@ from sklearn.ensemble import \
 from ISLP.bart import BART
 
 ```
- 
+
 
 ## Fitting Classification Trees
- 
+
 
 We first use classification trees to analyze the  `Carseats`  data set.
 In these data, `Sales` is a continuous variable, and so we begin
@@ -52,7 +65,7 @@ High = np.where(Carseats.Sales > 8,
                 "No")
 
 ```
- 
+
 We now use `DecisionTreeClassifier()`  to fit a classification tree in
 order to predict `High` using all variables but `Sales`.
 To do so, we must form a model matrix as we did when fitting regression
@@ -80,8 +93,8 @@ clf = DTC(criterion='entropy',
 clf.fit(X, High)
 
 ```
-    
- 
+
+
 In our discussion of qualitative features in Section 3.3,
 we noted that for a linear regression model such a feature could be
 represented by including a matrix of dummy variables (one-hot-encoding) in the model
@@ -97,8 +110,8 @@ advantage of this approach; instead it simply treats the one-hot-encoded levels 
 accuracy_score(High, clf.predict(X))
 
 ```
-    
- 
+
+
 With only the default arguments, the training error rate is
 21%.
 For classification trees, we can
@@ -116,7 +129,7 @@ resid_dev = np.sum(log_loss(High, clf.predict_proba(X)))
 resid_dev
 
 ```
-    
+
 This is closely related to the *entropy*, defined in (8.7).
 A small deviance indicates a
 tree that provides a good fit to the (training) data.
@@ -148,7 +161,7 @@ print(export_text(clf,
                   show_weights=True))
 
 ```
- 
+
 In order to properly evaluate the performance of a classification tree
 on these data, we must estimate the test error rather than simply
 computing the training error. We split the observations into a
@@ -251,8 +264,8 @@ confusion = confusion_table(best_.predict(X_test),
 confusion
 
 ```
-    
- 
+
+
 Now 72.0% of the test observations are correctly classified, which is slightly worse than the error for the full tree (with 35 leaves). So cross-validation has not helped us much here; it only pruned off 5 leaves, at a cost of a slightly worse error. These results would change if we were to change the random number seeds above; even though cross-validation gives an unbiased approach to model selection, it does have variance.
 
   
@@ -270,7 +283,7 @@ feature_names = list(D.columns)
 X = np.asarray(D)
 
 ```
- 
+
 First, we split the data into training and test sets, and fit the tree
 to the training data. Here we use 30% of the data for the test set.
 
@@ -285,7 +298,7 @@ to the training data. Here we use 30% of the data for the test set.
                                 random_state=0)
 
 ```
- 
+
 Having formed  our training  and test data sets, we fit the regression tree.
 
 ```{python}
@@ -297,7 +310,7 @@ plot_tree(reg,
           ax=ax);
 
 ```
- 
+
 The variable `lstat` measures the percentage of individuals with
 lower socioeconomic status. The tree indicates that lower
 values of `lstat` correspond to more expensive houses.
@@ -321,7 +334,7 @@ grid = skm.GridSearchCV(reg,
 G = grid.fit(X_train, y_train)
 
 ```
- 
+
 In keeping with the cross-validation results, we use the pruned tree
 to make predictions on the test set.
 
@@ -330,8 +343,8 @@ best_ = grid.best_estimator_
 np.mean((y_test - best_.predict(X_test))**2)
 
 ```
-    
- 
+
+
 In other words, the test set MSE associated with the regression tree
 is 28.07.  The square root of
 the MSE is therefore around
@@ -354,7 +367,7 @@ plot_tree(G.best_estimator_,
 
 
 ## Bagging and Random Forests
-  
+
 
 Here we apply bagging and random forests to the `Boston` data, using
 the `RandomForestRegressor()` from the `sklearn.ensemble` package. Recall
@@ -367,8 +380,8 @@ bag_boston = RF(max_features=X_train.shape[1], random_state=0)
 bag_boston.fit(X_train, y_train)
 
 ```
-    
- 
+
+
 The argument `max_features` indicates that all 12 predictors should
 be considered for each split of the tree --- in other words, that
 bagging should be done.  How well does this bagged model perform on
@@ -381,7 +394,7 @@ ax.scatter(y_hat_bag, y_test)
 np.mean((y_test - y_hat_bag)**2)
 
 ```
-    
+
 The test set MSE associated with the bagged regression tree is
 14.63, about half that obtained using an optimally-pruned single
 tree.  We could change the number of trees grown from the default of
@@ -412,8 +425,8 @@ y_hat_RF = RF_boston.predict(X_test)
 np.mean((y_test - y_hat_RF)**2)
 
 ```
-    
- 
+
+
 The test set MSE is 20.04;
 this indicates that random forests did somewhat worse than bagging
 in this case. Extracting the `feature_importances_` values from the fitted model, we can view the
@@ -437,7 +450,7 @@ house size (`rm`) are by far the two most important variables.
 
 
 ## Boosting
- 
+
 
 Here we use `GradientBoostingRegressor()` from `sklearn.ensemble`
 to fit boosted regression trees to the `Boston` data
@@ -456,7 +469,7 @@ boost_boston = GBR(n_estimators=5000,
 boost_boston.fit(X_train, y_train)
 
 ```
- 
+
 We can see how the training error decreases with the `train_score_` attribute.
 To get an idea of how the test error decreases we can use the
 `staged_predict()` method to get the predicted values along the path.
@@ -479,7 +492,7 @@ ax.plot(plot_idx,
 ax.legend();
 
 ```
- 
+
 We now use the boosted model to predict `medv` on the test set:
 
 ```{python}
@@ -487,7 +500,7 @@ y_hat_boost = boost_boston.predict(X_test);
 np.mean((y_test - y_hat_boost)**2)
 
 ```
-    
+
  The test MSE obtained is 14.48,
 similar to the test MSE for bagging. If we want to, we can
 perform boosting with a different value of the shrinkage parameter
@@ -505,8 +518,8 @@ y_hat_boost = boost_boston.predict(X_test);
 np.mean((y_test - y_hat_boost)**2)
 
 ```
-    
- 
+
+
 In this case, using $\lambda=0.2$ leads to a almost the same test MSE
 as when using $\lambda=0.001$.
 
@@ -514,7 +527,7 @@ as when using $\lambda=0.001$.
 
 
 ## Bayesian Additive Regression Trees
-  
+
 
 In this section we demonstrate a  `Python` implementation of BART found in the
 `ISLP.bart` package. We fit a  model
@@ -527,8 +540,8 @@ bart_boston = BART(random_state=0, burnin=5, ndraw=15)
 bart_boston.fit(X_train, y_train)
 
 ```
-    
- 
+
+
 On this data set, with this split into test and training, we see that the test error of BART is similar to that of  random forest.
 
 ```{python}
@@ -536,8 +549,8 @@ yhat_test = bart_boston.predict(X_test.astype(np.float32))
 np.mean((y_test - yhat_test)**2)
 
 ```
-    
- 
+
+
 We can check how many times each variable appeared in the collection of trees.
 This gives a summary similar to the variable importance plot for boosting and random forests.
 
