@@ -30,9 +30,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: jetaylor74/ISLP_labs
-          tags: 
+          tags: |
             type=semver,pattern={{raw}}
+          images: jetaylor74/islp_labs
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
