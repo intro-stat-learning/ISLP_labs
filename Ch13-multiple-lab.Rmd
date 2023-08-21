@@ -121,7 +121,7 @@ amounts to quite a weak signal, and it resulted in a high number of
 Type II errors.  Let’s instead simulate data with a stronger signal,
 so that the ratio of the mean to the standard deviation for the false
 null hypotheses equals $1$. We make only 10 Type II errors.
-
+ 
 
 ```{python}
 true_mean = np.array([1]*50 + [0]*50)
@@ -244,6 +244,7 @@ mult_test(fund_mini_pvals, method = "holm", alpha=0.05)[:2]
 
 As discussed previously, Manager One seems to perform particularly
 well, whereas Manager Two has poor performance.
+ 
 
 ```{python}
 fund_mini.mean()
@@ -575,5 +576,5 @@ ax.set_xlabel("Number of Rejections")
 ax.set_ylabel("False Discovery Rate");
 
 ```
-
+ 
 

@@ -14,7 +14,7 @@ jupyter:
 
 # Chapter 12
 
- # Lab: Unsupervised Learning
+# Lab: Unsupervised Learning
 In this lab we demonstrate PCA and clustering on several datasets.
 As in other labs, we import some of our libraries at this top
 level. This makes the code more readable, as scanning the first few
@@ -819,7 +819,7 @@ linkage.  Clearly cell lines within a single cancer type do tend to
 cluster together, although the clustering is not perfect. We will use
 complete linkage hierarchical clustering for the analysis that
 follows.
-
+ 
 We can cut the dendrogram at the height that will yield a particular
 number of clusters, say four:
 
