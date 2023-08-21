@@ -1,19 +1,3 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: ipynb,Rmd
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
----
-
 
 # Chapter 10
 
@@ -872,7 +856,7 @@ for idx, (X_ ,Y_) in enumerate(cifar_dm.train_dataloader()):
 
 
 Before we start, we look at some of the training images; similar code produced
-Figure 10.5 on page  164. The example below also illustrates
+Figure 10.5 on page  447. The example below also illustrates
 that `TensorDataset` objects can be indexed with integers --- we are choosing
 random images from the training data by indexing `cifar_train`. In order to display correctly,
 we must reorder the dimensions by a call to `np.transpose()`.
@@ -1705,7 +1689,6 @@ early stopping, since then the test performance would be biased.
 
 We form the training dataset similar to
 our `Hitters` example.
- 
 
 ```{python}
 datasets = []
