@@ -1,21 +1,16 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
-
 name: Publish Docker image
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs: null
+  push:    
+    branches:
+      - 'tschm_main'
 
 jobs:
-  push_to_registry:
-    name: Push Docker image to Docker Hub
+
+  build:
+
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -24,14 +19,14 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: tschm/islp_labs
+          images: jetaylor74/islp_labs
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
