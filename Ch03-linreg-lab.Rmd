@@ -15,8 +15,6 @@ jupyter:
 # Chapter 3
 
 
-
-
 # Lab: Linear Regression
 
 ## Importing packages
@@ -277,7 +275,7 @@ value of 25.05 for  `medv`  when  `lstat`  equals
 10), but the latter are substantially wider.
 
 Next we will plot  `medv`  and  `lstat` 
-using `DataFrame.plot.scatter()`, 
+using `DataFrame.plot.scatter()`, \definelongblankMR{plot.scatter()}{plot.slashslashscatter()}
 and wish to
 add the regression line to the resulting plot.
 
@@ -399,7 +397,7 @@ Notice how we have compacted the first line into a succinct expression describin
 
 The  `Boston`   data set contains 12 variables, and so it would be cumbersome
 to have to type all of these in order to perform a regression using all of the predictors.
-Instead, we can use the following short-hand:
+Instead, we can use the following short-hand:\definelongblankMR{columns.drop()}{columns.slashslashdrop()}
 
 ```{python}
 terms = Boston.columns.drop('medv')

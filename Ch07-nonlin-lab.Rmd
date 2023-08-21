@@ -83,7 +83,7 @@ for feature transformations such as `PCA()` seen in Section 6.5.3) which
 allows for easy evaluation of the polynomial at new data points. Here `poly()` is referred to as a *helper* function, and sets up the transformation; `Poly()` is the actual workhorse that computes the transformation. See also 
 the 
 discussion of transformations on
-page 127. 
+page 129. 
 
 In the code above, the first line executes the `fit()` method
 using the dataframe
@@ -748,7 +748,6 @@ ANOVA, $\mathcal{M}_2$ is preferred.
 
 We can repeat the same process for `age` as well. We see there is very clear evidence that
 a non-linear term is required for `age`.
-\newpage
 
 ```{python}
 gam_0 = LinearGAM(year_term +

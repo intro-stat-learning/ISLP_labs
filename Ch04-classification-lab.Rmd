@@ -807,7 +807,7 @@ feature_std.std()
 
 ```
 
-Notice that the standard deviations are not quite $1$ here; this is again due to some procedures using the $1/n$ convention for variances (in this case `scaler()`), while others use $1/(n-1)$ (the `std()` method). See the footnote on page 103.
+Notice that the standard deviations are not quite $1$ here; this is again due to some procedures using the $1/n$ convention for variances (in this case `scaler()`), while others use $1/(n-1)$ (the `std()` method). See the footnote on page 200.
 In this case it does not matter, as long as the variables are all on the same scale.
 
 Using the function `train_test_split()`  we now split the observations into a test set,
