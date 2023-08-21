@@ -6,7 +6,7 @@ on:
       LABS:
         description: 'Labs version'
         required: true
-        default: 'v2.1'
+        default: 'v2.1.1'
         type: string
 
 jobs:
@@ -31,6 +31,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: jetaylor74/ISLP_labs
+          tags: 
+            type=semver,pattern={{raw}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
