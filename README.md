@@ -3,7 +3,7 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.1)
 
 
-Up-to-date version of labs for ISLP.
+Up-to-date version of labs for ISLP. 
 
 This repo will track labs for ISLP as their source code changes.  The
 intent is that building a conda environment with
