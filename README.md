@@ -20,4 +20,3 @@ The labs can now be run from this directory:
 ```
 jupyter lab Ch02-statlearning-lab.ipynb
 ```
-
