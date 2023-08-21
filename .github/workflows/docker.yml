@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*'
+      - v*
     branches:
-      - 'stable'
+      - stable
       
 jobs:
 
