@@ -1,1 +1,4 @@
 .github
+.git
+docker
+.dockerignore
