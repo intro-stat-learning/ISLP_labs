@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - stable
-      
+    tags:
+      - v*
+
 jobs:
 
   push_to_registry:
