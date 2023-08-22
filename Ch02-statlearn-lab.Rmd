@@ -3,7 +3,6 @@ jupyter:
   jupytext:
     cell_metadata_filter: -all
     formats: Rmd,ipynb
-    main_language: python
     text_representation:
       extension: .Rmd
       format_name: rmarkdown
