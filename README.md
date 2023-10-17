@@ -1,5 +1,9 @@
 # ISLP_labs
 
+## Authors
+
+- Robert Tibshirani
+  
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.1.3)
 
 
