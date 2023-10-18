@@ -26,6 +26,16 @@
         "code",
         "content"
       ]
+    },
+    {
+      "login": "danielawitten",
+      "name": "danielawitten",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12654191?v=4",
+      "profile": "https://github.com/danielawitten",
+      "contributions": [
+        "code",
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
