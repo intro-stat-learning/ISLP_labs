@@ -16,6 +16,16 @@
         "code",
         "content"
       ]
+    },
+    {
+      "login": "trevorhastie",
+      "name": "trevorhastie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13293253?v=4",
+      "profile": "https://web.stanford.edu/~hastie/",
+      "contributions": [
+        "code",
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
