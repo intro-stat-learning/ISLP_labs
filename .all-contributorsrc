@@ -36,6 +36,16 @@
         "code",
         "content"
       ]
+    },
+    {
+      "login": "jonathan-taylor",
+      "name": "Jonathan Taylor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/341611?v=4",
+      "profile": "http://statweb.stanford.edu/~jtaylo",
+      "contributions": [
+        "code",
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
