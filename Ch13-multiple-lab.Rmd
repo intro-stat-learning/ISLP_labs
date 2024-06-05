@@ -1,22 +1,14 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: Rmd,ipynb
-    main_language: python
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
----
+# Multiple Testing
+
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch13-multiple-lab.ipynb">
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch13-multiple-lab.ipynb)
 
 
-# Chapter 13
-
-# Lab: Multiple Testing
  
-
+ 
 
 We include our usual imports seen in earlier labs.
 
@@ -28,7 +20,7 @@ import statsmodels.api as sm
 from ISLP import load_data
 
 ```
-
+ 
 We also collect the new imports
 needed for this lab.
 
@@ -60,7 +52,7 @@ true_mean = np.array([0.5]*50 + [0]*50)
 X += true_mean[None,:]
 
 ```
-
+   
 To begin, we use `ttest_1samp()`  from the
 `scipy.stats` module to test $H_{0}: \mu_1=0$, the null
 hypothesis that the first variable has mean zero.
@@ -70,7 +62,7 @@ result = ttest_1samp(X[:,0], 0)
 result.pvalue
 
 ```
-
+    
 The $p$-value comes out to 0.931, which is not low enough to
 reject the null hypothesis at level $\alpha=0.05$.  In this case,
 $\mu_1=0.5$, so the null hypothesis is false. Therefore, we have made
@@ -97,7 +89,7 @@ truth = pd.Categorical(true_mean == 0,
 
 ```
 Since this is a simulated data set, we can create a $2 \times 2$ table
-similar to  Table 13.2.
+similar to  Table~\ref{Ch12:tab-hypotheses}.
 
 ```{python}
 pd.crosstab(decision,
@@ -108,7 +100,7 @@ pd.crosstab(decision,
 ```
 Therefore, at level $\alpha=0.05$, we reject 15 of the 50 false
 null hypotheses, and we incorrectly reject 5 of the true null
-hypotheses. Using the notation from Section 13.3, we have
+hypotheses. Using the notation from Section~\ref{sec:fwer}, we have
 $V=5$, $S=15$, $U=45$ and $W=35$.
 We have set $\alpha=0.05$, which means that we expect to reject around
 5% of the true null hypotheses. This is in line with the $2 \times 2$
@@ -146,12 +138,12 @@ pd.crosstab(decision,
 
 
 ## Family-Wise Error Rate
-Recall from  (13.5)  that if the null hypothesis is true
+Recall from  \eqref{eq:FWER.indep}  that if the null hypothesis is true
 for each of $m$ independent hypothesis tests, then the FWER is equal
 to $1-(1-\alpha)^m$. We can use this expression to compute the FWER
 for $m=1,\ldots, 500$ and $\alpha=0.05$, $0.01$, and $0.001$.
 We plot the FWER for these values of $\alpha$ in order to
-reproduce  Figure 13.2.
+reproduce  Figure~\ref{Ch12:fwer}.
 
 ```{python}
 m = np.linspace(1, 501)
@@ -167,7 +159,7 @@ ax.legend()
 ax.axhline(0.05, c='k', ls='--');
 
 ```
-
+ 
 As discussed previously, even for moderate values of $m$ such as $50$,
 the FWER exceeds $0.05$ unless $\alpha$ is set to a very low value,
 such as $0.001$.  Of course, the problem with setting $\alpha$ to such
@@ -189,7 +181,7 @@ for i in range(5):
 fund_mini_pvals
 
 ```
-
+    
 The $p$-values are low for Managers One and Three, and high for the
 other three managers.  However, we cannot simply reject $H_{0,1}$ and
 $H_{0,3}$, since this would fail to account for the multiple testing
@@ -219,8 +211,8 @@ reject, bonf = mult_test(fund_mini_pvals, method = "bonferroni")[:2]
 reject
 
 ```
-
-
+    
+ 
 The $p$-values `bonf` are simply the `fund_mini_pvalues` multiplied by 5 and truncated to be less than
 or equal to 1.
 
@@ -228,7 +220,7 @@ or equal to 1.
 bonf, np.minimum(fund_mini_pvals * 5, 1)
 
 ```
-
+    
 Therefore, using Bonferroni’s method, we are able to reject the null hypothesis only for Manager
 One while controlling FWER at $0.05$.
 
@@ -240,8 +232,8 @@ hypotheses for Managers One and Three at a FWER of $0.05$.
 mult_test(fund_mini_pvals, method = "holm", alpha=0.05)[:2]
 
 ```
-
-
+    
+ 
 As discussed previously, Manager One seems to perform particularly
 well, whereas Manager Two has poor performance.
  
@@ -250,8 +242,8 @@ well, whereas Manager Two has poor performance.
 fund_mini.mean()
 
 ```
-
-
+    
+ 
 Is there evidence of a meaningful difference in performance between
 these two managers?  We can check this by performing a  paired $t$-test  using the `ttest_rel()` function
 from `scipy.stats`:
@@ -261,7 +253,7 @@ ttest_rel(fund_mini['Manager1'],
           fund_mini['Manager2']).pvalue
 
 ```
-
+    
 The test results in a $p$-value of 0.038,
 suggesting a statistically significant difference.
 
@@ -269,7 +261,7 @@ However, we decided to perform this test only after examining the data
 and noting that Managers One and Two had the highest and lowest mean
 performances.  In a sense, this means that we have implicitly
 performed ${5 \choose 2} = 5(5-1)/2=10$ hypothesis tests, rather than
-just one, as discussed in  Section 13.3.2.  Hence, we use the
+just one, as discussed in  Section~\ref{tukey.sec}.  Hence, we use the
 `pairwise_tukeyhsd()`  function from
 `statsmodels.stats.multicomp` to apply Tukey’s method
   in order to adjust for multiple testing.  This function takes
@@ -286,8 +278,8 @@ tukey = pairwise_tukeyhsd(returns, managers)
 print(tukey.summary())
 
 ```
-
-
+    
+ 
 The `pairwise_tukeyhsd()` function provides confidence intervals
 for the difference between each pair of managers (`lower` and
 `upper`), as well as a $p$-value. All of these quantities have
@@ -317,7 +309,7 @@ for i, manager in enumerate(Fund.columns):
     fund_pvalues[i] = ttest_1samp(Fund[manager], 0).pvalue
 
 ```
-
+ 
 There are far too many managers to consider trying to control the FWER.
 Instead, we focus on controlling the FDR: that is, the expected fraction of rejected null hypotheses that are actually false positives.
 The `multipletests()` function (abbreviated `mult_test()`) can be used to carry out the Benjamini--Hochberg procedure.
@@ -327,7 +319,7 @@ fund_qvalues = mult_test(fund_pvalues, method = "fdr_bh")[1]
 fund_qvalues[:10]
 
 ```
-
+    
 The  *q-values* output by the
 Benjamini--Hochberg procedure can be interpreted as the smallest FDR
 threshold at which we would reject a particular null hypothesis. For
@@ -354,9 +346,9 @@ null hypotheses!
 (fund_pvalues <= 0.1 / 2000).sum()
 
 ```
-
-
-Figure 13.6 displays the ordered
+    
+ 
+Figure~\ref{Ch12:fig:BonferroniBenjamini} displays the ordered
 $p$-values, $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(2000)}$, for
 the  `Fund`  dataset, as well as the threshold for rejection by the
 Benjamini--Hochberg procedure.  Recall that the Benjamini--Hochberg
@@ -384,8 +376,8 @@ else:
     sorted_set_ = []
 
 ```
-
-We now reproduce  the middle panel of Figure 13.6.
+ 
+We now reproduce  the middle panel of Figure~\ref{Ch12:fig:BonferroniBenjamini}.
 
 ```{python}
 fig, ax = plt.subplots()
@@ -399,12 +391,12 @@ ax.scatter(sorted_set_+1, sorted_[sorted_set_], c='r', s=20)
 ax.axline((0, 0), (1,q/m), c='k', ls='--', linewidth=3);
 
 ```
-
+ 
 
 ## A Re-Sampling Approach
 Here, we implement the re-sampling approach to hypothesis testing
 using the  `Khan`  dataset, which we investigated in
-Section 13.5.  First, we merge the training and
+Section~\ref{sec:permutations}.  First, we merge the training and
 testing data, which results in observations on 83 patients for
 2,308 genes.
 
@@ -415,8 +407,8 @@ D['Y'] = pd.concat([Khan['ytrain'], Khan['ytest']])
 D['Y'].value_counts()
 
 ```
-
-
+    
+ 
 There are four classes of cancer. For each gene, we compare the mean
 expression in the second class (rhabdomyosarcoma) to the mean
 expression in the fourth class (Burkitt’s lymphoma).  Performing a
@@ -436,8 +428,8 @@ observedT, pvalue = ttest_ind(D2[gene_11],
 observedT, pvalue
 
 ```
-
-
+    
+ 
 However, this $p$-value relies on the assumption that under the null
 hypothesis of no difference between the two groups, the test statistic
 follows a $t$-distribution with $29+25-2=52$ degrees of freedom.
@@ -462,15 +454,15 @@ for b in range(B):
                        D_null[n_:],
                        equal_var=True)
     Tnull[b] = ttest_.statistic
-(np.abs(Tnull) > np.abs(observedT)).mean()
+(np.abs(Tnull) < np.abs(observedT)).mean()
 
 ```
-
-
+    
+ 
 This fraction, 0.0398,
 is our re-sampling-based $p$-value.
 It is almost identical to the $p$-value of  0.0412 obtained using the theoretical null distribution.
-We can plot  a histogram of the re-sampling-based test statistics in order to reproduce  Figure 13.7.
+We can plot  a histogram of the re-sampling-based test statistics in order to reproduce  Figure~\ref{Ch12:fig-permp-1}.
 
 ```{python}
 fig, ax = plt.subplots(figsize=(8,8))
@@ -493,7 +485,7 @@ ax.set_xlabel("Null Distribution of Test Statistic");
 The re-sampling-based null distribution is almost identical to the theoretical null distribution, which is displayed in red.
 
 Finally, we implement the plug-in re-sampling FDR approach outlined in
-Algorithm 13.4. Depending on the speed of your
+Algorithm~\ref{Ch12:alg-plugin-fdr}. Depending on the speed of your
 computer, calculating the FDR for all 2,308 genes in the `Khan`
 dataset may take a while.  Hence, we will illustrate the approach on a
 random subset of 100 genes.  For each gene, we first compute the
@@ -522,11 +514,11 @@ for j in range(m):
         Tnull_vals[j,b] = ttest_.statistic
 
 ```
-
+ 
 Next, we compute the number of rejected null hypotheses $R$, the
 estimated number of false positives $\widehat{V}$, and the estimated
 FDR, for a range of threshold values $c$ in
-Algorithm 13.4. The threshold values are chosen
+Algorithm~\ref{Ch12:alg-plugin-fdr}. The threshold values are chosen
 using the absolute values of the test statistics from the 100 genes.
 
 ```{python}
@@ -540,7 +532,7 @@ for j in range(m):
    FDRs[j] = V / R
 
 ```
-
+ 
 Now, for any given FDR, we can find the genes that will be
 rejected. For example, with FDR controlled at 0.1, we reject 15 of the
 100 null hypotheses. On average, we would expect about one or two of
@@ -556,7 +548,7 @@ the genes whose estimated FDR is less than 0.1.
 sorted(idx[np.abs(T_vals) >= cutoffs[FDRs < 0.1].min()])
 
 ```
-
+ 
 At an FDR threshold of 0.2, more genes are selected, at the cost of having a higher expected
 proportion of false discoveries.
 
@@ -564,9 +556,9 @@ proportion of false discoveries.
 sorted(idx[np.abs(T_vals) >= cutoffs[FDRs < 0.2].min()])
 
 ```
-
-The next line  generates  Figure 13.11, which is similar
-to  Figure 13.9,
+ 
+The next line  generates  Figure~\ref{fig:labfdr}, which is similar
+to  Figure~\ref{Ch12:fig-plugin-fdr},
 except that it is based on only  a subset of the genes.
 
 ```{python}

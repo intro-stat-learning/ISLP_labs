@@ -1,21 +1,13 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: Rmd,ipynb
-    main_language: python
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
----
+
+# Linear Models and Regularization Methods
+
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch06-varselect-lab.ipynb">
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch06-varselect-lab.ipynb)
 
 
-# Chapter 6
-
-
-# Lab: Linear Models and Regularization Methods
 In this lab we implement many of the techniques discussed in this chapter.
 We import some of our libraries at this top
 level. 
@@ -35,7 +27,7 @@ from functools import partial
 ```
 
 We again collect the new imports
-needed for this lab.
+needed for this lab. Readers will also have to have installed `l0bnb` using `pip install l0bnb`.
 
 ```{python}
 from sklearn.pipeline import Pipeline
@@ -45,11 +37,10 @@ from ISLP.models import \
      (Stepwise,
       sklearn_selected,
       sklearn_selection_path)
-# !pip install l0bnb
 from l0bnb import fit_path
 
 ```
-We have installed the package `l0bnb` on the fly. Note the escaped `!pip install` --- this is run as a separate system command. 
+
 ## Subset Selection Methods
 Here we implement methods that reduce the number of parameters in a
 model by restricting the model to a subset of the input variables.
@@ -74,7 +65,7 @@ Hitters = load_data('Hitters')
 np.isnan(Hitters['Salary']).sum()
 
 ```
-
+    
  We see that `Salary` is missing for 59 players. The
 `dropna()`  method of data frames removes all of the rows that have missing
 values in any variable (by default --- see  `Hitters.dropna?`).
@@ -84,9 +75,9 @@ Hitters = Hitters.dropna();
 Hitters.shape
 
 ```
-
-
-We first choose the best model using forward selection based on $C_p$ (6.2). This score
+    
+ 
+We first choose the best model using forward selection based on $C_p$ (\ref{Ch6:eq:cp}). This score
 is not built in as a metric to `sklearn`. We therefore define a function to compute it ourselves, and use
 it as a scorer. By default, `sklearn` tries to maximize a score, hence
   our scoring function  computes the negative $C_p$ statistic.
@@ -111,7 +102,7 @@ sigma2 = OLS(Y,X).fit().scale
 
 ```
 
-The function `sklearn_selected()` expects a scorer with just three arguments --- the last three in the definition of `nCp()` above. We use the function `partial()` first seen in Section 5.3.3 to freeze the first argument with our estimate of $\sigma^2$.
+The function `sklearn_selected()` expects a scorer with just three arguments --- the last three in the definition of `nCp()` above. We use the function `partial()` first seen in Section~\ref{Ch5-resample-lab:the-bootstrap} to freeze the first argument with our estimate of $\sigma^2$.
 
 ```{python}
 neg_Cp = partial(nCp, sigma2)
@@ -119,7 +110,7 @@ neg_Cp = partial(nCp, sigma2)
 ```
 We can now use `neg_Cp()` as a scorer for model selection.
 
-
+ 
 
 Along with a score we need to specify the search strategy. This is done through the object
 `Stepwise()`  in the `ISLP.models` package. The method `Stepwise.first_peak()`
@@ -133,7 +124,7 @@ strategy = Stepwise.first_peak(design,
                                max_terms=len(design.terms))
 
 ```
-
+ 
 We now fit a linear regression model with `Salary` as outcome using forward
 selection. To do so, we use the function `sklearn_selected()`  from the `ISLP.models` package. This takes
 a model from `statsmodels` along with a search strategy and selects a model with its
@@ -147,7 +138,7 @@ hitters_MSE.fit(Hitters, Y)
 hitters_MSE.selected_state_
 
 ```
-
+ 
 Using `neg_Cp` results in a smaller model, as expected, with just 10 variables selected.
 
 ```{python}
@@ -158,7 +149,7 @@ hitters_Cp.fit(Hitters, Y)
 hitters_Cp.selected_state_
 
 ```
-
+ 
 ### Choosing Among Models Using the Validation Set Approach and Cross-Validation
  
 As an  alternative to using $C_p$, we might try cross-validation to select a model in forward selection. For this, we need a
@@ -180,7 +171,7 @@ strategy = Stepwise.fixed_steps(design,
 full_path = sklearn_selection_path(OLS, strategy)
 
 ```
-
+ 
 We now fit the full forward-selection path on the `Hitters` data and compute the fitted values.
 
 ```{python}
@@ -189,8 +180,8 @@ Yhat_in = full_path.predict(Hitters)
 Yhat_in.shape
 
 ```
-
-
+    
+ 
 This gives us an array of fitted values --- 20 steps in all, including the fitted mean for the null model --- which we can use to evaluate
 in-sample MSE. As expected, the in-sample MSE improves each step we take,
 indicating we must use either the validation or cross-validation
@@ -279,7 +270,7 @@ ax.legend()
 mse_fig
 
 ```
-
+ 
 To repeat the above using the validation set approach, we simply change our
 `cv` argument to a validation set: one random split of the data into a test and training. We choose a test size
 of 20%, similar to the size of each test set in 5-fold cross-validation.`skm.ShuffleSplit()`
@@ -309,7 +300,7 @@ ax.legend()
 mse_fig
 
 ```
-
+ 
 
 ### Best Subset Selection
 Forward stepwise is a *greedy* selection procedure; at each step it augments the current set by including one additional variable.  We now apply best subset selection  to the  `Hitters` 
@@ -337,7 +328,7 @@ path = fit_path(X,
                 max_nonzeros=X.shape[1])
 
 ```
-
+ 
 The function `fit_path()` returns a list whose values include the fitted coefficients as `B`, an intercept as `B0`, as well as a few other attributes related to the particular path algorithm used. Such details are beyond the scope of this book.
 
 ```{python}
@@ -363,7 +354,7 @@ Since we
 standardize first, in order to find coefficient
 estimates on the original scale, we must *unstandardize*
 the coefficient estimates. The parameter
-$\lambda$ in (6.5) and (6.7) is called `alphas` in `sklearn`. In order to
+$\lambda$ in (\ref{Ch6:ridge}) and (\ref{Ch6:LASSO}) is called `alphas` in `sklearn`. In order to
 be consistent with the rest of this chapter, we use `lambdas`
 rather than `alphas` in what follows.  {At the time of publication, ridge fits like the one in code chunk [22] issue unwarranted convergence warning messages; we expect these to disappear as this package matures.}
 
@@ -405,7 +396,7 @@ soln_path.index.name = 'negative log(lambda)'
 soln_path
 
 ```
-
+ 
 We plot the paths to get a sense of how the coefficients vary with $\lambda$.
 To control the location of the legend we first set `legend` to `False` in the
 plot method, adding it afterward with the `legend()` method of `ax`.
@@ -429,14 +420,14 @@ beta_hat = soln_path.loc[soln_path.index[39]]
 lambdas[39], beta_hat
 
 ```
-
+ 
 Let’s compute the $\ell_2$ norm of the standardized coefficients.
 
 ```{python}
 np.linalg.norm(beta_hat)
 
 ```
-
+    
 In contrast, here is the $\ell_2$ norm when $\lambda$ is 2.44e-01.
 Note the much larger $\ell_2$ norm of the
 coefficients associated with this smaller value of $\lambda$.
@@ -490,7 +481,7 @@ results = skm.cross_validate(ridge,
 -results['test_score']
 
 ```
-
+    
 The test MSE is 1.342e+05.  Note
 that if we had instead simply fit a model with just an intercept, we
 would have predicted each test observation using the mean of the
@@ -527,7 +518,7 @@ grid.best_params_['ridge__alpha']
 grid.best_estimator_
 
 ```
-
+ 
 Alternatively, we can use 5-fold cross-validation.
 
 ```{python}
@@ -540,7 +531,7 @@ grid.best_params_['ridge__alpha']
 grid.best_estimator_
 
 ```
-Recall we set up the `kfold` object for 5-fold cross-validation on page 298. We now plot the cross-validated MSE as a function of $-\log(\lambda)$, which has shrinkage decreasing from left
+Recall we set up the `kfold` object for 5-fold cross-validation on page~\pageref{line:choos-among-models}. We now plot the cross-validated MSE as a function of $-\log(\lambda)$, which has shrinkage decreasing from left
 to right.
 
 ```{python}
@@ -553,7 +544,7 @@ ax.set_xlabel('$-\log(\lambda)$', fontsize=20)
 ax.set_ylabel('Cross-validated MSE', fontsize=20);
 
 ```
-
+ 
 One can cross-validate different metrics to choose a parameter. The default
 metric for `skl.ElasticNet()` is test $R^2$.
 Let’s compare $R^2$ to MSE for cross-validation here.
@@ -565,7 +556,7 @@ grid_r2 = skm.GridSearchCV(pipe,
 grid_r2.fit(X, Y)
 
 ```
-
+ 
 Finally, let’s plot the results for cross-validated $R^2$.
 
 ```{python}
@@ -577,7 +568,7 @@ ax.set_xlabel('$-\log(\lambda)$', fontsize=20)
 ax.set_ylabel('Cross-validated $R^2$', fontsize=20);
 
 ```
-
+ 
 
 ### Fast Cross-Validation for Solution Paths
 The ridge, lasso, and elastic net can be efficiently fit along a sequence of $\lambda$ values, creating what is known as a *solution path* or *regularization path*. Hence there is specialized code to fit
@@ -597,7 +588,7 @@ pipeCV = Pipeline(steps=[('scaler', scaler),
 pipeCV.fit(X, Y)
 
 ```
-
+ 
 Let’s produce a plot again of the cross-validation error to see that
 it is similar to using `skm.GridSearchCV`.
 
@@ -613,7 +604,7 @@ ax.set_xlabel('$-\log(\lambda)$', fontsize=20)
 ax.set_ylabel('Cross-validated MSE', fontsize=20);
 
 ```
-
+ 
 We see that the value of $\lambda$ that results in the
 smallest cross-validation error is 1.19e-02, available
 as the value `tuned_ridge.alpha_`. What is the test MSE
@@ -623,7 +614,7 @@ associated with this value of $\lambda$?
 np.min(tuned_ridge.mse_path_.mean(1))
 
 ```
-
+    
 This represents a further improvement over the test MSE that we got
 using $\lambda=4$.  Finally, `tuned_ridge.coef_`
 has the coefficients fit on the entire data set
@@ -640,7 +631,7 @@ not perform variable selection!
 ### Evaluating Test Error of Cross-Validated Ridge
 Choosing $\lambda$ using cross-validation provides a single regression
 estimator, similar to fitting a linear regression model as we saw in
-Chapter 3. It is therefore reasonable to estimate what its test error
+Chapter~\ref{Ch3:linreg}. It is therefore reasonable to estimate what its test error
 is. We run into a problem here in that cross-validation will have
 *touched* all of its data in choosing $\lambda$, hence we have no
 further data to estimate test error. A compromise is to do an initial
@@ -679,7 +670,7 @@ results = skm.cross_validate(pipeCV,
 
 ```
     
-
+ 
 
 ### The Lasso
 We saw that ridge regression with a wise choice of $\lambda$ can
@@ -728,13 +719,13 @@ ax.set_ylabel('Standardized coefficiients', fontsize=20);
 ```
 The smallest cross-validated error is lower than the test set MSE of the null model
 and of least squares, and very similar to the test MSE of 115526.71 of ridge
-regression (page 305) with $\lambda$ chosen by cross-validation.
+regression (page~\pageref{page:MSECVRidge}) with $\lambda$ chosen by cross-validation.
 
 ```{python}
 np.min(tuned_lasso.mse_path_.mean(1))
 
 ```
-
+    
 Let’s again produce a plot of the cross-validation error.
 
 
@@ -759,7 +750,7 @@ variables.
 tuned_lasso.coef_
 
 ```
-
+ 
 As in ridge regression, we could evaluate the test error
 of cross-validated lasso by first splitting into
 test and training sets and internally running
@@ -770,17 +761,17 @@ this as an exercise.
 ## PCR and PLS Regression
 
 ### Principal Components Regression
-
+ 
 
 Principal components regression (PCR) can be performed using
 `PCA()`  from the `sklearn.decomposition`
 module. We now apply PCR to the  `Hitters`  data, in order to
 predict `Salary`. Again, ensure that the missing values have
-been removed from the data, as described in Section 6.5.1.
+been removed from the data, as described in Section~\ref{Ch6-varselect-lab:lab-1-subset-selection-methods}.
 
 We use `LinearRegression()`  to fit the regression model
 here. Note that it fits an intercept by default, unlike
-the `OLS()` function seen earlier in Section 6.5.1.
+the `OLS()` function seen earlier in Section~\ref{Ch6-varselect-lab:lab-1-subset-selection-methods}.
 
 ```{python}
 pca = PCA(n_components=2)
@@ -791,7 +782,7 @@ pipe.fit(X, Y)
 pipe.named_steps['linreg'].coef_
 
 ```
-
+ 
 When performing PCA, the results vary depending
 on whether the data has been *standardized* or not.
 As in the earlier examples, this can be accomplished
@@ -805,7 +796,7 @@ pipe.fit(X, Y)
 pipe.named_steps['linreg'].coef_
 
 ```
-
+ 
 We can of course use CV to choose the number of components, by
 using `skm.GridSearchCV`, in this
 case fixing the parameters to vary the
@@ -820,7 +811,7 @@ grid = skm.GridSearchCV(pipe,
 grid.fit(X, Y)
 
 ```
-
+ 
 Let’s plot the results as we have for other methods.
 
 ```{python}
@@ -835,7 +826,7 @@ ax.set_xticks(n_comp[::2])
 ax.set_ylim([50000,250000]);
 
 ```
-
+ 
 We see that the smallest cross-validation error occurs when
 17
 components are used. However, from the plot we also see that the
@@ -859,18 +850,18 @@ cv_null = skm.cross_validate(linreg,
 -cv_null['test_score'].mean()
 
 ```
-
-
+    
+ 
 The `explained_variance_ratio_`
 attribute of our `PCA` object provides the *percentage of variance explained* in the predictors and in the response using
 different numbers of components. This concept is discussed in greater
-detail in Section 12.2.
+detail in Section~\ref{Ch10:sec:pca}.
 
 ```{python}
 pipe.named_steps['pca'].explained_variance_ratio_
 
 ```
-
+    
 Briefly, we can think of
 this as the amount of information about the predictors
 that is captured using $M$ principal components. For example, setting
@@ -893,7 +884,7 @@ pls = PLSRegression(n_components=2,
 pls.fit(X, Y)
 
 ```
-
+ 
 As was the case in PCR, we will want to
 use CV to choose the number of components.
 
@@ -906,7 +897,7 @@ grid = skm.GridSearchCV(pls,
 grid.fit(X, Y)
 
 ```
-
+ 
 As for our other methods, we plot the MSE.
 
 ```{python}
@@ -921,7 +912,7 @@ ax.set_xticks(n_comp[::2])
 ax.set_ylim([50000,250000]);
 
 ```
-
+ 
 CV error is minimized at 12,
 though there is little noticable difference between this point and a much lower number like 2 or 3 components.
 

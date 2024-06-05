@@ -1,20 +1,12 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: Rmd,ipynb
-    main_language: python
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
----
+# Unsupervised Learning
+
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch12-unsup-lab.ipynb">
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch12-unsup-lab.ipynb)
 
 
-# Chapter 12
-
-# Lab: Unsupervised Learning
 In this lab we demonstrate PCA and clustering on several datasets.
 As in other labs, we import some of our libraries at this top
 level. This makes the code more readable, as scanning the first few
@@ -44,7 +36,7 @@ from scipy.cluster.hierarchy import \
 from ISLP.cluster import compute_linkage
 
 ```
-
+ 
 ## Principal Components Analysis
 In this lab, we perform PCA on  `USArrests`, a data set in the
 `R` computing environment.
@@ -58,22 +50,22 @@ USArrests = get_rdataset('USArrests').data
 USArrests
 
 ```
-
+ 
 The columns of the data set contain the four variables.
 
 ```{python}
 USArrests.columns
 
 ```
-
+ 
 We first briefly examine the data. We notice that the variables have vastly different means.
 
 ```{python}
 USArrests.mean()
 
 ```
-
-
+    
+ 
 Dataframes have several useful methods for computing
 column-wise summaries. We can also examine the
 variance of the four variables using the `var()`  method.
@@ -82,7 +74,7 @@ variance of the four variables using the `var()`  method.
 USArrests.var()
 
 ```
-
+    
 Not surprisingly, the variables also have vastly different variances.
 The `UrbanPop` variable measures the percentage of the population
 in each state living in an urban area, which is not a comparable
@@ -132,7 +124,7 @@ of the variables. In this case, since we centered and scaled the data with
 pcaUS.mean_
 
 ```
-
+ 
 The scores can be computed using the `transform()` method
 of `pcaUS` after it has been fit.
 
@@ -150,7 +142,7 @@ principal component loading vector.
 pcaUS.components_ 
 
 ```
-
+ 
 The `biplot`  is a common visualization method used with
 PCA. It is not built in as a standard
 part of `sklearn`, though there are python
@@ -170,7 +162,7 @@ for k in range(pcaUS.components_.shape[1]):
             USArrests.columns[k])
 
 ```
-Notice that this figure is a reflection of Figure 12.1 through the $y$-axis. Recall that the
+Notice that this figure is a reflection of Figure~\ref{Ch10:fig:USArrests:obs} through the $y$-axis. Recall that the
 principal components are only unique up to a sign change, so we can
 reproduce that figure by flipping the
 signs of the second set of scores and loadings.
@@ -191,14 +183,14 @@ for k in range(pcaUS.components_.shape[1]):
             USArrests.columns[k])
 
 ```
-
+ 
 The standard deviations of the principal component scores are as follows:
 
 ```{python}
 scores.std(0, ddof=1)
 ```
 
-
+    
 The variance of each score can be extracted directly from the `pcaUS` object via
 the `explained_variance_` attribute.
 
@@ -220,7 +212,7 @@ We can plot the PVE explained by each component, as well as the cumulative PVE. 
 plot the proportion of variance explained.
 
 ```{python}
-# %%capture
+%%capture
 fig, axes = plt.subplots(1, 2, figsize=(15, 6))
 ticks = np.arange(pcaUS.n_components_)+1
 ax = axes[0]
@@ -247,7 +239,7 @@ ax.set_xticks(ticks)
 fig
 
 ```
-The result is similar to that shown in Figure 12.3.  Note
+The result is similar to that shown in Figure~\ref{Ch10:fig:USArrests:scree}.  Note
 that the method `cumsum()`   computes the cumulative sum of
 the elements of a numeric vector. For instance:
 
@@ -259,15 +251,15 @@ np.cumsum(a)
 ## Matrix Completion
 
 We now re-create the analysis carried out on the `USArrests` data in
-Section 12.3.
+Section~\ref{Ch10:sec:princ-comp-with}.
 
-We saw  in Section 12.2.2  that solving the optimization
-problem (12.6)   on a centered data matrix $\bf X$ is
+We saw  in Section~\ref{ch10:sec2.2}  that solving the optimization
+problem~(\ref{Ch10:eq:mc2})   on a centered data matrix $\bf X$ is
 equivalent to computing the first $M$ principal
 components of the data.  We use our scaled
 and centered `USArrests` data as $\bf X$ below. The *singular value decomposition* 
 (SVD)  is a general algorithm for solving
-(12.6). 
+(\ref{Ch10:eq:mc2}). 
 
 ```{python}
 X = USArrests_scaled
@@ -320,14 +312,14 @@ Xna = X.copy()
 Xna[r_idx, c_idx] = np.nan
 
 ```
-
+ 
 Here the array `r_idx`
 contains 20 integers from 0 to 49; this represents the states (rows of `X`) that are selected to contain missing values. And `c_idx` contains
 20 integers from 0 to 3, representing the features (columns in `X`) that contain the missing values for each of the selected states.
 
-We now write some code to implement Algorithm 12.1. 
+We now write some code to implement Algorithm~\ref{Ch10:alg:hardimpute}. 
 We first write a  function that takes in a matrix, and returns an approximation to the matrix using the `svd()` function.
-This will be needed in Step 2 of Algorithm 12.1.
+This will be needed in Step 2 of Algorithm~\ref{Ch10:alg:hardimpute}.
 
 ```{python}
 def low_rank(X, M=1):
@@ -336,7 +328,7 @@ def low_rank(X, M=1):
     return L.dot(V[:M])
 
 ```
-To conduct Step 1 of the algorithm, we initialize `Xhat` --- this is $\tilde{\bf X}$ in Algorithm 12.1 ---  by replacing
+To conduct Step 1 of the algorithm, we initialize `Xhat` --- this is $\tilde{\bf X}$ in Algorithm~\ref{Ch10:alg:hardimpute} ---  by replacing
 the missing values with the column means of the non-missing entries. These are stored in
 `Xbar` below after running `np.nanmean()` over the row axis.
 We make a copy so that when we assign values to `Xhat` below we do not also overwrite the
@@ -348,7 +340,7 @@ Xbar = np.nanmean(Xhat, axis=0)
 Xhat[r_idx, c_idx] = Xbar[c_idx]
 
 ```
-
+ 
 Before we begin Step 2, we set ourselves up to measure the progress of our
 iterations:
 
@@ -366,11 +358,11 @@ a given element is `True` if the corresponding matrix element is missing. The no
 because it allows us to access both the missing and non-missing entries. We store the mean of the squared non-missing elements in `mss0`.
 We store the mean squared error  of the non-missing elements  of the old version of `Xhat` in `mssold` (which currently
 agrees with `mss0`). We plan to store the mean squared error of the non-missing elements of the current version of `Xhat` in `mss`, and will then
-iterate Step 2 of  Algorithm 12.1  until the *relative error*, defined as
+iterate Step 2 of  Algorithm~\ref{Ch10:alg:hardimpute}  until the *relative error*, defined as
 `(mssold - mss) / mss0`, falls below `thresh = 1e-7`.
- {Algorithm 12.1 tells us to iterate Step 2 until (12.14) is no longer decreasing. Determining whether (12.14)  is decreasing requires us only to keep track of `mssold - mss`. However, in practice, we keep track of `(mssold - mss) / mss0` instead: this makes it so that the number of iterations required for Algorithm 12.1 to converge does not depend on whether we multiplied the raw data $\bf X$ by a constant factor.}
+ {Algorithm~\ref{Ch10:alg:hardimpute} tells us to iterate Step 2 until \eqref{Ch10:eq:mc6} is no longer decreasing. Determining whether \eqref{Ch10:eq:mc6}  is decreasing requires us only to keep track of `mssold - mss`. However, in practice, we keep track of `(mssold - mss) / mss0` instead: this makes it so that the number of iterations required for Algorithm~\ref{Ch10:alg:hardimpute} to converge does not depend on whether we multiplied the raw data $\bf X$ by a constant factor.}
 
-In Step 2(a) of Algorithm 12.1, we  approximate `Xhat` using `low_rank()`; we call this `Xapp`. In Step 2(b), we  use `Xapp`  to update the estimates for elements in `Xhat` that are missing in `Xna`. Finally, in Step 2(c), we compute the relative error. These three steps are contained in the following `while` loop:
+In Step 2(a) of Algorithm~\ref{Ch10:alg:hardimpute}, we  approximate `Xhat` using `low_rank()`; we call this `Xapp`. In Step 2(b), we  use `Xapp`  to update the estimates for elements in `Xhat` that are missing in `Xna`. Finally, in Step 2(c), we compute the relative error. These three steps are contained in the following `while` loop:
 
 ```{python}
 while rel_err > thresh:
@@ -387,7 +379,7 @@ while rel_err > thresh:
           .format(count, mss, rel_err))
 
 ```
-
+ 
 We see that after eight iterations, the relative error has fallen below `thresh = 1e-7`, and so the algorithm terminates. When this happens, the mean squared error of the non-missing elements equals 0.381.
 
 Finally, we compute the correlation between the 20 imputed values
@@ -397,9 +389,9 @@ and the actual values:
 np.corrcoef(Xapp[ismiss], X[ismiss])[0,1]
 
 ```
-
-
-In this lab, we implemented  Algorithm 12.1  ourselves for didactic purposes. However, a reader who wishes to apply matrix completion to their data might look to more specialized `Python`  implementations.
+    
+ 
+In this lab, we implemented  Algorithm~\ref{Ch10:alg:hardimpute}  ourselves for didactic purposes. However, a reader who wishes to apply matrix completion to their data might look to more specialized `Python`{} implementations.
 
 
 ## Clustering
@@ -444,7 +436,7 @@ ax.scatter(X[:,0], X[:,1], c=kmeans.labels_)
 ax.set_title("K-Means Clustering Results with K=2");
 
 ```
-
+ 
 Here the observations can be easily plotted because they are
 two-dimensional. If there were more than two variables then we could
 instead perform PCA and plot the first two principal component score
@@ -470,7 +462,7 @@ We have used the `n_init` argument to run the $K$-means with 20
 initial cluster assignments (the default is 10). If a
 value of `n_init` greater than one is used, then $K$-means
 clustering will be performed using multiple random assignments in
-Step 1 of  Algorithm 12.2, and the `KMeans()` 
+Step 1 of  Algorithm~\ref{Ch10:alg:km}, and the `KMeans()` 
 function will report only the best results. Here we compare using
 `n_init=1` to `n_init=20`.
 
@@ -486,7 +478,7 @@ kmeans1.inertia_, kmeans20.inertia_
 ```
 Note that `kmeans.inertia_` is the total within-cluster sum
 of squares, which we seek to minimize by performing $K$-means
-clustering (12.17). 
+clustering \eqref{Ch10:eq:kmeans}. 
 
 We *strongly* recommend always running $K$-means clustering with
 a large value of `n_init`, such as 20 or 50, since otherwise an
@@ -519,7 +511,7 @@ hc_comp = HClust(distance_threshold=0,
 hc_comp.fit(X)
 
 ```
-
+ 
 This computes the entire dendrogram.
 We could just as easily perform hierarchical clustering with average or single linkage instead:
 
@@ -534,7 +526,7 @@ hc_sing = HClust(distance_threshold=0,
 hc_sing.fit(X);
 
 ```
-
+ 
 To use a precomputed distance matrix, we provide an additional
 argument `metric="precomputed"`. In the code below, the first four lines computes the $50\times 50$ pairwise-distance matrix.
 
@@ -550,7 +542,7 @@ hc_sing_pre = HClust(distance_threshold=0,
 hc_sing_pre.fit(D)
 
 ```
-
+ 
 We use
 `dendrogram()` from `scipy.cluster.hierarchy` to plot the dendrogram. However,
 `dendrogram()` expects a so-called *linkage-matrix representation*
@@ -573,7 +565,7 @@ dendrogram(linkage_comp,
            **cargs);
 
 ```
-
+ 
 We may want to color branches of the tree above
 and below a cut-threshold differently. This can be achieved
 by changing the `color_threshold`. Let’s cut the tree at a height of 4,
@@ -587,7 +579,7 @@ dendrogram(linkage_comp,
            above_threshold_color='black');
 
 ```
-
+ 
 To determine the cluster labels for each observation associated with a
 given cut of the dendrogram, we can use the `cut_tree()` 
 function from `scipy.cluster.hierarchy`:
@@ -607,7 +599,7 @@ or `height` to `cut_tree()`.
 cut_tree(linkage_comp, height=5)
 
 ```
-
+ 
 To scale the variables before performing hierarchical clustering of
 the observations, we use `StandardScaler()`  as in our PCA example:
 
@@ -651,7 +643,7 @@ dendrogram(linkage_cor, ax=ax, **cargs)
 ax.set_title("Complete Linkage with Correlation-Based Dissimilarity");
 
 ```
-
+ 
 
 ## NCI60 Data Example
 Unsupervised techniques are often used in the analysis of genomic
@@ -666,7 +658,7 @@ nci_labs = NCI60['labels']
 nci_data = NCI60['data']
 
 ```
-
+ 
 Each cell line is labeled with a cancer type. We do not make use of
 the cancer types in performing PCA and clustering, as these are
 unsupervised techniques. But after performing PCA and clustering, we
@@ -679,8 +671,8 @@ The data has 64 rows and 6830 columns.
 nci_data.shape
 
 ```
-
-
+    
+ 
 We begin by examining the cancer types for the cell lines.
 
 
@@ -688,7 +680,7 @@ We begin by examining the cancer types for the cell lines.
 nci_labs.value_counts()
 
 ```
-
+ 
 
 ### PCA on the NCI60 Data
 
@@ -703,7 +695,7 @@ nci_pca = PCA()
 nci_scores = nci_pca.fit_transform(nci_scaled)
 
 ```
-
+ 
 We now plot the first few principal component score vectors, in order
 to visualize the data. The observations (cell lines) corresponding to
 a given cancer type will be plotted in the same color, so that we can
@@ -739,7 +731,7 @@ to have pretty similar gene expression levels.
 
     
 
-
+ 
 We can also plot the percent variance
 explained by the principal components as well as the cumulative percent variance explained.
 This is similar to the plots we made earlier for the `USArrests` data.
@@ -798,7 +790,7 @@ def plot_nci(linkage, ax, cut=-np.inf):
     return hc
 
 ```
-
+ 
 Let’s  plot our results.
 
 ```{python}
@@ -830,7 +822,7 @@ pd.crosstab(nci_labs['label'],
             pd.Series(comp_cut.reshape(-1), name='Complete'))
 
 ```
-
+    
 
 There are some clear patterns. All the leukemia cell lines fall in
 one cluster, while the breast cancer cell lines are spread out over
@@ -844,7 +836,7 @@ plot_nci('Complete', ax, cut=140)
 ax.axhline(140, c='r', linewidth=4);
 
 ```
-
+ 
 The `axhline()`  function draws a horizontal line  line on top of any
 existing set of axes. The argument `140` plots a horizontal
 line at height 140 on the dendrogram; this is a height that
@@ -852,7 +844,7 @@ results in four distinct clusters. It is easy to verify that the
 resulting clusters are the same as the ones we obtained in
 `comp_cut`.
 
-We claimed earlier in Section 12.4.2 that
+We claimed earlier in Section~\ref{Ch10:subsec:hc} that
 $K$-means clustering and hierarchical clustering with the dendrogram
 cut to obtain the same number of clusters can yield very different
 results.  How do these `NCI60` hierarchical clustering results compare
@@ -866,7 +858,7 @@ pd.crosstab(pd.Series(comp_cut, name='HClust'),
             pd.Series(nci_kmeans.labels_, name='K-means'))
 
 ```
-
+    
 We see that the four clusters obtained using hierarchical clustering
 and $K$-means clustering are somewhat different. First we note
 that the labels in the two clusterings are arbitrary. That is, swapping

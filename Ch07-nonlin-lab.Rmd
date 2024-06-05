@@ -1,22 +1,14 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: -all
-    formats: Rmd,ipynb
-    main_language: python
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.14.7
----
+# Non-Linear Modeling
+
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch07-nonlin-lab.ipynb">
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch07-nonlin-lab.ipynb)
 
 
-# Chapter 7
-
-# Lab: Non-Linear Modeling
 In this lab, we demonstrate some of the nonlinear models discussed in
-this chapter. We use the `Wage`  data as a running example, and show that many of the complex non-linear fitting procedures discussed can easily be implemented in \Python.
+this chapter. We use the `Wage`  data as a running example, and show that many of the complex non-linear fitting procedures discussed can easily be implemented in `Python`.
 
 As usual, we start with some of our standard imports.
 
@@ -30,7 +22,7 @@ from ISLP.models import (summarize,
                          ModelSpec as MS)
 from statsmodels.stats.anova import anova_lm
 ```
-
+ 
 We again collect the new imports
 needed for this lab. Many of these are developed specifically for the
 `ISLP` package.
@@ -51,9 +43,9 @@ from ISLP.pygam import (approx_lam,
                         anova as anova_gam)
 
 ```
-
+ 
 ## Polynomial Regression and Step Functions
-We start by demonstrating how Figure 7.1 can be reproduced.
+We start by demonstrating how Figure~\ref{Ch7:fig:poly} can be reproduced.
 Let's  begin by loading the data.
 
 ```{python}
@@ -62,10 +54,10 @@ y = Wage['wage']
 age = Wage['age']
 
 ```
-
+ 
 Throughout most of this lab, our response is `Wage['wage']`, which
 we have stored as `y` above. 
-As in Section 3.6.6, we will use the `poly()` function to create a model matrix
+As in Section~\ref{Ch3-linreg-lab:non-linear-transformations-of-the-predictors}, we will use the `poly()` function to create a model matrix
 that will fit a $4$th degree polynomial in `age`.
 
 ```{python}
@@ -74,16 +66,16 @@ M = sm.OLS(y, poly_age.transform(Wage)).fit()
 summarize(M)
 
 ```
-
-
+    
+ 
 This polynomial is constructed using the function `poly()`,
 which creates
 a special *transformer* `Poly()` (using `sklearn` terminology
-for feature transformations such as `PCA()` seen in Section 6.5.3) which
+for feature transformations such as `PCA()` seen in Section \ref{Ch6-varselect-lab:principal-components-regression}) which
 allows for easy evaluation of the polynomial at new data points. Here `poly()` is referred to as a *helper* function, and sets up the transformation; `Poly()` is the actual workhorse that computes the transformation. See also 
 the 
 discussion of transformations on
-page 129. 
+page~\pageref{Ch3-linreg-lab:using-transformations-fit-and-transform}. 
 
 In the code above, the first line executes the `fit()` method
 using the dataframe
@@ -96,7 +88,7 @@ on the second line, as well as in the plotting function developed below.
     
 
 
-
+ 
 We now create a grid of values for `age` at which we want
 predictions.
 
@@ -146,10 +138,10 @@ def plot_wage_fit(age_df,
 We include an argument `alpha` to `ax.scatter()`
 to add some transparency to the points. This provides a visual indication
 of density. Notice the use of the `zip()` function in the
-`for` loop above (see Section 2.3.8).
+`for` loop above (see Section~\ref{Ch2-statlearn-lab:for-loops}).
 We have three lines to plot, each with different colors and line
 types. Here `zip()` conveniently bundles these together as
-iterators in the loop. {In `Python`  speak, an "iterator" is an object with a finite number of values, that can be iterated on, as in a loop.}
+iterators in the loop. {In `Python`{} speak, an "iterator" is an object with a finite number of values, that can be iterated on, as in a loop.}
 
 We now plot the fit of the fourth-degree polynomial using this
 function.
@@ -164,7 +156,7 @@ plot_wage_fit(age_df,
 
     
 
-
+ 
 With  polynomial regression we must decide on the degree of
 the polynomial to use. Sometimes we just wing it, and decide to use
 second or third degree polynomials, simply to obtain a nonlinear fit. But we can
@@ -195,7 +187,7 @@ anova_lm(*[sm.OLS(y, X_).fit()
            for X_ in Xs])
 
 ```
-
+    
 Notice the `*` in the `anova_lm()` line above. This
 function takes a variable number of non-keyword arguments, in this case fitted models.
 When these models are provided as a list (as is done here), it must be 
@@ -220,8 +212,8 @@ that `poly()`  creates orthogonal polynomials.
 summarize(M)
 
 ```
-
-
+    
+ 
 Notice that the p-values are the same, and in fact the square of
 the  t-statistics are equal to the F-statistics from the
 `anova_lm()`  function;  for example: 
@@ -230,8 +222,8 @@ the  t-statistics are equal to the F-statistics from the
 (-11.983)**2
 
 ```
-
-
+    
+ 
 However, the ANOVA method works whether or not we used orthogonal
 polynomials, provided the models are nested. For example, we can use
 `anova_lm()`  to compare the following three
@@ -246,10 +238,10 @@ XEs = [model.fit_transform(Wage)
 anova_lm(*[sm.OLS(y, X_).fit() for X_ in XEs])
 
 ```
-
-
+    
+ 
 As an alternative to using hypothesis tests and ANOVA, we could choose
-the polynomial degree using cross-validation, as discussed in Chapter 5.
+the polynomial degree using cross-validation, as discussed in Chapter~\ref{Ch5:resample}.
 
 Next we consider the task of predicting whether an individual earns
 more than $250,000 per year. We proceed much as before, except
@@ -267,8 +259,8 @@ B = glm.fit()
 summarize(B)
 
 ```
-
-
+    
+ 
 Once again, we make predictions using the `get_prediction()`  method.
 
 ```{python}
@@ -277,7 +269,7 @@ preds = B.get_prediction(newX)
 bands = preds.conf_int(alpha=0.05)
 
 ```
-
+ 
 We now plot the estimated relationship.
 
 ```{python}
@@ -308,7 +300,7 @@ value do not cover each other up. This type of plot is often called a
 *rug plot*.
 
 In order to fit a step function, as discussed in
-Section 7.2,   we first use the `pd.qcut()`
+Section~\ref{Ch7:sec:scolstep-function},   we first use the `pd.qcut()`
 function to discretize `age` based on quantiles.  Then  we use `pd.get_dummies()` to create the
 columns of the model matrix for this categorical variable. Note that this function will
 include *all* columns for a given categorical, rather than the usual approach which drops one
@@ -319,8 +311,8 @@ cut_age = pd.qcut(age, 4)
 summarize(sm.OLS(y, pd.get_dummies(cut_age)).fit())
 
 ```
-
-
+    
+ 
 Here `pd.qcut()`  automatically picked the cutpoints based on the quantiles 25%, 50% and 75%, which results in four regions.  We could also have specified our own
 quantiles directly instead of the argument `4`. For cuts not based
 on quantiles we would use the `pd.cut()` function.
@@ -340,7 +332,7 @@ evaluation functions are in the `scipy.interpolate` package;
 we have simply wrapped them as transforms
 similar to `Poly()` and `PCA()`.
 
-In Section 7.4, we saw
+In Section~\ref{Ch7:sec:scolr-splin}, we saw
 that regression splines can be fit by constructing an appropriate
 matrix of basis functions.  The `BSpline()`  function generates the
 entire matrix of basis functions for splines with the specified set of
@@ -355,7 +347,7 @@ bs_age.shape
 ```
 This results in a seven-column matrix, which is what is expected for a cubic-spline basis with 3 interior knots. 
 We can form this same matrix using the `bs()` object,
-which facilitates adding this to a model-matrix builder (as in `poly()` versus its workhorse `Poly()`) described in Section 7.8.1.
+which facilitates adding this to a model-matrix builder (as in `poly()` versus its workhorse `Poly()`) described in Section~\ref{Ch7-nonlin-lab:polynomial-regression-and-step-functions}.
 
 We now fit a cubic spline model to the `Wage`  data. 
 
@@ -377,7 +369,7 @@ M = sm.OLS(y, Xbs).fit()
 summarize(M)
 
 ```
-
+    
 Notice that there are 6 spline coefficients rather than 7. This is because, by default,
 `bs()` assumes `intercept=False`, since we typically have an overall intercept in the model.
 So it generates the spline basis with the given knots,  and then discards one of the basis functions to account for the intercept. 
@@ -435,7 +427,7 @@ deciding bin membership.
     
  
 
-
+ 
 In order to fit a natural spline, we use the `NaturalSpline()` 
 transform with the corresponding helper `ns()`.  Here we fit a natural spline with five
 degrees of freedom (excluding the intercept) and plot the results.
@@ -453,7 +445,7 @@ plot_wage_fit(age_df,
               'Natural spline, df=5');
 
 ```
-
+ 
 ## Smoothing Splines and GAMs
 A smoothing spline is a special case of a GAM with squared-error loss
 and a single feature. To fit GAMs in `Python` we will use the
@@ -464,7 +456,7 @@ of a model matrix with a particular smoothing operation:
 `s` for smoothing spline; `l` for linear, and `f` for factor or categorical variables.
 The argument `0` passed to `s` below indicates that this smoother will
 apply to the first column of a feature matrix. Below, we pass it a
-matrix with a single column: `X_age`. The argument `lam` is the penalty parameter $\lambda$ as discussed in Section 7.5.2.
+matrix with a single column: `X_age`. The argument `lam` is the penalty parameter $\lambda$ as discussed in Section~\ref{Ch7:sec5.2}.
 
 ```{python}
 X_age = np.asarray(age).reshape((-1,1))
@@ -472,7 +464,7 @@ gam = LinearGAM(s_gam(0, lam=0.6))
 gam.fit(X_age, y)
 
 ```
-
+    
 The `pygam` library generally expects a matrix of features so we reshape `age` to be a matrix (a two-dimensional array) instead
 of a vector (i.e. a one-dimensional array). The `-1` in the call to the `reshape()` method tells `numpy` to impute the
 size of that dimension based on the remaining entries of the shape tuple.
@@ -495,7 +487,7 @@ ax.set_ylabel('Wage', fontsize=20);
 ax.legend(title='$\lambda$');
 
 ```
-
+ 
 The `pygam` package can perform a search for an optimal smoothing parameter.
 
 ```{python}
@@ -508,7 +500,7 @@ ax.legend()
 fig
 
 ```
-
+ 
 Alternatively, we can fix the degrees of freedom of the smoothing
 spline using a function included in the `ISLP.pygam` package. Below we
 find a value of $\lambda$ that gives us roughly four degrees of
@@ -523,8 +515,8 @@ age_term.lam = lam_4
 degrees_of_freedom(X_age, age_term)
 
 ```
-
-
+    
+ 
 Let’s vary the degrees of freedom in a similar plot to above. We choose the degrees of freedom
 as the desired degrees of freedom plus one to account for the fact that these smoothing
 splines always have an intercept term. Hence, a value of one for `df` is just a linear fit.
@@ -554,7 +546,7 @@ The strength of generalized additive models lies in their ability to fit multiva
 
 We now fit a GAM by hand to predict
 `wage` using natural spline functions of `year` and `age`,
-treating `education` as a qualitative predictor, as in (7.16).
+treating `education` as a qualitative predictor, as in (\ref{Ch7:nsmod}).
 Since this is just a big linear regression model
 using an appropriate choice of basis functions, we can simply do this
 using the `sm.OLS()`  function.
@@ -636,10 +628,10 @@ ax.set_ylabel('Effect on wage')
 ax.set_title('Partial dependence of year on wage', fontsize=20);
 
 ```
-
-We now fit the model (7.16)  using smoothing splines rather
+ 
+We now fit the model (\ref{Ch7:nsmod})  using smoothing splines rather
 than natural splines.  All of the
-terms in  (7.16)  are fit simultaneously, taking each other
+terms in  (\ref{Ch7:nsmod})  are fit simultaneously, taking each other
 into account to explain the response. The `pygam` package only works with matrices, so we must convert
 the categorical series `education` to its array representation, which can be found
 with the `cat.codes` attribute of `education`. As `year` only has 7 unique values, we
@@ -728,7 +720,7 @@ gam_linear = LinearGAM(age_term +
 gam_linear.fit(Xgam, y)
 
 ```
-
+    
 Notice our use of `age_term` in the expressions above. We do this because
 earlier we set the value for `lam` in this term to achieve four degrees of freedom.
 
@@ -775,7 +767,7 @@ We can make predictions from `gam` objects, just like from
 Yhat = gam_full.predict(Xgam)
 
 ```
-
+ 
 In order to fit a logistic regression GAM, we use `LogisticGAM()` 
 from `pygam`.
 
@@ -786,7 +778,7 @@ gam_logit = LogisticGAM(age_term +
 gam_logit.fit(Xgam, high_earn)
 
 ```
-
+    
 
 ```{python}
 fig, ax = subplots(figsize=(8, 8))
@@ -838,8 +830,8 @@ gam_logit_ = LogisticGAM(age_term +
 gam_logit_.fit(Xgam_, high_earn_)
 
 ```
-
-
+    
+ 
 Let’s look at the effect of `education`, `year` and `age` on high earner status now that we’ve
 removed those observations.
 
@@ -872,7 +864,7 @@ ax.set_ylabel('Effect on wage')
 ax.set_title('Partial dependence of high earner status on age', fontsize=20);
 
 ```
-
+ 
 
 ## Local Regression
 We illustrate the use of local regression using  the `lowess()` 

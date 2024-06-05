@@ -1,13 +1,18 @@
+# Deep Learning
 
-# Chapter 10
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch10-deeplearning-lab.ipynb">
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
-# Lab: Deep Learning
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch10-deeplearning-lab.ipynb)
+
+
 In this section we  demonstrate how to fit the examples discussed
-in the text. We use the `Python`  `torch` package, along with the
+in the text. We use the `Python`{} `torch` package, along with the
 `pytorch_lightning` package which provides utilities to simplify
 fitting and evaluating models.  This code can be impressively fast
 with certain  special processors,  such as Apple’s new M1 chip. The package is well-structured, flexible, and will feel comfortable
-to `Python`  users. A good companion is the site
+to `Python`{} users. A good companion is the site
 [pytorch.org/tutorials](https://pytorch.org/tutorials/beginner/basics/intro.html).
 Much of our code is adapted from there, as well as the `pytorch_lightning` documentation. {The precise URLs at the time of writing are <https://pytorch.org/tutorials/beginner/basics/intro.html> and <https://pytorch-lightning.readthedocs.io/en/latest/>.}
 
@@ -50,7 +55,13 @@ the `torchmetrics` package has utilities to compute
 various metrics to evaluate performance when fitting
 a model. The `torchinfo` package provides a useful
 summary of the layers of a model. We use the `read_image()`
-function when loading test images in Section 10.9.4.
+function when loading test images in Section~\ref{Ch13-deeplearning-lab:using-pretrained-cnn-models}.
+
+If you have not already installed the packages `torchvision`
+and `torchinfo` you can install them by running
+`pip install torchinfo torchvision`.
+We can now import from `torchinfo`.
+
 
 ```{python}
 from torchmetrics import (MeanAbsoluteError,
@@ -150,7 +161,7 @@ import json
  
 
 ## Single Layer Network on Hitters Data
-We start by fitting the models in Section 10.6 on the `Hitters` data.
+We start by fitting the models in Section~\ref{Ch13:sec:when-use-deep} on the `Hitters` data.
 
 ```{python}
 Hitters = load_data('Hitters').dropna()
@@ -204,7 +215,7 @@ np.abs(Yhat_test - Y_test).mean()
  
 Next we fit the lasso using `sklearn`. We are using
 mean absolute error to select and evaluate a model, rather than mean squared error.
-The specialized solver we used in Section 6.5.2 uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.  
+The specialized solver we used in Section~\ref{Ch6-varselect-lab:lab-2-ridge-regression-and-the-lasso} uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.  
 
 We encode a pipeline with two steps: we first normalize the features using a `StandardScaler()` transform,
 and then fit the lasso without further normalization. 
@@ -426,7 +437,7 @@ hit_module = SimpleModule.regression(hit_model,
 ```
  
  By using the `SimpleModule.regression()` method,  we indicate that we will use squared-error loss as in
-(10.23).
+(\ref{Ch13:eq:4}).
 We have also asked for mean absolute error to be tracked as well
 in the metrics that are logged.
 
@@ -463,7 +474,7 @@ hit_trainer = Trainer(deterministic=True,
 hit_trainer.fit(hit_module, datamodule=hit_dm)
 ```
 At each step of SGD, the algorithm randomly selects 32 training observations for
-the computation of the gradient. Recall from Section 10.7
+the computation of the gradient. Recall from Section~\ref{Ch13:sec:fitt-neur-netw}
 that an epoch amounts to the number of SGD steps required to process $n$
 observations. Since the training set has
 $n=175$, and we specified a `batch_size` of 32 in the construction of  `hit_dm`, an epoch is $175/32=5.5$ SGD steps.
@@ -701,12 +712,13 @@ mnist_logger = CSVLogger('logs', name='MNIST')
 
 ```
  
-Now we are ready to go. The final step is to supply training data, and fit the model.
+Now we are ready to go. The final step is to supply training data, and fit the model. We disable the progress bar below to avoid lengthy output in the browser when running.
 
 ```{python}
 mnist_trainer = Trainer(deterministic=True,
                         max_epochs=30,
                         logger=mnist_logger,
+                        enable_progress_bar=False,
                         callbacks=[ErrorTracker()])
 mnist_trainer.fit(mnist_module,
                   datamodule=mnist_dm)
@@ -751,8 +763,8 @@ mnist_trainer.test(mnist_module,
                    datamodule=mnist_dm)
 ```
     
-Table 10.1 also reports the error rates resulting from LDA (Chapter 4) and multiclass logistic
-regression. For LDA we refer the reader to Section 4.7.3.
+Table~\ref{Ch13:tab:mnist} also reports the error rates resulting from LDA (Chapter~\ref{Ch4:classification}) and multiclass logistic
+regression. For LDA we refer the reader to Section~\ref{Ch4-classification-lab:linear-discriminant-analysis}.
 Although we could use the `sklearn` function `LogisticRegression()` to fit  
 multiclass logistic regression, we are set up here to fit such a model
 with `torch`.
@@ -776,6 +788,7 @@ mlr_logger = CSVLogger('logs', name='MNIST_MLR')
 ```{python}
 mlr_trainer = Trainer(deterministic=True,
                       max_epochs=30,
+                      enable_progress_bar=False,
                       callbacks=[ErrorTracker()])
 mlr_trainer.fit(mlr_module, datamodule=mnist_dm)
 ```
@@ -856,7 +869,7 @@ for idx, (X_ ,Y_) in enumerate(cifar_dm.train_dataloader()):
     
  
 Before we start, we look at some of the training images; similar code produced
-Figure 10.5 on page  406. The example below also illustrates
+Figure~\ref{Ch13:fig:cifar100} on page \pageref{Ch13:fig:cifar100}. The example below also illustrates
 that `TensorDataset` objects can be indexed with integers --- we are choosing
 random images from the training data by indexing `cifar_train`. In order to display correctly,
 we must reorder the dimensions by a call to `np.transpose()`.
@@ -879,7 +892,7 @@ for i in range(5):
 Here the `imshow()` method recognizes from the shape of its argument that it is a 3-dimensional array, with the last dimension indexing the three RGB color channels.
 
 We specify a moderately-sized  CNN for
-demonstration purposes, similar in structure to Figure 10.8.
+demonstration purposes, similar in structure to Figure~\ref{Ch13:fig:DeepCNN}.
 We use several layers, each consisting of  convolution, ReLU, and max-pooling steps.
 We first define a module that defines one of these layers. As in our
 previous examples, we overwrite the `__init__()` and `forward()` methods
@@ -995,6 +1008,7 @@ cifar_logger = CSVLogger('logs', name='CIFAR100')
 cifar_trainer = Trainer(deterministic=True,
                         max_epochs=30,
                         logger=cifar_logger,
+                        enable_progress_bar=False,
                         callbacks=[ErrorTracker()])
 cifar_trainer.fit(cifar_module,
                   datamodule=cifar_dm)
@@ -1051,6 +1065,7 @@ try:
         cifar_module.metrics[name] = metric.to('mps')
     cifar_trainer_mps = Trainer(accelerator='mps',
                                 deterministic=True,
+                                enable_progress_bar=False,
                                 max_epochs=30)
     cifar_trainer_mps.fit(cifar_module,
                           datamodule=cifar_dm)
@@ -1066,7 +1081,7 @@ clauses; if it works, we get the speedup, if it fails, nothing happens.
 
 ## Using Pretrained CNN Models
 We now show how to use a CNN pretrained on the  `imagenet` database to classify natural
-images, and demonstrate how we produced Figure 10.10.
+images, and demonstrate how we produced Figure~\ref{Ch13:fig:homeimages}.
 We copied six JPEG images from a digital photo album into the
 directory `book_images`. These images are available
 from the data section of  <www.statlearning.com>, the ISLP book website. Download `book_images.zip`; when
@@ -1175,7 +1190,7 @@ del(cifar_test,
  
 
 ## IMDB Document Classification
-We now implement models for sentiment classification (Section 10.4)  on the `IMDB`
+We now implement models for sentiment classification (Section~\ref{Ch13:sec:docum-class})  on the `IMDB`
 dataset. As mentioned above code block~8, we are using
 a preprocessed version of the `IMDB` dataset found in the
 `keras` package. As `keras` uses `tensorflow`, a different
@@ -1299,6 +1314,7 @@ imdb_logger = CSVLogger('logs', name='IMDB')
 imdb_trainer = Trainer(deterministic=True,
                        max_epochs=30,
                        logger=imdb_logger,
+                       enable_progress_bar=False,
                        callbacks=[ErrorTracker()])
 imdb_trainer.fit(imdb_module,
                  datamodule=imdb_dm)
@@ -1328,7 +1344,7 @@ matrix that is recognized by `sklearn.`
 ```
 
 Similar to what we did in
-Section 10.9.1,
+Section~\ref{Ch13-deeplearning-lab:single-layer-network-on-hitters-data},
 we construct a series of 50 values for the lasso reguralization parameter $\lambda$.
 
 ```{python}
@@ -1436,16 +1452,16 @@ del(imdb_model,
 
 ## Recurrent Neural Networks
 In this lab we fit the models illustrated in
-Section 10.5.
+Section~\ref{Ch13:sec:recurr-neur-netw}.
 
 
 ### Sequential Models for Document Classification
 Here we  fit a simple  LSTM RNN for sentiment prediction to
-the `IMDb` movie-review data, as discussed in Section 10.5.1.
+the `IMDb` movie-review data, as discussed in Section~\ref{Ch13:sec:sequ-models-docum}.
 For an RNN we use the sequence of words in a document, taking their
 order into account. We loaded the preprocessed 
 data at the beginning of
-Section 10.9.5.
+Section~\ref{Ch13-deeplearning-lab:imdb-document-classification}.
 A script that details the preprocessing can be found in the
 `ISLP` library. Notably, since more than 90% of the documents
 had fewer than 500 words, we set the document length to 500. For
@@ -1519,6 +1535,7 @@ lstm_logger = CSVLogger('logs', name='IMDB_LSTM')
 lstm_trainer = Trainer(deterministic=True,
                        max_epochs=20,
                        logger=lstm_logger,
+                       enable_progress_bar=False,
                        callbacks=[ErrorTracker()])
 lstm_trainer.fit(lstm_module,
                  datamodule=imdb_seq_dm)
@@ -1559,7 +1576,7 @@ del(lstm_model,
  
 
 ### Time Series Prediction
-We now show how to fit the models in Section 10.5.2
+We now show how to fit the models in Section~\ref{Ch13:sec:time-seri-pred}
 for  time series prediction.
 We first load and standardize the data.
 
@@ -1750,6 +1767,7 @@ The results on the test data are very similar to the linear AR model.
 ```{python}
 nyse_trainer = Trainer(deterministic=True,
                        max_epochs=200,
+                       enable_progress_bar=False,
                        callbacks=[ErrorTracker()])
 nyse_trainer.fit(nyse_module,
                  datamodule=nyse_dm)
@@ -1820,8 +1838,9 @@ and evaluate the test error. We see the test $R^2$ is a slight improvement over 
 
 ```{python}
 nl_trainer = Trainer(deterministic=True,
-                         max_epochs=20,
-                         callbacks=[ErrorTracker()])
+                     max_epochs=20,
+                     enable_progress_bar=False,
+                     callbacks=[ErrorTracker()])
 nl_trainer.fit(nl_module, datamodule=day_dm)
 nl_trainer.test(nl_module, datamodule=day_dm) 
 ```
