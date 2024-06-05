@@ -1630,9 +1630,9 @@ For a categorical series in `pandas`, we can form the indicators
 using the `get_dummies()`  method.
 
 ```{python}
-X_day = pd.merge(X, 
-                 pd.get_dummies(NYSE['day_of_week']),
-                 on='date')
+X_day = pd.concat([X, 
+                  pd.get_dummies(NYSE['day_of_week'])],
+                  axis=1).dropna()
 ```
  Note that we do not have
 to reinstantiate the linear regression model
