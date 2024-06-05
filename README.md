@@ -11,7 +11,7 @@
 
 - Daniela Witten
   
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.1.3)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2)
 
 
 Up-to-date version of labs for ISLP. 
@@ -23,7 +23,7 @@ intent is that building a conda environment with
 To install the current version of the requirements run
 
 ```
-pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.1.3/requirements.txt;
+pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2/requirements.txt;
 ```
 
 The labs can now be run from this directory:
@@ -35,7 +35,7 @@ jupyter lab Ch02-statlearning-lab.ipynb
 
 # Zip / tarball
 
-You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.1.3)
+You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.2)
 
 
 ## Contributors ✨
