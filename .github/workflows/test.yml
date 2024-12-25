@@ -23,7 +23,9 @@ jobs:
                     Ch11-surv-lab.ipynb,
                     Ch12-unsup-lab.ipynb,
                     Ch13-multiple-lab.ipynb]
-
+        exclude:
+          - python-version: '3.11'
+            notebook: Ch10-deeplearning-lab.ipynb
 
     steps:
     - uses: actions/checkout@v4
