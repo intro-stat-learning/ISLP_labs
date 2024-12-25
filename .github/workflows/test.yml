@@ -38,5 +38,5 @@ jobs:
     - name: Test
       shell: bash
       run: |
-        uv add pytest nbmake
+        uv pip install pytest nbmake
         uv run pytest --nbmake ${{ matrix.notebook }}
