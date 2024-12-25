@@ -32,10 +32,10 @@ jobs:
     - name: Install the project
       shell: bash
       run: |
-        uv run pip install -r requirements.txt
+        uv pip install -r requirements.txt
 
     - name: Test
       shell: bash
       run: |
-        uv run add pytest nbmake
+        uv add pytest nbmake
         uv run pytest --nbmake ${{ matrix.notebook }}
