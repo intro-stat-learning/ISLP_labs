@@ -1,0 +1,23 @@
+# testing all notebooks
+name: Testing notebooks
+
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        notebook: [ Ch02-statlearn-lab.ipynb,
+                    Ch03-linreg-lab.ipynb]
+
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Test
+      shell: bash
+      run: |
+        uv run add pytest nbmake
+        uv run pytest --nbmake ${{ matrix.notebook }}
