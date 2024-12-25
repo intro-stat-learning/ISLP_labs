@@ -17,7 +17,11 @@ jobs:
                     Ch06-varselect-lab.ipynb,
                     Ch07-nonlin-lab.ipynb,
                     Ch08-baggboost-lab.ipynb,
-                    Ch09-svm-lab.ipynb]
+                    Ch09-svm-lab.ipynb,
+                    Ch10-deeplearning-lab.ipynb,
+                    Ch11-surv-lab.ipynb,
+                    Ch12-unsub-lab.ipynb,
+                    Ch13-multiple-lab.ipynb]
 
 
     steps:
