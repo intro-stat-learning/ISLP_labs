@@ -20,7 +20,7 @@ jobs:
                     Ch09-svm-lab.ipynb,
                     Ch10-deeplearning-lab.ipynb,
                     Ch11-surv-lab.ipynb,
-                    Ch12-unsub-lab.ipynb,
+                    Ch12-unsup-lab.ipynb,
                     Ch13-multiple-lab.ipynb]
 
 
