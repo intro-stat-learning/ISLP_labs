@@ -11,7 +11,10 @@ jobs:
     strategy:
       matrix:
         notebook: [ Ch02-statlearn-lab.ipynb,
-                    Ch03-linreg-lab.ipynb]
+                    Ch03-linreg-lab.ipynb,
+                    Ch04-classification-lab.ipynb,
+                    Ch05-resample-lab.ipynb,
+                    Ch06-varselect-lab.ipynb]
 
 
     steps:
