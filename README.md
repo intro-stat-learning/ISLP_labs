@@ -16,22 +16,19 @@
 
 Up-to-date version of labs for ISLP. 
 
-This repo will track labs for ISLP as their source code changes.  The
-intent is that building a conda environment with
-`requirements.txt` will reproduce the results in this repo.
+This repo will track labs for ISLP as their source code changes. 
 
-To install the current version of the requirements run
+To create a virtual environment based on 'requirements.txt' use
 
-```
-pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2/requirements.txt;
+```bash
+make install
 ```
 
 The labs can now be run from this directory:
 
+```bash
+make jupyter
 ```
-jupyter lab Ch02-statlearning-lab.ipynb
-```
-
 
 # Zip / tarball
 
