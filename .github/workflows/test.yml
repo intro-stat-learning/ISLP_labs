@@ -10,6 +10,7 @@ jobs:
 
     strategy:
       matrix:
+        python-version: ['3.11', '3.12']
         notebook: [ Ch02-statlearn-lab.ipynb,
                     Ch03-linreg-lab.ipynb,
                     Ch04-classification-lab.ipynb,
@@ -31,19 +32,17 @@ jobs:
       uses: astral-sh/setup-uv@v4
       with:
         version: "0.5.11"
-        #enable-cache: 'true'
-        #cache-local-path: '/tmp/cache'
-        #cache-dependency-glob: 'uv.lock'
 
 
     - name: Set up Python
       shell: bash
-      run: make install #uv python install ${{ inputs.python-version || '3.12' }}
+      run: uv python install ${{ matrix.python-version }}
 
-    #- name: Install the project
-    #  shell: bash
-    #  run: |
-    #    uv pip install -r requirements.txt
+
+    - name: Set up Python
+      shell: bash
+      run: make install
+
 
     - name: Test
       shell: bash
