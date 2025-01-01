@@ -5,12 +5,20 @@
     "postCreateCommand": "uv pip install -r requirements.txt",
     "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "jupyter.experiments.enabled": true,
+        "jupyter.alwaysScrollOnNewCell": true,
+        "jupyter.enableNativeInteractiveWindow": true,
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true
     },
     "extensions": [
         "ms-python.python",
-        "ms-toolsai.jupyter"
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.vscode-jupyter-slideshow"
     ]
 }
 
