@@ -23,20 +23,12 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chown -R $USERNAME:$USERNAME /workspace
 
 # Configure Jupyter
-# USER $USERNAME
 WORKDIR /workspace
 
 RUN jupyter notebook --generate-config \
     && echo "c.NotebookApp.token = ''" >> ~/.jupyter/jupyter_notebook_config.py \
     && echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py \
     && echo "c.NotebookApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py
-
-
-
-# Install and configure jupyter
-#RUN jupyter notebook --generate-config && \
-#    echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py && \
-#    echo "c.NotebookApp.password = ''" >> /root/.jupyter/jupyter_notebook_config.py
 
 # Set up health check
 HEALTHCHECK --interval=30s --timeout=3s \
