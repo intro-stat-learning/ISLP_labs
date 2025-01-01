@@ -2,7 +2,7 @@
     "name": "Jupyter Development Container",
     "dockerFile": "Dockerfile",
     "forwardPorts": [8888],
-    "postCreateCommand": "uv pip install --user -r requirements.txt",
+    "postCreateCommand": "uv pip install -r requirements.txt",
     "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.linting.enabled": true,
