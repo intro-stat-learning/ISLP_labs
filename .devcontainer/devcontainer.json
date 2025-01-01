@@ -1,0 +1,16 @@
+{
+    "name": "Jupyter Development Container",
+    "dockerFile": "Dockerfile",
+    "forwardPorts": [8888],
+    "postCreateCommand": "pip3 install --user -r requirements.txt",
+    "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true
+    },
+    "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+    ]
+}
+
