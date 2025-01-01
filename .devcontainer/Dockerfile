@@ -12,8 +12,8 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /workspace
 
-RUN uv venv /workspace/.venv && \
-    uv pip install --no-cache-dir jupyter ipykernel
+#RUN #uv venv /workspace/.venv && \
+RUN uv pip install --system --no-cache-dir jupyter ipykernel
 
 
 # Create a non-root user
@@ -25,7 +25,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 # Setup default python tools in a venv
-ENV PATH="/workspace/.venv/bin:$PATH"
+#ENV PATH="/workspace/.venv/bin:$PATH"
 
 # Install and configure jupyter
 RUN jupyter notebook --generate-config
