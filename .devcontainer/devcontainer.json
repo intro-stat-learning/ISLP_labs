@@ -5,8 +5,8 @@
     "postCreateCommand": "uv pip install -r requirements.txt",
     "postStartCommand": "uv run jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root",
     "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
+        "jupyter.notebookFileRoot": "/workspace",
         "jupyter.experiments.enabled": true,
         "jupyter.alwaysScrollOnNewCell": true,
         "jupyter.enableNativeInteractiveWindow": true,
