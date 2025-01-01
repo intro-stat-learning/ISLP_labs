@@ -40,10 +40,13 @@ jobs:
       shell: bash
       run: uv python install ${{ matrix.python-version }}
 
+    - name: Create venv
+      shell: bash
+      run: uv venv
 
     - name: Set up Python
       shell: bash
-      run: make install
+      run: uv pip install -r requirements.txt
 
 
     - name: Test
