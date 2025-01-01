@@ -1,6 +1,12 @@
 {
     "name": "Jupyter Development Container",
     "dockerFile": "Dockerfile",
+    "hostRequirements": {
+        "cpus": 4
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {}
+    },
     "forwardPorts": [8888],
     "postCreateCommand": "uv pip install --system -r requirements.txt",
     "settings": {
