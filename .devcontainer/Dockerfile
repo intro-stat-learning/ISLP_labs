@@ -10,11 +10,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy UV installer
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Set up working directory
 WORKDIR /workspace
 
 RUN uv venv /workspace/.venv && \
-    uv pip install --no-cache-dir jupyter
+    uv pip install --no-cache-dir jupyter #&& \
+
 
 # Create a non-root user
 ARG USERNAME=vscode
