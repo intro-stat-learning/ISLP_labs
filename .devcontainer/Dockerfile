@@ -1,11 +1,5 @@
 FROM python:3.12-slim
 
-# Install system dependencies
-#RUN apt-get update && apt-get install -y \
-#    git \
-#    curl \
-#    && rm -rf /var/lib/apt/lists/*
-
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -16,20 +10,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy UV installer
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+# Set up working directory
 WORKDIR /workspace
 
-#COPY requirements.txt ./
-
 RUN uv venv /workspace/.venv && \
-    uv pip install --no-cache-dir jupyter #&& \
-    #uv pip install --no-cache-dir -r requirements.txt \
-
-# Install Jupyter and common data science packages
-#RUN pip3 install --no-cache-dir \
-#    jupyter
-
-# Set up working directory
-# WORKDIR /workspace
+    uv pip install --no-cache-dir jupyter
 
 # Create a non-root user
 ARG USERNAME=vscode
