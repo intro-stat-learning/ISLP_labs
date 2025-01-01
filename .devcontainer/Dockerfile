@@ -25,7 +25,6 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 # Setup default python tools in a venv
-#RUN python -m venv /opt/venv
 ENV PATH="/workspace/.venv/bin:$PATH"
 
 # Install and configure jupyter
