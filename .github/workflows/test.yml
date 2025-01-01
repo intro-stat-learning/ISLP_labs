@@ -39,14 +39,14 @@ jobs:
     - name: Set up Python
       shell: bash
       run: |
-        uv pip install --upgrade pip
         uv python install ${{ matrix.python-version }}
+        uv pip install --upgrade pip
 
     - name: Create venv
       shell: bash
       run: uv venv
 
-    - name: Set up Python
+    - name: Install requirements
       shell: bash
       run: uv pip install -r requirements.txt
 
