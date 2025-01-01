@@ -23,13 +23,13 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chown -R $USERNAME:$USERNAME /workspace
 
 # Configure Jupyter
-USER $USERNAME
+# USER $USERNAME
 WORKDIR /workspace
 
 RUN jupyter notebook --generate-config \
     && echo "c.NotebookApp.token = ''" >> ~/.jupyter/jupyter_notebook_config.py \
     && echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py \
-    && echo "c.NotebookApp.allow_root = False" >> ~/.jupyter/jupyter_notebook_config.py
+    && echo "c.NotebookApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py
 
 
 
