@@ -13,7 +13,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 WORKDIR /workspace
 
 RUN uv venv /workspace/.venv && \
-    uv pip install --no-cache-dir jupyter #&& \
+    uv pip install --no-cache-dir jupyter ipykernel
 
 
 # Create a non-root user
