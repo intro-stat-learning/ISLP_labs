@@ -55,4 +55,4 @@ jobs:
     - name: Test
       shell: bash
       run: |
-        .venv/bin/pytest --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
+        .venv/bin/pytest --nbmake --nbmake-timeout=3600 -vv ${{ matrix.notebook }}
