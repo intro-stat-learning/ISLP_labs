@@ -50,7 +50,7 @@ jobs:
       run: |
         uv pip install --upgrade pip
         uv pip install -r requirements.txt
-
+        uv pip install pytest nbmake
 
     - name: Create test configs
       shell: bash
@@ -73,5 +73,4 @@ jobs:
     - name: Test
       shell: bash
       run: |
-        uv pip install pytest nbmake
         PYTHONWARNINGS=always uv run pytest --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
