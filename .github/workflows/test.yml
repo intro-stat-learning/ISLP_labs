@@ -55,4 +55,4 @@ jobs:
     - name: Test
       shell: bash
       run: |
-        uv run pytest -p no:warnings --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
+        .venv/bin/pytest -p no:warnings --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
