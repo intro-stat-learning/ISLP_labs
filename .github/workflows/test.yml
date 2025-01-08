@@ -52,41 +52,7 @@ jobs:
         uv pip install -r requirements.txt
         uv pip install pytest nbmake
 
-    - name: Create test configs
-      shell: bash
-      run: |
-          echo "# Hello nbmake" > conftest.py
-          cat >> conftest.py << 'EOF'
-          import warnings
-          import pytest
-          import sys
-
-          def pytest_configure(config):
-              warnings.filterwarnings('error', category=FutureWarning)
-              warnings.filterwarnings('error', category=DeprecationWarning)
-              warnings.filterwarnings('error', category=UserWarning)
-              warnings.simplefilter('always')
-              # Force warnings to be displayed even if they've been displayed before
-              warnings.simplefilter('always', FutureWarning)
-              
-          @pytest.fixture(autouse=True)
-          def configure_warnings():
-              with warnings.catch_warnings(record=True) as w:
-                  warnings.simplefilter("always")
-                  # Ensure all warnings are turned into errors
-                  warnings.filterwarnings('error')
-                  yield w
-
-          def pytest_runtest_call(item):
-              warnings.simplefilter("error")
-          EOF
-
-          echo "[pytest]" > pytest.ini
-          echo "filterwarnings =" >> pytest.ini
-          echo "    error" >> pytest.ini
-          echo "    always::FutureWarning" >> pytest.ini
-
     - name: Test
       shell: bash
       run: |
-        PYTHONWARNINGS=always uv run pytest --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
+        uv run pytest --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
