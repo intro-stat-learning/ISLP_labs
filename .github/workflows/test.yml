@@ -52,8 +52,26 @@ jobs:
         uv pip install -r requirements.txt
 
 
+    - name: Create test configs
+      shell: bash
+      run: |
+          echo "from nbmake.pytest.plugin import *" > conftest.py
+          cat >> conftest.py << 'EOF'
+          import warnings
+          import pytest
+
+          @pytest.fixture(autouse=True)
+          def configure_warnings():
+              warnings.filterwarnings("always")
+              with warnings.catch_warnings(record=True) as warning_list:
+                  yield warning_list
+
+          def pytest_runtest_call(item):
+              warnings.simplefilter("always")
+          EOF
+
     - name: Test
       shell: bash
       run: |
         uv pip install pytest nbmake
-        PYTHONWARNINGS=always uv run pytest -W always --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
+        PYTHONWARNINGS=always uv run pytest --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
