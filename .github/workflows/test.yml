@@ -55,8 +55,7 @@ jobs:
     - name: Create test configs
       shell: bash
       run: |
-          #echo "from nbmake.pytest.plugin import *" > conftest.py
-          echo "#Hello nbmake" > conftest.py
+          echo "# Hello nbmake" > conftest.py
           cat >> conftest.py << 'EOF'
           import warnings
           import pytest
