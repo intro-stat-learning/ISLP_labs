@@ -56,4 +56,4 @@ jobs:
       shell: bash
       run: |
         uv pip install pytest nbmake
-        uv run pytest --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
+        PYTHONWARNINGS=always uv run pytest -W always --nbmake --nbmake-timeout=3600 ${{ matrix.notebook }}
