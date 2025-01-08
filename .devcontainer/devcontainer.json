@@ -1,34 +1,3 @@
-//{
-//    "name": "Jupyter Development Container",
-//    "dockerFile": "Dockerfile",
-//    "hostRequirements": {
-//        "cpus": 4
-//    },
-//    "features": {
-//        "ghcr.io/devcontainers/features/common-utils:2": {}
-//    },
-//    "forwardPorts": [8888],
-//    "postCreateCommand": "uv pip install --system -r requirements.txt",
-//    "settings": {
-//        "python.defaultInterpreterPath": "/usr/local/bin/python",
-//        "jupyter.notebookFileRoot": "/workspace",
-//        "jupyter.experiments.enabled": true,
-//        "jupyter.alwaysScrollOnNewCell": true,
-//        "jupyter.enableNativeInteractiveWindow": true,
-//        "python.linting.enabled": true,
-//        "python.linting.pylintEnabled": true
-//    },
-//    "extensions": [
-//        "ms-python.python",
-//        "ms-toolsai.jupyter",
-//        "ms-toolsai.jupyter-keymap",
-//        "ms-toolsai.jupyter-renderers",
-//        "ms-toolsai.vscode-jupyter-cell-tags",
-//        "ms-toolsai.vscode-jupyter-slideshow"
-//    ]
-//}
-//
-
 {
     "name": "Jupyter Environment",
     "image": "mcr.microsoft.com/devcontainers/python:3",
@@ -39,7 +8,11 @@
         "vscode": {
             "extensions": [
                 "ms-python.python",
-                "ms-toolsai.jupyter"
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-keymap",
+                "ms-toolsai.jupyter-renderers",
+                "ms-toolsai.vscode-jupyter-cell-tags",
+                "ms-toolsai.vscode-jupyter-slideshow"
             ]
         }
     },
