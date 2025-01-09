@@ -5,6 +5,9 @@ on:
   #    - '**.ipynb'
   workflow_dispatch:  # Allow manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   convert:
     runs-on: ubuntu-latest
