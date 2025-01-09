@@ -1,4 +1,9 @@
 # ISLP_labs
+
+[![Open in GitHub Codespaces tschm repo](https://github.com/codespaces/badge.svg)](https://codespaces.new/tschm/ISLP_Labs)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/intro-stat-learning/ISLP_Labs)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
