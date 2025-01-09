@@ -48,3 +48,9 @@ jobs:
         name: rmd-files
         path: artifacts/rmd/
         retention-days: 7
+
+    - name: GitHub Pages action
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: rmd               # The branch the action should deploy to.
+        folder: artifacts/rmd     # The folder the action should deploy.
