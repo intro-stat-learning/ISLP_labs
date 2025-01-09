@@ -18,6 +18,6 @@
     },
     "onCreateCommand": ".devcontainer/startup.sh",
     "forwardPorts": [8888],
-    "postStartCommand": "nohup bash -c 'sleep 5 && python3 -m webbrowser -t \"http://localhost:8888\" & uv run jupyter lab --ip=0.0.0.0 --port=8888 --NotebookApp.token=\"\" --NotebookApp.password=\"\"'",
-    "waitFor": "postStartCommand"
+    "postStartCommand": "uv run jupyter lab --ip=0.0.0.0 --port=8888 --NotebookApp.token='' --NotebookApp.password=''"
+    
 }
