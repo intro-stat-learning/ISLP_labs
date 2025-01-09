@@ -27,6 +27,8 @@ jobs:
           - python-version: '3.11'
             notebook: Ch10-deeplearning-lab.ipynb
 
+      fail-fast: false
+
     steps:
     - uses: actions/checkout@v4
 
