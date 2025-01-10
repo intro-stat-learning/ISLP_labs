@@ -2,7 +2,7 @@
 
 venv:
 	@curl -LsSf https://astral.sh/uv/install.sh | sh
-	@uv venv
+	@uv venv --python 3.12
 
 
 .PHONY: install
