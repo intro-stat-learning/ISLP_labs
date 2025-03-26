@@ -1,7 +1,5 @@
 # ISLP_labs
 
-[![Open in GitHub Codespaces tschm repo](https://github.com/codespaces/badge.svg)](https://codespaces.new/tschm/ISLP_Labs)
-
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/intro-stat-learning/ISLP_Labs)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
