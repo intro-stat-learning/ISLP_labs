@@ -1,7 +1,8 @@
 name: Bump version and publish
 
 on:
-  workflow_dispatch:
+  #push:
+  workflow_dispatch
 
 permissions:
   contents: write
