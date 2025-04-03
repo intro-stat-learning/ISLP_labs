@@ -34,7 +34,7 @@ from sklearn.model_selection import \
      (train_test_split,
       GridSearchCV)
 ```
- 
+
 
 ### Torch-Specific Imports
 There are a number of imports for `torch`. (These are not
@@ -49,7 +49,7 @@ from torch.optim import RMSprop
 from torch.utils.data import TensorDataset
 
 ```
- 
+
 There are several other helper packages for `torch`. For instance,
 the `torchmetrics` package has utilities to compute
 various metrics to evaluate performance when fitting
@@ -69,7 +69,7 @@ from torchmetrics import (MeanAbsoluteError,
 from torchinfo import summary
 
 ```
- 
+
 The package `pytorch_lightning` is a somewhat higher-level
 interface to `torch` that simplifies the specification and
 fitting of
@@ -81,7 +81,7 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import CSVLogger
 
 ```
- 
+
 In order to reproduce results we use `seed_everything()`. We will also instruct `torch` to use deterministic algorithms
 where possible.
 
@@ -91,7 +91,7 @@ seed_everything(0, workers=True)
 torch.use_deterministic_algorithms(True, warn_only=True)
 
 ```
- 
+
 We will use several datasets shipped with `torchvision` for our
 examples: a pretrained network for image classification,
 as well as some transforms used for preprocessing.
@@ -124,7 +124,7 @@ from ISLP.torch import (SimpleDataModule,
                         rec_num_workers)
 
 ```
- 
+
 In addition we have included some helper
 functions to load the
 `IMDb` database, as well as a lookup that maps integers
@@ -158,7 +158,7 @@ from glob import glob
 import json
 
 ```
- 
+
 
 ## Single Layer Network on Hitters Data
 We start by fitting the models in Section~\ref{Ch13:sec:when-use-deep} on the `Hitters` data.
@@ -212,7 +212,7 @@ hit_lm = LinearRegression().fit(X_train, Y_train)
 Yhat_test = hit_lm.predict(X_test)
 np.abs(Yhat_test - Y_test).mean()
 ```
- 
+
 Next we fit the lasso using `sklearn`. We are using
 mean absolute error to select and evaluate a model, rather than mean squared error.
 The specialized solver we used in Section~\ref{Ch6-varselect-lab:lab-2-ridge-regression-and-the-lasso} uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.  
@@ -251,7 +251,7 @@ grid = GridSearchCV(standard_lasso,
                     scoring='neg_mean_absolute_error')
 grid.fit(X_train, Y_train);
 ```
- 
+
 We extract the lasso model with best cross-validated mean absolute error, and evaluate its
 performance on `X_test` and `Y_test`, which were not used in
 cross-validation.
@@ -290,7 +290,7 @@ class HittersModel(nn.Module):
         return torch.flatten(self.sequential(x))
 
 ```
- 
+
 The `class` statement identifies the code chunk as a
 declaration for a class `HittersModel`
 that inherits from the  base class `nn.Module`. This base
@@ -324,7 +324,7 @@ to disable dropout for when we want to evaluate the model on test data.
 hit_model = HittersModel(X.shape[1])
 
 ```
- 
+
 The object `self.sequential` is a composition of four maps. The
 first maps the 19 features of `Hitters` to 50 dimensions, introducing $50\times 19+50$ parameters
 for the weights and *intercept*  of the map (often called the *bias*). This layer
@@ -334,7 +334,7 @@ trainable parameters is therefore $50\times 19+50+50+1=1051$.
 
     
 
- 
+
 The package `torchinfo` provides a `summary()` function that neatly summarizes
 this information. We specify the size of the input and see the size
 of each tensor as it passes through layers of the network. 
@@ -375,7 +375,7 @@ Y_test_t = torch.tensor(Y_test.astype(np.float32))
 hit_test = TensorDataset(X_test_t, Y_test_t)
 
 ```
- 
+
 Finally, this dataset is passed to a `DataLoader()` which ultimately
 passes data into our network. While this may seem
 like a lot of overhead, this structure is helpful for more
@@ -396,7 +396,7 @@ workers might be reasonable (here the max was 16).
 ```{python}
 max_num_workers = rec_num_workers()
 ```
- 
+
 The general training setup in `pytorch_lightning` involves
 training, validation and test data. These are each
 represented by different data loaders. During each epoch,
@@ -421,7 +421,7 @@ hit_dm = SimpleDataModule(hit_train,
                           validation=hit_test)
 
 ```
- 
+
 Next we must provide a `pytorch_lightning` module that controls
 the steps performed during the training process. We provide methods for our
 `SimpleModule()` that simply record the value
@@ -435,7 +435,7 @@ hit_module = SimpleModule.regression(hit_model,
                            metrics={'mae':MeanAbsoluteError()})
 
 ```
- 
+
  By using the `SimpleModule.regression()` method,  we indicate that we will use squared-error loss as in
 (\ref{Ch13:eq:4}).
 We have also asked for mean absolute error to be tracked as well
@@ -449,7 +449,7 @@ we will not cover those here in detail.
 ```{python}
 hit_logger = CSVLogger('logs', name='hitters')
 ```
- 
+
 Finally we are ready to train our model and log the results. We
 use the `Trainer()` object from `pytorch_lightning`
 to do this work. The argument `datamodule=hit_dm` tells the trainer
@@ -486,8 +486,8 @@ data using the `test()` method of our trainer.
 hit_trainer.test(hit_module, datamodule=hit_dm)
 
 ```
-    
- 
+
+
 The results of the fit have been logged into a CSV file. We can find the
 results specific to this run in the `experiment.metrics_file_path`
 attribute of our logger. Note that each time the model is fit, the logger will output
@@ -543,7 +543,7 @@ ax.set_ylim([0, 400])
 ax.set_xticks(np.linspace(0, 50, 11).astype(int));
 ```
 
- 
+
 We can predict directly from the final model, and
 evaluate its performance on the test data.
 Before fitting, we call the `eval()` method
@@ -561,7 +561,7 @@ preds = hit_module(X_test_t)
 torch.abs(Y_test_t - preds).mean()
 ```
     
- 
+
 
 ### Cleanup
 In setting up our data module, we had initiated
@@ -582,7 +582,7 @@ del(Hitters,
     hit_trainer, hit_module)
 
 ```
- 
+
 
 ## Multilayer Network on the MNIST Digit Data
 The `torchvision` package comes with a number of example datasets,
@@ -601,7 +601,7 @@ data will be downloaded the first time this function is executed, and stored in 
 mnist_train
 
 ```
-    
+
 There are 60,000 images in the training data and 10,000 in the test
 data. The images are $28\times 28$, and stored as a matrix of pixels. We
 need to transform each one into a vector.
@@ -627,7 +627,7 @@ mnist_dm = SimpleDataModule(mnist_train,
                             batch_size=256)
 
 ```
- 
+
 Let’s take a look at the data that will get fed into our network. We loop through the first few
 chunks of the test dataset, breaking after 2 batches:
 
@@ -639,8 +639,8 @@ for idx, (X_ ,Y_) in enumerate(mnist_dm.train_dataloader()):
         break
 
 ```
-    
- 
+
+
 We see that the $X$ for each batch consists of 256 images of size `1x28x28`.
 Here the `1` indicates a single channel (greyscale). For RGB images such as `CIFAR100` below,
 we will see that the `1` in the size will be replaced by `3` for the three RGB channels.
@@ -667,7 +667,7 @@ class MNISTModel(nn.Module):
     def forward(self, x):
         return self._forward(x)
 ```
- 
+
 We see that in the first layer, each `1x28x28` image is flattened, then mapped to
 256 dimensions where we apply a ReLU activation with 40% dropout.
 A second layer maps the first layer’s output down to
@@ -679,14 +679,14 @@ the 128 dimensions are mapped down to 10, the number of classes in the
 mnist_model = MNISTModel()
 
 ```
- 
+
 We can check that the model produces output of expected size based
 on our existing batch `X_` above.
 
 ```{python}
 mnist_model(X_).size()
 ```
- 
+
 Let’s take a look at the summary of the model. Instead of an `input_size` we can pass
 a tensor of correct shape. In this case, we pass through the final
 batched `X_` from above.
@@ -711,7 +711,7 @@ mnist_module = SimpleModule.classification(mnist_model,
 mnist_logger = CSVLogger('logs', name='MNIST')
 
 ```
- 
+
 Now we are ready to go. The final step is to supply training data, and fit the model. We disable the progress bar below to avoid lengthy output in the browser when running.
 
 ```{python}
@@ -735,7 +735,7 @@ alternative to actually supplying validation data, like we did for the `Hitters`
 SGD  uses batches
 of 256 observations in computing the gradient, and doing the
 arithmetic, we see that an epoch corresponds to 188 gradient steps.
- 
+
 
 `SimpleModule.classification()` includes
 an accuracy metric by default. Other
@@ -762,7 +762,7 @@ Once again we evaluate the accuracy using the `test()` method of our trainer. Th
 mnist_trainer.test(mnist_module,
                    datamodule=mnist_dm)
 ```
-    
+
 Table~\ref{Ch13:tab:mnist} also reports the error rates resulting from LDA (Chapter~\ref{Ch4:classification}) and multiclass logistic
 regression. For LDA we refer the reader to Section~\ref{Ch4-classification-lab:linear-discriminant-analysis}.
 Although we could use the `sklearn` function `LogisticRegression()` to fit  
@@ -840,7 +840,7 @@ cifar_train = TensorDataset(cifar_train_X,
 cifar_test = TensorDataset(cifar_test_X,
                             torch.tensor(cifar_test.targets))
 ```
- 
+
 The `CIFAR100` dataset consists of 50,000 training images, each represented by a three-dimensional tensor:
 each three-color image is represented as a set of three channels, each of which consists of
 $32\times 32$ eight-bit pixels. We standardize as we did for the
@@ -866,8 +866,8 @@ for idx, (X_ ,Y_) in enumerate(cifar_dm.train_dataloader()):
         break
 
 ```
-    
- 
+
+
 Before we start, we look at some of the training images; similar code produced
 Figure~\ref{Ch13:fig:cifar100} on page \pageref{Ch13:fig:cifar100}. The example below also illustrates
 that `TensorDataset` objects can be indexed with integers --- we are choosing
@@ -918,7 +918,7 @@ class BuildingBlock(nn.Module):
         return self.pool(self.activation(self.conv(x)))
 
 ```
- 
+
 Notice that we used the `padding = "same"` argument to
 `nn.Conv2d()`, which ensures that the output channels have the
 same dimension as the input channels. There are 32 channels in the first
@@ -955,7 +955,7 @@ class CIFARModel(nn.Module):
         return self.output(val)
 
 ```
- 
+
 We  build the model and look at the summary. (We had created examples of `X_` earlier.)
 
 ```{python}
@@ -1014,7 +1014,7 @@ cifar_trainer.fit(cifar_module,
                   datamodule=cifar_dm)
 
 ```
- 
+
 This model can take 10 minutes or more to run and achieves about 42% accuracy on the test
 data. Although this is not terrible for 100-class data (a random
 classifier gets 1% accuracy), searching the web we see results around
@@ -1043,7 +1043,7 @@ cifar_trainer.test(cifar_module,
                    datamodule=cifar_dm)
 
 ```
- 
+
 
 ### Hardware Acceleration
 As deep learning has become ubiquitous in machine learning, hardware
@@ -1105,8 +1105,8 @@ imgs = torch.stack([torch.div(crop(resize(read_image(f))), 255)
 imgs = normalize(imgs)
 imgs.size()
 ```
-    
- 
+
+
 We now set up the trained network with the weights we read in code block~6. The model has 50 layers, with a fair bit of complexity.
 
 ```{python}
@@ -1133,7 +1133,7 @@ We now feed our six images through the fitted network.
 img_preds = resnet_model(imgs)
 
 ```
- 
+
 Let’s look at the predicted probabilities for each of the top 3 choices. First we compute
 the probabilities by applying the softmax to the logits in `img_preds`. Note that
 we have had to call the `detach()` method on the tensor `img_preds` in order to convert
@@ -1144,7 +1144,7 @@ img_probs = np.exp(np.asarray(img_preds.detach()))
 img_probs /= img_probs.sum(1)[:,None]
 
 ```
- 
+
 In order to see the class labels, we must download the index file associated with `imagenet`. {This is avalable from the book website and  [s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json](https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json).}
 
 ```{python}
@@ -1156,7 +1156,7 @@ class_labels = class_labels.set_index('idx')
 class_labels = class_labels.sort_index()
 
 ```
- 
+
 We’ll now construct a data frame for each image file
 with the labels with the three highest probabilities as
 estimated by the model above.
@@ -1170,8 +1170,8 @@ for i, imgfile in enumerate(imgfiles):
     print(img_df.reset_index().drop(columns=['idx']))
 
 ```
-    
- 
+
+
 We see that the model
 is quite confident about `Flamingo.jpg`, but a little less so for the
 other images.
@@ -1187,7 +1187,7 @@ del(cifar_test,
     cifar_optimizer,
     cifar_trainer)
 ```
- 
+
 
 ## IMDB Document Classification
 We now implement models for sentiment classification (Section~\ref{Ch13:sec:docum-class})  on the `IMDB`
@@ -1285,7 +1285,7 @@ summary(imdb_model,
                    'num_params'])
 
 ```
- 
+
 We’ll again use
 a smaller learning rate for these data,
 hence we pass an `optimizer` to the
@@ -1304,7 +1304,7 @@ imdb_module = SimpleModule.binary_classification(
                          optimizer=imdb_optimizer)
 
 ```
- 
+
 Having loaded the datasets into a data module
 and created a `SimpleModule`, the remaining steps
 are familiar.
@@ -1319,14 +1319,14 @@ imdb_trainer = Trainer(deterministic=True,
 imdb_trainer.fit(imdb_module,
                  datamodule=imdb_dm)
 ```
- 
+
 Evaluating the test error yields roughly 86% accuracy.
 
 ```{python}
 test_results = imdb_trainer.test(imdb_module, datamodule=imdb_dm)
 test_results
 ```
- 
+
 
 ### Comparison to Lasso
 We now fit a lasso logistic regression model
@@ -1379,7 +1379,7 @@ for l in lam_val:
     intercepts.append(logit.intercept_)
 
 ```
- 
+
 The coefficient and intercepts have an extraneous dimension which can be removed
 by the `np.squeeze()`  function.
 
@@ -1392,7 +1392,7 @@ We’ll now make a plot to compare our neural network results with the
 lasso.
 
 ```{python}
-%%capture
+# %%capture
 fig, axes = subplots(1, 2, figsize=(16, 8), sharey=True)
 for ((X_, Y_),
      data_,
@@ -1448,7 +1448,7 @@ del(imdb_model,
     imdb_train,
     imdb_test)
 ```
- 
+
 
 ## Recurrent Neural Networks
 In this lab we fit the models illustrated in
@@ -1478,7 +1478,7 @@ imdb_seq_dm = SimpleDataModule(imdb_seq_train,
                                )
 
 ```
- 
+
 The first layer of the RNN is an embedding layer of size 32, which will be
 learned during  training. This layer one-hot encodes  each document
 as a matrix of dimension $500 \times 10,003$, and then maps these
@@ -1490,7 +1490,7 @@ matrix of size $10,003\times 32$; each of the 500 integers in the
 document are then mapped to the appropriate 32 real numbers by
 indexing the appropriate rows of this matrix.
 
- 
+
 The second  layer is an LSTM with 32 units, and the output
 layer is a single logit for the binary classification task.
 In the last line of the `forward()` method below,
@@ -1521,7 +1521,7 @@ summary(lstm_model,
                    'num_params'])
 
 ```
-    
+
 The 10,003 is suppressed in the summary, but we see it in the
 parameter count, since $10,003\times 32=320,096$.
 
@@ -1547,7 +1547,7 @@ track the test performance as the network is fit, and see that it attains 85% ac
 ```{python}
 lstm_trainer.test(lstm_module, datamodule=imdb_seq_dm)
 ```
-    
+
 We once again show the learning progress, followed by cleanup.
 
 ```{python}
@@ -1573,7 +1573,7 @@ del(lstm_model,
     imdb_seq_test)
 
 ```
- 
+
 
 ### Time Series Prediction
 We now show how to fit the models in Section~\ref{Ch13:sec:time-seri-pred}
@@ -1590,7 +1590,7 @@ X = pd.DataFrame(StandardScaler(
                  index=NYSE.index)
 
 ```
- 
+
 Next we set up the lagged versions of the data, dropping
 any rows with missing values using the `dropna()`  method.
 
@@ -1604,7 +1604,7 @@ X.insert(len(X.columns), 'train', NYSE['train'])
 X = X.dropna()
 
 ```
- 
+
 Finally, we extract the response, training indicator, and drop the current day’s `DJ_return` and
 `log_volatility` to predict only from previous day’s data.
 
@@ -1614,8 +1614,8 @@ X = X.drop(columns=['train'] + cols)
 X.columns
 
 ```
-    
- 
+
+
 We first fit a simple linear model and compute the $R^2$ on the test data using
 the `score()`  method.
 
@@ -1624,7 +1624,7 @@ M = LinearRegression()
 M.fit(X[train], Y[train])
 M.score(X[~train], Y[~train])
 ```
- 
+
 We refit this model, including the factor variable `day_of_week`.
 For a categorical series in `pandas`, we can form the indicators
 using the `get_dummies()`  method.
@@ -1697,7 +1697,7 @@ class NYSEModel(nn.Module):
         return torch.flatten(val)
 nyse_model = NYSEModel()
 ```
- 
+
 We  fit the model in a similar fashion to previous networks. We
 supply the `fit` function with test data as validation data, so that when
 we monitor its progress and plot the history function we can see the
@@ -1716,7 +1716,7 @@ for mask in [train, ~train]:
 nyse_train, nyse_test = datasets
 
 ```
- 
+
 Following our usual pattern, we inspect the summary.
 
 ```{python}
@@ -1747,7 +1747,7 @@ for idx, (x, y) in enumerate(nyse_dm.train_dataloader()):
         break
 
 ```
- 
+
 We follow our previous example for setting up a trainer for a
 regression problem, requesting the $R^2$ metric
 to be be computed at each epoch.
@@ -1760,7 +1760,7 @@ nyse_module = SimpleModule.regression(nyse_model,
                                       metrics={'r2':R2Score()})
 
 ```
- 
+
 Fitting the model should by now be familiar.
 The results on the test data are very similar to the linear AR model. 
 
@@ -1775,7 +1775,7 @@ nyse_trainer.test(nyse_module,
                   datamodule=nyse_dm)
 ```
 
- 
+
 We could also fit a model without the `nn.RNN()` layer by just
 using a `nn.Flatten()` layer instead. This would be a nonlinear AR model. If in addition we excluded the 
 hidden layer, this would be equivalent to our earlier linear AR model.  
@@ -1795,7 +1795,7 @@ for mask in [train, ~train]:
     datasets.append(TensorDataset(X_day_t, Y_t))
 day_train, day_test = datasets
 ```
- 
+
 Creating a data module follows a familiar pattern.
 
 ```{python}
@@ -1806,7 +1806,7 @@ day_dm = SimpleDataModule(day_train,
                           batch_size=64)
 
 ```
- 
+
 We build a `NonLinearARModel()` that takes as input the 20 features and a hidden layer  with 32 units. The remaining steps are familiar.
 
 ```{python}
@@ -1832,7 +1832,7 @@ nl_module = SimpleModule.regression(nl_model,
                                         metrics={'r2':R2Score()})
 
 ```
- 
+
 We continue with the usual training steps, fit the model,
 and evaluate the test error. We see the test $R^2$ is a slight improvement over the linear AR model that also includes `day_of_week`.
 

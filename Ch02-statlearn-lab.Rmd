@@ -9,8 +9,8 @@
 
 
 
- 
- 
+
+
 ## Getting Started
 
 
@@ -66,21 +66,21 @@ inputs. For example, the
 print('fit a model with', 11, 'variables')
 
 ```
-    
+
  The following command will provide information about the `print()` function.
 
 ```{python}
 print?
 
 ```
- 
+
 Adding two integers in `Python` is pretty intuitive.
 
 ```{python}
 3 + 5
 
 ```
-    
+
 In `Python`, textual data is handled using
 *strings*. For instance, `"hello"` and
 `'hello'`
@@ -91,7 +91,7 @@ We can concatenate them using the addition `+` symbol.
 "hello" + " " + "world"
 
 ```
-    
+
  A string is actually a type of *sequence*: this is a generic term for an ordered list. 
  The three most important types of sequences are lists, tuples, and strings.  
 We introduce lists now. 
@@ -107,7 +107,7 @@ x = [3, 4, 5]
 x
 
 ```
-    
+
 Note that we used the brackets
 `[]` to construct this list. 
 
@@ -119,14 +119,14 @@ y = [4, 9, 7]
 x + y
 
 ```
-    
+
 The result may appear slightly counterintuitive: why did `Python` not add the entries of the lists
 element-by-element? 
  In `Python`, lists hold *arbitrary* objects, and  are added using  *concatenation*. 
  In fact, concatenation is the behavior that we saw earlier when we entered `"hello" + " " + "world"`. 
  
- 
- 
+
+
 This example reflects the fact that 
  `Python` is a general-purpose programming language. Much of `Python`'s  data-specific
 functionality comes from other packages, notably `numpy`
@@ -141,8 +141,8 @@ See [docs.scipy.org/doc/numpy/user/quickstart.html](https://docs.scipy.org/doc/n
 As mentioned earlier, this book makes use of functionality   that is contained in the `numpy` 
  *library*, or *package*. A package is a collection of modules that are not necessarily included in 
  the base `Python` distribution. The name `numpy` is an abbreviation for *numerical Python*. 
-  
-  
+
+
   To access `numpy`, we must first `import` it.
 
 ```{python}
@@ -186,7 +186,7 @@ x
     
 
 
- 
+
 
 The object `x` has several 
 *attributes*, or associated objects. To access an attribute of `x`, we type `x.attribute`, where we replace `attribute`
@@ -196,7 +196,7 @@ For instance, we can access the `ndim` attribute of  `x` as follows.
 ```{python}
 x.ndim
 ```
-    
+
 The output indicates that `x` is a two-dimensional array.  
 Similarly, `x.dtype` is the *data type* attribute of the object `x`. This indicates that `x` is 
 comprised of 64-bit integers:
@@ -238,7 +238,7 @@ at its `shape` attribute.
 x.shape
 
 ```
-    
+
 
 A *method* is a function that is associated with an
 object. 
@@ -275,10 +275,10 @@ x_reshape = x.reshape((2, 3))
 print('reshaped x:\n', x_reshape)
 
 ```
- 
+
 The previous output reveals that `numpy` arrays are specified as a sequence
 of *rows*. This is  called *row-major ordering*, as opposed to *column-major ordering*. 
- 
+
 
 `Python` (and hence `numpy`) uses 0-based
 indexing. This means that to access the top left element of `x_reshape`, 
@@ -308,13 +308,13 @@ print('x_reshape after we modify its top left element:\n', x_reshape)
 print('x after we modify top left element of x_reshape:\n', x)
 
 ```
-    
+
 Modifying `x_reshape` also modified `x` because the two objects occupy the same space in memory.
  
 
     
 
- 
+
 We just saw that we can modify an element of an array. Can we also modify a tuple? It turns out that we cannot --- and trying to do so introduces
 an *exception*, or error.
 
@@ -323,8 +323,8 @@ my_tuple = (3, 4, 5)
 my_tuple[0] = 2
 
 ```
-    
- 
+
+
 We now briefly mention some attributes of arrays that will come in handy. An array's `shape` attribute contains its dimension; this is always a tuple.
 The  `ndim` attribute yields the number of dimensions, and `T` provides its transpose. 
 
@@ -332,7 +332,7 @@ The  `ndim` attribute yields the number of dimensions, and `T` provides its tran
 x_reshape.shape, x_reshape.ndim, x_reshape.T
 
 ```
-    
+
 Notice that the three individual outputs `(2,3)`, `2`, and `array([[5, 4],[2, 5], [3,6]])` are themselves output as a tuple. 
  
 We will often want to apply functions to arrays. 
@@ -343,22 +343,22 @@ square root of the entries using the `np.sqrt()` function:
 np.sqrt(x)
 
 ```
-    
+
 We can also square the elements:
 
 ```{python}
 x**2
 
 ```
-    
+
 We can compute the square roots using the same notation, raising to the power of $1/2$ instead of 2.
 
 ```{python}
 x**0.5
 
 ```
-    
- 
+
+
 Throughout this book, we will often want to generate random data. 
 The `np.random.normal()`  function generates a vector of random
 normal variables. We can learn more about this function by looking at the help page, via a call to `np.random.normal?`.
@@ -375,7 +375,7 @@ x = np.random.normal(size=50)
 x
 
 ```
-    
+
 We create an array `y` by adding an independent $N(50,1)$ random variable to each element of `x`.
 
 ```{python}
@@ -387,7 +387,7 @@ correlation between `x` and `y`.
 ```{python}
 np.corrcoef(x, y)
 ```
-    
+
 If you're following along in your own `Jupyter` notebook, then you probably noticed that you got a different set of results when you ran the past few 
 commands. In particular, 
  each
@@ -400,7 +400,7 @@ print(np.random.normal(scale=5, size=2))
 ```
     
 
- 
+
 In order to ensure that our code provides exactly the same results
 each time it is run, we can set a *random seed* 
 using the 
@@ -416,7 +416,7 @@ print(rng.normal(scale=5, size=2))
 rng2 = np.random.default_rng(1303)
 print(rng2.normal(scale=5, size=2)) 
 ```
-    
+
 Throughout the labs in this book, we use `np.random.default_rng()`  whenever we
 perform calculations involving random quantities within `numpy`.  In principle, this
 should enable the reader to exactly reproduce the stated results. However, as new versions of `numpy` become available, it is possible
@@ -439,7 +439,7 @@ np.mean(y), y.mean()
 ```{python}
 np.var(y), y.var(), np.mean((y - y.mean())**2)
 ```
-    
+
 
 Notice that by default `np.var()` divides by the sample size $n$ rather
 than $n-1$; see the `ddof` argument in `np.var?`.
@@ -448,7 +448,7 @@ than $n-1$; see the `ddof` argument in `np.var?`.
 ```{python}
 np.sqrt(np.var(y)), np.std(y)
 ```
-    
+
 The `np.mean()`,  `np.var()`, and `np.std()` functions can also be applied to the rows and columns of a matrix. 
 To see this, we construct a $10 \times 3$ matrix of $N(0,1)$ random variables, and consider computing its row sums. 
 
@@ -462,14 +462,14 @@ Since arrays are row-major ordered, the first axis, i.e. `axis=0`, refers to its
 ```{python}
 X.mean(axis=0)
 ```
-    
+
 The following yields the same result.
 
 ```{python}
 X.mean(0)
 ```
     
- 
+
 
 ## Graphics
 In `Python`, common practice is to use  the library
@@ -535,7 +535,7 @@ As an alternative, we could use the  `ax.scatter()` function to create a scatter
 fig, ax = subplots(figsize=(8, 8))
 ax.scatter(x, y, marker='o');
 ```
- 
+
 Notice that in the code blocks above, we have ended
 the last line with a semicolon. This prevents `ax.plot(x, y)` from printing
 text  to the notebook. However, it does not prevent a plot from being produced. 
@@ -576,7 +576,7 @@ fig.set_size_inches(12,3)
 fig
 ```
  
- 
+
 
 Occasionally we will want to create several plots within a figure. This can be
 achieved by passing additional arguments to `subplots()`. 
@@ -605,8 +605,8 @@ Type  `subplots?` to learn more about
 
 
 
- 
- 
+
+
 To save the output of `fig`, we call its `savefig()`
 method. The argument `dpi` is the dots per inch, used
 to determine how large the figure will be in pixels.
@@ -616,7 +616,7 @@ fig.savefig("Figure.png", dpi=400)
 fig.savefig("Figure.pdf", dpi=200);
 
 ```
- 
+
 
 We can continue to modify `fig` using step-by-step updates; for example, we can modify the range of the $x$-axis, re-save the figure, and even re-display it. 
 
@@ -668,7 +668,7 @@ fig, ax = subplots(figsize=(8, 8))
 ax.imshow(f);
 
 ```
- 
+
 
 ## Sequences and Slice Notation
 
@@ -682,8 +682,8 @@ seq1 = np.linspace(0, 10, 11)
 seq1
 
 ```
-    
- 
+
+
 The function `np.arange()`
  returns a sequence of numbers spaced out by `step`. If `step` is not specified, then a default value of $1$ is used. Let's create a sequence
  that starts at $0$ and ends at $10$.
@@ -693,7 +693,7 @@ seq2 = np.arange(0, 10)
 seq2
 
 ```
-    
+
 Why isn't $10$ output above? This has to do with *slice* notation in `Python`. 
 Slice notation  
 is used to index sequences such as lists, tuples and arrays.
@@ -735,7 +735,7 @@ See the documentation `slice?` for useful options in creating slices.
 
     
 
- 
+
 
 ## Indexing Data
 To begin, we  create a two-dimensional `numpy` array.
@@ -745,7 +745,7 @@ A = np.array(np.arange(16)).reshape((4, 4))
 A
 
 ```
-    
+
 Typing `A[1,2]` retrieves the element corresponding to the second row and third
 column. (As usual, `Python` indexes from $0.$)
 
@@ -753,7 +753,7 @@ column. (As usual, `Python` indexes from $0.$)
 A[1,2]
 
 ```
-    
+
 The first number after the open-bracket symbol `[`
  refers to the row, and the second number refers to the column. 
 
@@ -765,7 +765,7 @@ The first number after the open-bracket symbol `[`
 A[[1,3]]
 
 ```
-    
+
 To select the first and third columns, we pass in  `[0,2]` as the second argument in the square brackets.
 In this case we need to supply the first argument `:` 
 which selects all rows.
@@ -774,7 +774,7 @@ which selects all rows.
 A[:,[0,2]]
 
 ```
-    
+
 Now, suppose that we want to select the submatrix made up of the second and fourth 
 rows as well as the first and third columns. This is where
 indexing gets slightly tricky. It is natural to try  to use lists to retrieve the rows and columns:
@@ -783,21 +783,21 @@ indexing gets slightly tricky. It is natural to try  to use lists to retrieve th
 A[[1,3],[0,2]]
 
 ```
-    
+
  Oops --- what happened? We got a one-dimensional array of length two identical to
 
 ```{python}
 np.array([A[1,0],A[3,2]])
 
 ```
-    
+
  Similarly,  the following code fails to extract the submatrix comprised of the second and fourth rows and the first, third, and fourth columns:
 
 ```{python}
 A[[1,3],[0,2,3]]
 
 ```
-    
+
 We can see what has gone wrong here. When supplied with two indexing lists, the `numpy` interpretation is that these provide pairs of $i,j$ indices for a series of entries. That is why the pair of lists must have the same length. However, that was not our intent, since we are looking for a submatrix.
 
 One easy way to do this is as follows. We first create a submatrix by subsetting the rows of `A`, and then on the fly we make a further submatrix by subsetting its columns.
@@ -808,7 +808,7 @@ A[[1,3]][:,[0,2]]
 
 ```
     
-    
+
 
 There are more efficient ways of achieving the same result.
 
@@ -820,7 +820,7 @@ idx = np.ix_([1,3],[0,2,3])
 A[idx]
 
 ```
-    
+
 
 Alternatively, we can subset matrices efficiently using slices.
   
@@ -834,7 +834,7 @@ A[1:4:2,0:3:2]
 ```
     
 
-    
+
 Why are we able to retrieve a submatrix directly using slices but not using lists?
 It's because they are different `Python` types, and
 are treated differently by `numpy`.
@@ -850,7 +850,7 @@ Slices can be used to extract objects from arbitrary sequences, such as strings,
     
 
  
- 
+
 
 ### Boolean Indexing
 In `numpy`, a *Boolean* is a type  that equals either   `True` or  `False` (also represented as $1$ and $0$, respectively).
@@ -867,7 +867,7 @@ keep_rows[[1,3]] = True
 keep_rows
 
 ```
-    
+
 Note that the elements of `keep_rows`, when viewed as integers, are the same as the
 values of `np.array([0,1,0,1])`. Below, we use  `==` to verify their equality. When
 applied to two arrays, the `==`   operation is applied elementwise.
@@ -876,7 +876,7 @@ applied to two arrays, the `==`   operation is applied elementwise.
 np.all(keep_rows == np.array([0,1,0,1]))
 
 ```
-    
+
 (Here, the function `np.all()` has checked whether
 all entries of an array are `True`. A similar function, `np.any()`, can be used to check whether any entries of an array are `True`.)
 
@@ -888,14 +888,14 @@ The former retrieves the first, second, first, and second rows of `A`.
 A[np.array([0,1,0,1])]
 
 ```
-    
+
  By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `True`. 
 
 ```{python}
 A[keep_rows]
 
 ```
-    
+
 This example shows that Booleans and integers are treated differently by `numpy`.
 
 
@@ -919,7 +919,7 @@ A[idx_mixed]
 
 ```
     
- 
+
 
 For more details on indexing in `numpy`, readers are referred
 to the `numpy` tutorial mentioned earlier.
@@ -972,7 +972,7 @@ files. Before loading data into `Python`, it is a good idea to view it using
 a text editor or other software, such as Microsoft Excel.
 
 
- 
+
 
 We now take a look at the column of `Auto` corresponding to the variable `horsepower`: 
 
@@ -993,7 +993,7 @@ We see the culprit is the value `?`, which is being used to encode missing value
 
 
 
- 
+
 To fix the problem, we must provide `pd.read_csv()` with an argument called `na_values`.
 Now,  each instance of  `?` in the file is replaced with the
 value `np.nan`, which means *not a number*:
@@ -1005,8 +1005,8 @@ Auto = pd.read_csv('Auto.data',
 Auto['horsepower'].sum()
 
 ```
-    
- 
+
+
 The `Auto.shape`  attribute tells us that the data has 397
 observations, or rows, and nine variables, or columns.
 
@@ -1014,7 +1014,7 @@ observations, or rows, and nine variables, or columns.
 Auto.shape
 
 ```
- 
+
 There are
 various ways to deal with  missing data. 
 In this case, since only five of the rows contain missing
@@ -1025,7 +1025,7 @@ Auto_new = Auto.dropna()
 Auto_new.shape
 
 ```
-    
+
 
 ### Basics of Selecting Rows and Columns
  
@@ -1036,7 +1036,7 @@ Auto = Auto_new # overwrite the previous value
 Auto.columns
 
 ```
-    
+
 
 Accessing the rows and columns of a data frame is similar, but not identical, to accessing the rows and columns of an array. 
 Recall that the first argument to the `[]` method
@@ -1321,8 +1321,8 @@ Auto.plot.scatter('horsepower', 'mpg', ax=axes[1]);
 ```
 
 Note also that the columns of a data frame can be accessed as attributes: try typing in `Auto.horsepower`. 
- 
- 
+
+
 We now consider the `cylinders` variable. Typing in `Auto.cylinders.dtype` reveals that it is being treated as a quantitative variable. 
 However, since there is only a small number of possible values for this variable, we may wish to treat it as 
  qualitative.  Below, we replace
@@ -1341,7 +1341,7 @@ fig, ax = subplots(figsize=(8, 8))
 Auto.boxplot('mpg', by='cylinders', ax=ax);
 
 ```
- 
+
 The `hist()`  method can be used to plot a *histogram*.
 
 ```{python}
