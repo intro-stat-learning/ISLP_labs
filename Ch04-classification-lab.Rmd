@@ -1,7 +1,3 @@
-
-
-
-
 # Logistic Regression, LDA, QDA, and KNN
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch04-classification-lab.ipynb">
