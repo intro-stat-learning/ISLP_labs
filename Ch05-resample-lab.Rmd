@@ -1,6 +1,3 @@
-
-
-
 # Cross-Validation and the Bootstrap
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch05-resample-lab.ipynb">
