@@ -102,7 +102,7 @@ matrices (also called design matrices) using the `ModelSpec()`  transform from `
 
 We  will use the `Boston` housing data set, which is contained in the `ISLP` package.  The `Boston` dataset records  `medv`  (median house value) for $506$ neighborhoods
 around Boston.  We will build a regression model to predict  `medv`  using $13$
-predictors such as  `rmvar`  (average number of rooms per house),
+predictors such as  `rm`  (average number of rooms per house),
  `age`  (proportion of owner-occupied units built prior to 1940), and  `lstat`  (percent of
 households with low socioeconomic status).  We will use `statsmodels` for this
 task, a `Python` package that implements several commonly used
@@ -252,7 +252,7 @@ We can produce confidence intervals for the predicted values.
 new_predictions.conf_int(alpha=0.05)
 
 ```
-Prediction intervals are computing by setting `obs=True`:
+Prediction intervals are computed by setting `obs=True`:
 
 ```{python}
 new_predictions.conf_int(obs=True, alpha=0.05)
@@ -286,7 +286,7 @@ def abline(ax, b, m):
 ```
  A few things are illustrated above. First we see the syntax for defining a function:
 `def funcname(...)`. The function has arguments `ax, b, m`
-where `ax` is an axis object for an exisiting plot, `b` is the intercept and
+where `ax` is an axis object for an existing plot, `b` is the intercept and
 `m` is the slope of the desired line. Other plotting  options can be passed on to
 `ax.plot` by including additional optional arguments as follows:
 
@@ -539,7 +539,7 @@ and  `lstat`.
 
 The function `anova_lm()` can take more than two nested models
 as input, in which case it compares every successive pair of models.
-That also explains why their are `NaN`s in the first row above, since
+That also explains why there are `NaN`s in the first row above, since
 there is no previous model with which to compare the first.
 
 

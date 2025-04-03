@@ -836,7 +836,7 @@ A[1:4:2,0:3:2]
 
 
 Why are we able to retrieve a submatrix directly using slices but not using lists?
-Its because they are different `Python` types, and
+It's because they are different `Python` types, and
 are treated differently by `numpy`.
 Slices can be used to extract objects from arbitrary sequences, such as strings, lists, and tuples, while the use of lists for indexing is more limited.
 
@@ -889,7 +889,8 @@ A[np.array([0,1,0,1])]
 
 ```
 
- By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `TRUE`. 
+ By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `True`. 
+
 
 ```{python}
 A[keep_rows]
@@ -1152,7 +1153,7 @@ Auto_re.loc[lambda df: (df['year'] > 80) & (df['mpg'] > 30),
 The symbol `&` computes an element-wise *and* operation.
 As another example, suppose that we want to retrieve all `Ford` and `Datsun`
 cars with `displacement` less than 300. We check whether each `name` entry contains either the string `ford` or `datsun` using the  `str.contains()` method of the `index` attribute of 
-of the dataframe:
+the dataframe:
 
 ```{python}
 Auto_re.loc[lambda df: (df['displacement'] < 300)

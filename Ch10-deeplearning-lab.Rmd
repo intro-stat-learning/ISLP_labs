@@ -1137,7 +1137,7 @@ img_preds = resnet_model(imgs)
 Let’s look at the predicted probabilities for each of the top 3 choices. First we compute
 the probabilities by applying the softmax to the logits in `img_preds`. Note that
 we have had to call the `detach()` method on the tensor `img_preds` in order to convert
-it to our a more familiar `ndarray`.
+it to a more familiar `ndarray`.
 
 ```{python}
 img_probs = np.exp(np.asarray(img_preds.detach()))
