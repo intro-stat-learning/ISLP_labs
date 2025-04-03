@@ -334,7 +334,7 @@ The function `fit_path()` returns a list whose values include the fitted coeffic
 path[3]
 
 ```
-In the example above, we see that at the fourth step in the path, we have two nonzero coefficients in `'B'`, corresponding to the value $0.114$ for the penalty parameter `lambda_0`.
+In the example above, we see that at the fourth step in the path, we have two nonzero coefficients in `'B'`, corresponding to the value $0.0114$ for the penalty parameter `lambda_0`.
 We could make predictions using this sequence of fits on a validation set as a function of `lambda_0`, or with more work using cross-validation.
 
 ## Ridge Regression and the Lasso
@@ -913,6 +913,6 @@ ax.set_ylim([50000,250000]);
 ```
 
 CV error is minimized at 12,
-though there is little noticable difference between this point and a much lower number like 2 or 3 components.
+though there is little noticeable difference between this point and a much lower number like 2 or 3 components.
 
 
