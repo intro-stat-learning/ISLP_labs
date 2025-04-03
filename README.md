@@ -13,8 +13,14 @@
   
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2)
 
+### ISLP
 
-Up-to-date version of labs for ISLP. 
+Please ensure you have followed the installation instructions for
+[ISLP](https://github.com/intro-stat-learning/ISLP). This will address
+installation of [jupyterlab](https://github.com/jupyterlab/jupyterlab)
+if necessary, which is not included as a requirement of the labs.
+
+### Up-to-date version of labs for ISLP. 
 
 This repo will track labs for ISLP as their source code changes.  The
 intent is that building a conda environment with
