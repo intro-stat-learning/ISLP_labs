@@ -14,7 +14,7 @@
 
 - Daniela Witten
 
-Up-to-date version of labs for ISLP. 
+### ISLP
 
 This repo will track labs for ISLP as their source code changes.  The
 intent is that building a virtual environment with
