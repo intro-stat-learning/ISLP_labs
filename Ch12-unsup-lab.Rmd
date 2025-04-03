@@ -10,7 +10,7 @@
 In this lab we demonstrate PCA and clustering on several datasets.
 As in other labs, we import some of our libraries at this top
 level. This makes the code more readable, as scanning the first few
-lines of the notebook tell us what libraries are used in this
+lines of the notebook tells us what libraries are used in this
 notebook.
 
 ```{python}
@@ -837,7 +837,7 @@ ax.axhline(140, c='r', linewidth=4);
 
 ```
  
-The `axhline()`  function draws a horizontal line  line on top of any
+The `axhline()`  function draws a horizontal line on top of any
 existing set of axes. The argument `140` plots a horizontal
 line at height 140 on the dendrogram; this is a height that
 results in four distinct clusters. It is easy to verify that the

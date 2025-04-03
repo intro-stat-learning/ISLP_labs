@@ -226,7 +226,7 @@ grid.fit(X_train, High_train)
 grid.best_score_
 
 ```
-Let’s take a look at the pruned true.
+Let’s take a look at the pruned tree.
 
 ```{python}
 ax = subplots(figsize=(12, 12))[1]
@@ -512,7 +512,7 @@ np.mean((y_test - y_hat_boost)**2)
 ```
     
  
-In this case, using $\lambda=0.2$ leads to a almost the same test MSE
+In this case, using $\lambda=0.2$ leads to almost the same test MSE
 as when using $\lambda=0.001$.
 
  
