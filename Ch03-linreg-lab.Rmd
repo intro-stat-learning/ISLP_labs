@@ -300,7 +300,7 @@ def abline(ax, b, m, *args, **kwargs):
 
 ```
 The addition of `*args` allows any number of
-non-named arguments to `abline`, while `*kwargs` allows any
+non-named arguments to `abline`, while `**kwargs` allows any
 number of named arguments (such as `linewidth=3`) to `abline`.
 In our function, we pass
 these arguments verbatim to `ax.plot` above. Readers

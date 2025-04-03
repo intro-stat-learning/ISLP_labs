@@ -655,7 +655,7 @@ ax.contour(x, y, f, levels=45);
 ```
 To fine-tune the output of the
 `ax.contour()`  function, take a
-look at the help file by typing `?plt.contour`.
+look at the help file by typing `ax.contour?`.
  
 The `ax.imshow()`  method is similar to 
 `ax.contour()`, except that it produces a color-coded plot
