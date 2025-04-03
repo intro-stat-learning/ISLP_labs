@@ -300,29 +300,30 @@ value do not cover each other up. This type of plot is often called a
 *rug plot*.
 
 In order to fit a step function, as discussed in
-Section~\ref{Ch7:sec:scolstep-function},   we first use the `pd.qcut()`
-function to discretize `age` based on quantiles.  Then  we use `pd.get_dummies()` to create the
+Section~\ref{Ch7:sec:scolstep-function},   we first use the `pd.cut()`
+function to discretize `age` into bins of equal width.  Then  we use `pd.get_dummies()` to create the
 columns of the model matrix for this categorical variable. Note that this function will
 include *all* columns for a given categorical, rather than the usual approach which drops one
 of the levels.
 
 ```{python}
-cut_age = pd.qcut(age, 4)
+cut_age = pd.cut(age, 4)
 summarize(sm.OLS(y, pd.get_dummies(cut_age)).fit())
 
 ```
     
  
-Here `pd.qcut()`  automatically picked the cutpoints based on the quantiles 25%, 50% and 75%, which results in four regions.  We could also have specified our own
-quantiles directly instead of the argument `4`. For cuts not based
-on quantiles we would use the `pd.cut()` function.
-The function `pd.qcut()` (and `pd.cut()`) returns an ordered categorical variable.
-  The regression model then creates a set of
-dummy variables for use in the regression. Since `age` is the only variable in the model, the value $94,158.40 is the average salary for those under 33.75 years of
-age, and the other coefficients are the average
-salary for those in the other age groups.  We can produce
-predictions and plots just as we did in the case of the polynomial
-fit.
+Here `pd.cut()` automatically picked the bins to be of equal
+length. We could also have specified our own bins directly
+instead of the argument `4`. For cuts based on quantiles we would
+use the `pd.qcut()` function.  The function `pd.cut()` (and
+`pd.qcut()`) returns an ordered categorical variable.  The regression
+model then creates a set of dummy variables for use in the
+regression. Since `age` is the only variable in the model, the value
+$94,158.40 is the average salary for those under 33.75 years of age,
+and the other coefficients are the average salary for those in the
+other age groups.  We can produce predictions and plots just as we did
+in the case of the polynomial fit.
 
 
 ## Splines
