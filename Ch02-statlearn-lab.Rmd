@@ -904,6 +904,7 @@ A[np.array([0,1,0,1])]
 
  By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `True`. 
 
+
 ```{python}
 A[keep_rows]
 
