@@ -1,3 +1,16 @@
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,Rmd
+    main_language: python
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.16.7
+---
+
 # Introduction to Python
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch02-statlearn-lab.ipynb">
@@ -70,7 +83,7 @@ print('fit a model with', 11, 'variables')
  The following command will provide information about the `print()` function.
 
 ```{python}
-print?
+# print?
 
 ```
 
@@ -220,7 +233,7 @@ documentation associated with the function `fun`, if it exists.
 We can try this for `np.array()`. 
 
 ```{python}
-np.array?
+# np.array?
 
 ```
 This documentation indicates that we could create a floating point array by passing a `dtype` argument into `np.array()`.
