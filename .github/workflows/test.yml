@@ -15,11 +15,10 @@
          notebook: [ Ch03-linreg-lab.ipynb,
                      Ch04-classification-lab.ipynb,
                      Ch05-resample-lab.ipynb,
-                     Ch06-varselect-lab.ipynb ]
-         
-         #            Ch07-nonlin-lab.ipynb,
-         #            Ch08-baggboost-lab.ipynb,
-         #            Ch09-svm-lab.ipynb,
+                     Ch06-varselect-lab.ipynb,
+                     Ch07-nonlin-lab.ipynb,
+                     Ch08-baggboost-lab.ipynb,
+                     Ch09-svm-lab.ipynb]
          #            Ch10-deeplearning-lab.ipynb,
          #            Ch11-surv-lab.ipynb,
          #            Ch12-unsup-lab.ipynb,
