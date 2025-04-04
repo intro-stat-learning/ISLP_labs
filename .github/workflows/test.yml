@@ -12,10 +12,11 @@
        matrix:
          python-version: ['3.11', '3.12']
          #notebook: [ Ch02-statlearn-lab.ipynb ]. # Ch02 is tricky but we have a solution for it
-         notebook: [ Ch03-linreg-lab.ipynb ]
-         #            Ch04-classification-lab.ipynb,
-         #            Ch05-resample-lab.ipynb,
-         #            Ch06-varselect-lab.ipynb,
+         notebook: [ Ch03-linreg-lab.ipynb,
+                     Ch04-classification-lab.ipynb,
+                     Ch05-resample-lab.ipynb,
+                     Ch06-varselect-lab.ipynb ]
+         
          #            Ch07-nonlin-lab.ipynb,
          #            Ch08-baggboost-lab.ipynb,
          #            Ch09-svm-lab.ipynb,
