@@ -10,8 +10,6 @@
 - Robert Tibshirani
 
 - Daniela Witten
-  
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2)
 
 ### ISLP
 
