@@ -1,5 +1,15 @@
-
-
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,Rmd
+    main_language: python
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.16.7
+---
 
 # Cross-Validation and the Bootstrap
 
@@ -91,7 +101,7 @@ fit is $23.62$.
 
 We can also estimate the validation error for
 higher-degree polynomial regressions. We first provide a function `evalMSE()` that takes a model string as well
-as a training and test set and returns the MSE on the test set.
+as training and test sets and returns the MSE on the test set.
 
 ```{python}
 def evalMSE(terms,
@@ -198,7 +208,7 @@ object with the appropriate `fit()`, `predict()`,
 and `score()` methods,  an
 array of features `X` and a response `Y`. 
 We also included an additional argument `cv` to `cross_validate()`; specifying an integer
-$K$ results in $K$-fold cross-validation. We have provided a value 
+$k$ results in $k$-fold cross-validation. We have provided a value 
 corresponding to the total number of observations, which results in
 leave-one-out cross-validation (LOOCV). The `cross_validate()`  function produces a dictionary with several components;
 we simply want the cross-validated test score here (MSE), which is estimated to be 24.23.
@@ -246,8 +256,8 @@ np.add.outer(A, B)
 
 ```
 
-In the CV example above, we used $K=n$, but of course we can also use $K<n$. The code is very similar
-to the above (and is significantly faster). Here we use `KFold()` to partition the data into $K=10$ random groups. We use `random_state` to set a random seed and initialize a vector `cv_error` in which we will store the CV errors corresponding to the
+In the CV example above, we used $k=n$, but of course we can also use $k<n$. The code is very similar
+to the above (and is significantly faster). Here we use `KFold()` to partition the data into $k=10$ random groups. We use `random_state` to set a random seed and initialize a vector `cv_error` in which we will store the CV errors corresponding to the
 polynomial fits of degrees one to five.
 
 ```{python}
@@ -267,7 +277,7 @@ cv_error
 ```
 Notice that the computation time is much shorter than that of LOOCV.
 (In principle, the computation time for LOOCV for a least squares
-linear model should be faster than for $K$-fold CV, due to the
+linear model should be faster than for $k$-fold CV, due to the
 availability of the formula~(\ref{Ch5:eq:LOOCVform})  for LOOCV;
 however, the generic `cross_validate()`  function does not make
 use of this formula.)  We still see little evidence that using cubic
@@ -276,8 +286,9 @@ using a quadratic fit.
 
 
 The `cross_validate()` function is flexible and can take
-different splitting mechanisms as an argument. For instance, one can use the `ShuffleSplit()` funtion to implement
-the validation set approach just as easily as K-fold cross-validation.
+different splitting mechanisms as an argument. For instance, one can use the `ShuffleSplit()`
+function to implement
+the validation set approach just as easily as $k$-fold cross-validation.
 
 ```{python}
 validation = ShuffleSplit(n_splits=1,
@@ -514,7 +525,7 @@ standard formulas given in
 rely on certain assumptions. For example,
 they depend on the unknown parameter $\sigma^2$, the noise
 variance. We then estimate $\sigma^2$ using the RSS. Now although the
-formula for the standard errors do not rely on the linear model being
+formulas for the standard errors do not rely on the linear model being
 correct, the estimate for $\sigma^2$ does.  We see
  {in Figure~\ref{Ch3:polyplot} on page~\pageref{Ch3:polyplot}}  that there is
 a non-linear relationship in the data, and so the residuals from a

@@ -1,3 +1,16 @@
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,Rmd
+    main_language: python
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.16.7
+---
+
 # Unsupervised Learning
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch12-unsup-lab.ipynb">
@@ -10,7 +23,7 @@
 In this lab we demonstrate PCA and clustering on several datasets.
 As in other labs, we import some of our libraries at this top
 level. This makes the code more readable, as scanning the first few
-lines of the notebook tell us what libraries are used in this
+lines of the notebook tells us what libraries are used in this
 notebook.
 
 ```{python}
@@ -36,7 +49,7 @@ from scipy.cluster.hierarchy import \
 from ISLP.cluster import compute_linkage
 
 ```
- 
+
 ## Principal Components Analysis
 In this lab, we perform PCA on  `USArrests`, a data set in the
 `R` computing environment.
@@ -50,22 +63,22 @@ USArrests = get_rdataset('USArrests').data
 USArrests
 
 ```
- 
+
 The columns of the data set contain the four variables.
 
 ```{python}
 USArrests.columns
 
 ```
- 
+
 We first briefly examine the data. We notice that the variables have vastly different means.
 
 ```{python}
 USArrests.mean()
 
 ```
-    
- 
+
+
 Dataframes have several useful methods for computing
 column-wise summaries. We can also examine the
 variance of the four variables using the `var()`  method.
@@ -74,7 +87,7 @@ variance of the four variables using the `var()`  method.
 USArrests.var()
 
 ```
-    
+
 Not surprisingly, the variables also have vastly different variances.
 The `UrbanPop` variable measures the percentage of the population
 in each state living in an urban area, which is not a comparable
@@ -124,7 +137,7 @@ of the variables. In this case, since we centered and scaled the data with
 pcaUS.mean_
 
 ```
- 
+
 The scores can be computed using the `transform()` method
 of `pcaUS` after it has been fit.
 
@@ -142,7 +155,7 @@ principal component loading vector.
 pcaUS.components_ 
 
 ```
- 
+
 The `biplot`  is a common visualization method used with
 PCA. It is not built in as a standard
 part of `sklearn`, though there are python
@@ -183,14 +196,14 @@ for k in range(pcaUS.components_.shape[1]):
             USArrests.columns[k])
 
 ```
- 
+
 The standard deviations of the principal component scores are as follows:
 
 ```{python}
 scores.std(0, ddof=1)
 ```
 
-    
+
 The variance of each score can be extracted directly from the `pcaUS` object via
 the `explained_variance_` attribute.
 
@@ -212,7 +225,7 @@ We can plot the PVE explained by each component, as well as the cumulative PVE. 
 plot the proportion of variance explained.
 
 ```{python}
-%%capture
+# %%capture
 fig, axes = plt.subplots(1, 2, figsize=(15, 6))
 ticks = np.arange(pcaUS.n_components_)+1
 ax = axes[0]
@@ -312,7 +325,7 @@ Xna = X.copy()
 Xna[r_idx, c_idx] = np.nan
 
 ```
- 
+
 Here the array `r_idx`
 contains 20 integers from 0 to 49; this represents the states (rows of `X`) that are selected to contain missing values. And `c_idx` contains
 20 integers from 0 to 3, representing the features (columns in `X`) that contain the missing values for each of the selected states.
@@ -340,7 +353,7 @@ Xbar = np.nanmean(Xhat, axis=0)
 Xhat[r_idx, c_idx] = Xbar[c_idx]
 
 ```
- 
+
 Before we begin Step 2, we set ourselves up to measure the progress of our
 iterations:
 
@@ -379,7 +392,7 @@ while rel_err > thresh:
           .format(count, mss, rel_err))
 
 ```
- 
+
 We see that after eight iterations, the relative error has fallen below `thresh = 1e-7`, and so the algorithm terminates. When this happens, the mean squared error of the non-missing elements equals 0.381.
 
 Finally, we compute the correlation between the 20 imputed values
@@ -389,8 +402,8 @@ and the actual values:
 np.corrcoef(Xapp[ismiss], X[ismiss])[0,1]
 
 ```
-    
- 
+
+
 In this lab, we implemented  Algorithm~\ref{Ch10:alg:hardimpute}  ourselves for didactic purposes. However, a reader who wishes to apply matrix completion to their data might look to more specialized `Python`{} implementations.
 
 
@@ -436,7 +449,7 @@ ax.scatter(X[:,0], X[:,1], c=kmeans.labels_)
 ax.set_title("K-Means Clustering Results with K=2");
 
 ```
- 
+
 Here the observations can be easily plotted because they are
 two-dimensional. If there were more than two variables then we could
 instead perform PCA and plot the first two principal component score
@@ -511,7 +524,7 @@ hc_comp = HClust(distance_threshold=0,
 hc_comp.fit(X)
 
 ```
- 
+
 This computes the entire dendrogram.
 We could just as easily perform hierarchical clustering with average or single linkage instead:
 
@@ -526,7 +539,7 @@ hc_sing = HClust(distance_threshold=0,
 hc_sing.fit(X);
 
 ```
- 
+
 To use a precomputed distance matrix, we provide an additional
 argument `metric="precomputed"`. In the code below, the first four lines computes the $50\times 50$ pairwise-distance matrix.
 
@@ -542,7 +555,7 @@ hc_sing_pre = HClust(distance_threshold=0,
 hc_sing_pre.fit(D)
 
 ```
- 
+
 We use
 `dendrogram()` from `scipy.cluster.hierarchy` to plot the dendrogram. However,
 `dendrogram()` expects a so-called *linkage-matrix representation*
@@ -565,7 +578,7 @@ dendrogram(linkage_comp,
            **cargs);
 
 ```
- 
+
 We may want to color branches of the tree above
 and below a cut-threshold differently. This can be achieved
 by changing the `color_threshold`. Let’s cut the tree at a height of 4,
@@ -579,7 +592,7 @@ dendrogram(linkage_comp,
            above_threshold_color='black');
 
 ```
- 
+
 To determine the cluster labels for each observation associated with a
 given cut of the dendrogram, we can use the `cut_tree()` 
 function from `scipy.cluster.hierarchy`:
@@ -599,7 +612,7 @@ or `height` to `cut_tree()`.
 cut_tree(linkage_comp, height=5)
 
 ```
- 
+
 To scale the variables before performing hierarchical clustering of
 the observations, we use `StandardScaler()`  as in our PCA example:
 
@@ -643,7 +656,7 @@ dendrogram(linkage_cor, ax=ax, **cargs)
 ax.set_title("Complete Linkage with Correlation-Based Dissimilarity");
 
 ```
- 
+
 
 ## NCI60 Data Example
 Unsupervised techniques are often used in the analysis of genomic
@@ -658,7 +671,7 @@ nci_labs = NCI60['labels']
 nci_data = NCI60['data']
 
 ```
- 
+
 Each cell line is labeled with a cancer type. We do not make use of
 the cancer types in performing PCA and clustering, as these are
 unsupervised techniques. But after performing PCA and clustering, we
@@ -671,8 +684,8 @@ The data has 64 rows and 6830 columns.
 nci_data.shape
 
 ```
-    
- 
+
+
 We begin by examining the cancer types for the cell lines.
 
 
@@ -680,7 +693,7 @@ We begin by examining the cancer types for the cell lines.
 nci_labs.value_counts()
 
 ```
- 
+
 
 ### PCA on the NCI60 Data
 
@@ -695,7 +708,7 @@ nci_pca = PCA()
 nci_scores = nci_pca.fit_transform(nci_scaled)
 
 ```
- 
+
 We now plot the first few principal component score vectors, in order
 to visualize the data. The observations (cell lines) corresponding to
 a given cancer type will be plotted in the same color, so that we can
@@ -731,7 +744,7 @@ to have pretty similar gene expression levels.
 
     
 
- 
+
 We can also plot the percent variance
 explained by the principal components as well as the cumulative percent variance explained.
 This is similar to the plots we made earlier for the `USArrests` data.
@@ -790,7 +803,7 @@ def plot_nci(linkage, ax, cut=-np.inf):
     return hc
 
 ```
- 
+
 Let’s  plot our results.
 
 ```{python}
@@ -822,7 +835,7 @@ pd.crosstab(nci_labs['label'],
             pd.Series(comp_cut.reshape(-1), name='Complete'))
 
 ```
-    
+
 
 There are some clear patterns. All the leukemia cell lines fall in
 one cluster, while the breast cancer cell lines are spread out over
@@ -836,8 +849,8 @@ plot_nci('Complete', ax, cut=140)
 ax.axhline(140, c='r', linewidth=4);
 
 ```
- 
-The `axhline()`  function draws a horizontal line  line on top of any
+
+The `axhline()`  function draws a horizontal line on top of any
 existing set of axes. The argument `140` plots a horizontal
 line at height 140 on the dendrogram; this is a height that
 results in four distinct clusters. It is easy to verify that the
@@ -858,7 +871,7 @@ pd.crosstab(pd.Series(comp_cut, name='HClust'),
             pd.Series(nci_kmeans.labels_, name='K-means'))
 
 ```
-    
+
 We see that the four clusters obtained using hierarchical clustering
 and $K$-means clustering are somewhat different. First we note
 that the labels in the two clusterings are arbitrary. That is, swapping
