@@ -39,6 +39,14 @@ The labs can now be run via:
 jupyter lab Ch02-statlearn-lab.ipynb
 ```
 
+## Using make
+
+If `make` is available on your machine, the steps above can be replaced
+
+```
+make install
+make jupyter
+```
 
 # Zip / tarball
 
