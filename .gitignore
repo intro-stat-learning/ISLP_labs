@@ -11,6 +11,7 @@ __pycache__/
 # Python environments
 env/
 venv/
+.venv/
 ENV/
 env.bak/
 venv.bak/
@@ -41,9 +42,6 @@ share/python-wheels/
 # PyInstaller
 *.manifest
 *.spec
-
-# pyenv
-.python-version
 
 # Operating System
 .DS_Store
