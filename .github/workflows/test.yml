@@ -11,21 +11,21 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.11', '3.12']
-        #notebook: [ Ch02-statlearn-lab.ipynb ]. # Ch02 is tricky but we have a solution for it
-        notebook: [ Ch03-linreg-lab.ipynb ]
-        #            Ch04-classification-lab.ipynb,
-        #            Ch05-resample-lab.ipynb,
-        #            Ch06-varselect-lab.ipynb,
-        #            Ch07-nonlin-lab.ipynb,
-        #            Ch08-baggboost-lab.ipynb,
-        #            Ch09-svm-lab.ipynb,
-        #            Ch10-deeplearning-lab.ipynb,
-        #            Ch11-surv-lab.ipynb,
-        #            Ch12-unsup-lab.ipynb,
-        #            Ch13-multiple-lab.ipynb]
-        #exclude:
-        #  - python-version: '3.11'
-        #    notebook: Ch10-deeplearning-lab.ipynb
+        notebook: [ Ch02-statlearn-lab.ipynb,
+                    Ch03-linreg-lab.ipynb,
+                    Ch04-classification-lab.ipynb,
+                    Ch05-resample-lab.ipynb,
+                    Ch06-varselect-lab.ipynb,
+                    Ch07-nonlin-lab.ipynb,
+                    Ch08-baggboost-lab.ipynb,
+                    Ch09-svm-lab.ipynb,
+                    Ch10-deeplearning-lab.ipynb,
+                    Ch11-surv-lab.ipynb,
+                    Ch12-unsup-lab.ipynb,
+                    Ch13-multiple-lab.ipynb]
+        exclude:
+          - python-version: '3.11'
+            notebook: Ch10-deeplearning-lab.ipynb
 
       fail-fast: false
 
@@ -34,14 +34,13 @@ jobs:
 
     - name: Install uv
       uses: astral-sh/setup-uv@v5
-      #with:
-      #  version: "0.5.15"
+      with:
+        version: "0.5.15"
 
-
-    #- name: Set up Python
-    #  shell: bash
-    #  run: |
-    #    uv python install ${{ matrix.python-version }}
+    - name: Set up Python
+      shell: bash
+      run: |
+        uv python install ${{ matrix.python-version }}
 
     - name: Create venv
       shell: bash
