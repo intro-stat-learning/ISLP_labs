@@ -37,11 +37,10 @@ jobs:
       with:
         version: "0.5.15"
 
-
-    #- name: Set up Python
-    #  shell: bash
-    #  run: |
-    #    uv python install ${{ matrix.python-version }}
+    - name: Set up Python
+      shell: bash
+      run: |
+        uv python install ${{ matrix.python-version }}
 
     - name: Create venv
       shell: bash
