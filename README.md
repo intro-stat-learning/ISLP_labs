@@ -1,4 +1,7 @@
 # ISLP_labs
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/intro-stat-learning/ISLP_Labs)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -10,8 +13,6 @@
 - Robert Tibshirani
 
 - Daniela Witten
-  
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2)
 
 ### ISLP
 
@@ -23,7 +24,7 @@ if necessary, which is not included as a requirement of the labs.
 ### Up-to-date version of labs for ISLP. 
 
 This repo will track labs for ISLP as their source code changes.  The
-intent is that building a conda environment with
+intent is that building a virtual environment with
 `requirements.txt` will reproduce the results in this repo.
 
 To install the current version of the requirements run
@@ -32,12 +33,20 @@ To install the current version of the requirements run
 pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2/requirements.txt;
 ```
 
-The labs can now be run from this directory:
+The labs can now be run via:
 
 ```
 jupyter lab Ch02-statlearn-lab.ipynb
 ```
 
+## Using make
+
+If `make` is available on your machine, the steps above can be replaced
+
+```
+make install
+make jupyter
+```
 
 # Zip / tarball
 

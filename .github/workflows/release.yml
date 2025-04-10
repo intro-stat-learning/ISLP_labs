@@ -1,0 +1,21 @@
+name: Bump version and publish
+
+on:
+  #push:
+  workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  tagging:
+    runs-on: ubuntu-latest
+    outputs:
+      new_tag: ${{ steps.tag_step.outputs.new_tag }}
+
+    steps:
+      - name: Generate Tag
+        id: tag_step
+        uses: tschm/cradle/actions/tag@v0.1.57
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
