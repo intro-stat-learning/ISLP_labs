@@ -50,7 +50,7 @@ make jupyter
 ## R Markdown files
 
 We compile for each notebook a Rmd file using a dedicated GitHub workflow.
-Those files are published here [here](). todo: include link
+Those files are published here [here](https://github.com/intro-stat-learning/ISLP_labs/tree/rmd-files). todo: include link
 
 # Zip / tarball
 
