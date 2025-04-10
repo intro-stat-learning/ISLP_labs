@@ -47,6 +47,10 @@ If `make` is available on your machine, the steps above can be replaced
 make install
 make jupyter
 ```
+## R Markdown files
+
+We compile for each notebook a Rmd file using a dedicated GitHub workflow.
+Those files are published here [here](). todo: include link
 
 # Zip / tarball
 
