@@ -21,3 +21,10 @@ help:  ## Display this help screen
 jupyter: install  ## Install and start jupyter Lab
 	@uv run pip install jupyterlab
 	@uv run jupyter lab
+
+.PHONY: fmt
+fmt: venv ## Run code formatting and linting
+	@printf "$(BLUE)Running formatters and linters...$(RESET)\n"
+	@uv pip install pre-commit
+	@uv run pre-commit install
+	@uv run pre-commit run --all-files
