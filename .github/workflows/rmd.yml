@@ -43,14 +43,18 @@ jobs:
           # Convert to Rmd in the artifacts directory
           jupytext --to rmarkdown "$nb" --output "artifacts/rmd/${base_name}.Rmd"
         done
-
-    - name: Upload conversion results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: rmd-files
-        path: artifacts/rmd/
-        retention-days: 1
+    
+    - name: Copy data folder
+      run: |
+        cp -r data artifacts/rmd
+    
+    #- name: Upload conversion results
+    #  if: always()
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #    name: rmd-files
+    #    path: artifacts/rmd/
+    #    retention-days: 1
 
     - name: GitHub Pages action
       uses: JamesIves/github-pages-deploy-action@v4
