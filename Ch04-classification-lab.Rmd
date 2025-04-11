@@ -405,7 +405,7 @@ lda.fit(X_train, L_train)
 
 ```
 Here we have used the list comprehensions introduced
-in Section~\ref{Ch3-linreg-lab:multivariate-goodness-of-fit}. Looking at our first line above, we see that the right-hand side is a list
+in Section 3.6.4. Looking at our first line above, we see that the right-hand side is a list
 of length two. This is because the code `for M in [X_train, X_test]` iterates over a list
 of length two. While here we loop over a list,
 the list comprehension method works when looping over any iterable object.
@@ -454,7 +454,7 @@ lda.scalings_
 
 ```
 
-These values provide the linear combination of `Lag1`  and `Lag2`  that are used to form the LDA decision rule. In other words, these are the multipliers of the elements of $X=x$ in (\ref{Ch4:bayes.multi}).
+These values provide the linear combination of `Lag1`  and `Lag2`  that are used to form the LDA decision rule. In other words, these are the multipliers of the elements of $X=x$ in (4.24).
   If $-0.64\times `Lag1`  - 0.51 \times `Lag2` $ is large, then the LDA classifier will predict a market increase, and if it is small, then the LDA classifier will predict a market decline.
 
 ```{python}
@@ -463,7 +463,7 @@ lda_pred = lda.predict(X_test)
 ```
 
 As we observed in our comparison of classification methods
- (Section~\ref{Ch4:comparison.sec}),  the LDA and logistic
+ (Section 4.5),  the LDA and logistic
 regression predictions are almost identical.
 
 ```{python}
@@ -522,7 +522,7 @@ The LDA classifier above is the first classifier from the
 `sklearn` library. We will use several other objects
 from this library. The objects
 follow a common structure that simplifies tasks such as cross-validation,
-which we will see in Chapter~\ref{Ch5:resample}. Specifically,
+which we will see in Chapter 5. Specifically,
 the methods first create a generic classifier without
 referring to any data. This classifier is then fit
 to data with the `fit()`  method and predictions are
@@ -875,7 +875,7 @@ This is double the rate that one would obtain from random guessing.
 The number of neighbors in KNN is referred to as a *tuning parameter*, also referred to as a *hyperparameter*.
 We do not know *a priori* what value to use. It is therefore of interest
 to see how the classifier performs on test data as we vary these
-parameters. This can be achieved with a `for` loop, described in Section~\ref{Ch2-statlearn-lab:for-loops}.
+parameters. This can be achieved with a `for` loop, described in Section 2.3.8.
 Here we use a for loop to look at the accuracy of our classifier in the group predicted to purchase
 insurance as we vary the number of neighbors from 1 to 5:
 
@@ -902,7 +902,7 @@ As a comparison, we can also fit a logistic regression model to the
 data. This can also be done
 with `sklearn`, though by default it fits
 something like the *ridge regression* version
-of logistic regression, which we introduce in Chapter~\ref{Ch6:varselect}. This can
+of logistic regression, which we introduce in Chapter 6. This can
 be modified by appropriately setting the argument `C` below. Its default
 value is 1 but by setting it to a very large number, the algorithm converges to the same solution as the usual (unregularized)
 logistic regression estimator discussed above.
@@ -946,7 +946,7 @@ confusion_table(logit_labels, y_test)
 
 ```
 ## Linear and Poisson Regression on the Bikeshare Data
-Here we fit linear and  Poisson regression models to the `Bikeshare` data, as described in Section~\ref{Ch4:sec:pois}.
+Here we fit linear and  Poisson regression models to the `Bikeshare` data, as described in Section 4.6.
 The response `bikers` measures the number of bike rentals per hour
 in Washington, DC in the period 2010--2012.
 
@@ -987,7 +987,7 @@ variables constant, there are on average about 7 more riders in
 February than in January. Similarly there are about 16.5 more riders
 in March than in January.
 
-The results seen in Section~\ref{sec:bikeshare.linear}
+The results seen in Section 4.6.1
 used a slightly different coding of the variables `hr` and `mnth`, as follows:
 
 ```{python}
@@ -1041,7 +1041,7 @@ np.allclose(M_lm.fittedvalues, M2_lm.fittedvalues)
 ```
 
 
-To reproduce the left-hand side of Figure~\ref{Ch4:bikeshare}
+To reproduce the left-hand side of Figure 4.13
 we must first obtain the coefficient estimates associated with
 `mnth`. The coefficients for January through November can be obtained
 directly from the `M2_lm` object. The coefficient for December
@@ -1081,7 +1081,7 @@ ax_month.set_ylabel('Coefficient', fontsize=20);
 
 ```
 
-Reproducing the  right-hand plot in Figure~\ref{Ch4:bikeshare}  follows a similar process.
+Reproducing the  right-hand plot in Figure 4.13  follows a similar process.
 
 ```{python}
 coef_hr = S2[S2.index.str.contains('hr')]['coef']
@@ -1116,7 +1116,7 @@ M_pois = sm.GLM(Y, X2, family=sm.families.Poisson()).fit()
 
 ```
 
-We can plot the coefficients associated with `mnth` and `hr`, in order to reproduce  Figure~\ref{Ch4:bikeshare.pois}. We first complete these coefficients as before.
+We can plot the coefficients associated with `mnth` and `hr`, in order to reproduce  Figure 4.15. We first complete these coefficients as before.
 
 ```{python}
 S_pois = summarize(M_pois)
