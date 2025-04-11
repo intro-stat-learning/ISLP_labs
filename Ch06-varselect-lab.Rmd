@@ -543,7 +543,7 @@ grid.best_params_['ridge__alpha']
 grid.best_estimator_
 
 ```
-Recall we set up the `kfold` object for 5-fold cross-validation on page~\pageref{line:choos-among-models}. We now plot the cross-validated MSE as a function of $-\log(\lambda)$, which has shrinkage decreasing from left
+Recall we set up the `kfold` object for 5-fold cross-validation on page 271. We now plot the cross-validated MSE as a function of $-\log(\lambda)$, which has shrinkage decreasing from left
 to right.
 
 ```{python}
@@ -731,7 +731,7 @@ ax.set_ylabel('Standardized coefficiients', fontsize=20);
 ```
 The smallest cross-validated error is lower than the test set MSE of the null model
 and of least squares, and very similar to the test MSE of 115526.71 of ridge
-regression (page~\pageref{page:MSECVRidge}) with $\lambda$ chosen by cross-validation.
+regression (page 278) with $\lambda$ chosen by cross-validation.
 
 ```{python}
 np.min(tuned_lasso.mse_path_.mean(1))
