@@ -47,10 +47,6 @@ jobs:
           # jupytext --to rmarkdown "$nb" --output "artifacts/latex/${base_name}.Rmd"
         done
 
-    - name: Copy latex folder
-      run: |
-        cp -r artifacts/latex
-
     - name: GitHub Pages action
       uses: JamesIves/github-pages-deploy-action@v4
       with:
