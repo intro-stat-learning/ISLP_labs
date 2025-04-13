@@ -42,13 +42,14 @@ jobs:
         # Convert each notebook
         for nb in $NOTEBOOKS; do
           echo "Converting $nb to LaTeX..."
+          
           # Get the base name without path and extension
           base_name=$(basename "$nb" .ipynb)
           
           # Convert to Rmd in the artifacts directory
           jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name}"
         
-          # jupytext --to rmarkdown "$nb" --output "artifacts/latex/${base_name}.Rmd"
+          pdflatex artifacts/latex/${base_name}.tex -o artifacts/latex/${base_name}.pdf
         done
 
     - name: GitHub Pages action
