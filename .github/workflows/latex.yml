@@ -25,6 +25,10 @@ jobs:
       run: |
         sudo apt-get install pandoc
 
+    - name: Install LateX
+      run: |
+        sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-plain-generic
+
     - name: Create artifact directory
       run: |
         mkdir -p artifacts/latex
