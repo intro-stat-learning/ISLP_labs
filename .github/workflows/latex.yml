@@ -42,5 +42,17 @@ jobs:
           base_name=$(basename "$nb" .ipynb)
           
           # Convert to Rmd in the artifacts directory
-          # jupytext --to rmarkdown "$nb" --output "artifacts/rmd/${base_name}.Rmd"
+          jupyter nbconvert --to latex notebook.ipynb
+        
+          # jupytext --to rmarkdown "$nb" --output "artifacts/latex/${base_name}.Rmd"
         done
+
+    - name: Copy data folder
+      run: |
+        cp -r data artifacts/latex
+
+    - name: GitHub Pages action
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: latex-files         # The branch the action should deploy to.
+        folder: artifacts/latex     # The folder the action should deploy.
