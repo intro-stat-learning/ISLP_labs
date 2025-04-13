@@ -23,7 +23,7 @@ jobs:
 
     - name: Install pandoc
       run: |
-        apt-get install pandoc
+        sudo apt-get install pandoc
 
     - name: Create artifact directory
       run: |
