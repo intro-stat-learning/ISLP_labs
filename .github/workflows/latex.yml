@@ -49,7 +49,7 @@ jobs:
           # Convert to Rmd in the artifacts directory
           jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name}"
         
-          pdflatex artifacts/latex/${base_name}.tex -o artifacts/latex/${base_name}.pdf
+          xelatex artifacts/latex/${base_name}.tex -o artifacts/latex/${base_name}.pdf
         done
 
     - name: GitHub Pages action
