@@ -30,15 +30,20 @@ jobs:
         mkdir -p artifacts/latex
         rm -rf artifacts/latex/*  # Clean any existing files
 
-    - name: create file list
+    - name: Create file list
       id: files_list
       run: |
-        #echo "Lorem ipsum" > lorem_1.md  # create two example files
-        #echo "dolor sit amet" > lorem_2.md
-        #mkdir output  # create output dir
-        echo "files=$(printf '"%s" ' *.ipynb)" > $GITHUB_OUTPUT
-        #echo "files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*") > $GITHUB_OUTPUT
-        echo $files
+        # Collect all .ipynb files (non-hidden directories and files)
+        files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
+        
+        # Format into a space-separated string with quoted filenames
+        formatted_files=$(printf '"%s" ' $files)
+        
+        # Set the output variable
+        echo "files=$formatted_files" >> $GITHUB_OUTPUT
+    
+        # Optional: echo for debugging
+        echo $formatted_files
 
     - name: Convert notebooks to LaTeX
       uses: docker://pandoc/latex:3.5
