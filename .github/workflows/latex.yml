@@ -36,8 +36,8 @@ jobs:
         #echo "Lorem ipsum" > lorem_1.md  # create two example files
         #echo "dolor sit amet" > lorem_2.md
         #mkdir output  # create output dir
-        #echo "files=$(printf '"%s" ' *.ipynb)" > $GITHUB_OUTPUT
-        echo "files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*") > $GITHUB_OUTPUT
+        echo "files=$(printf '"%s" ' *.ipynb)" > $GITHUB_OUTPUT
+        #echo "files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*") > $GITHUB_OUTPUT
 
     - name: Convert notebooks to LaTeX
       uses: docker://pandoc/latex:3.5
