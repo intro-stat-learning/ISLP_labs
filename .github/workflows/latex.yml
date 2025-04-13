@@ -21,13 +21,26 @@ jobs:
         python -m pip install --upgrade pip
         pip install jupyter nbconvert
 
+    - name: Install pandoc
+      run: |
+        apt-get install pandoc
+
     - name: Create artifact directory
       run: |
-        mkdir -p artifacts/rmd
-        rm -rf artifacts/rmd/*  # Clean any existing files
+        mkdir -p artifacts/latex
+        rm -rf artifacts/latex/*  # Clean any existing files
 
     - name: Convert notebooks to LaTeX
       run: |
         # Find all notebooks in the repository
         NOTEBOOKS=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
 
+        # Convert each notebook
+        for nb in $NOTEBOOKS; do
+          echo "Converting $nb to Rmd..."
+          # Get the base name without path and extension
+          base_name=$(basename "$nb" .ipynb)
+          
+          # Convert to Rmd in the artifacts directory
+          # jupytext --to rmarkdown "$nb" --output "artifacts/rmd/${base_name}.Rmd"
+        done
