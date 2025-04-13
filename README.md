@@ -25,7 +25,7 @@ Please ensure you have followed the installation instructions for
 installation of [jupyterlab](https://github.com/jupyterlab/jupyterlab)
 if necessary, which is not included as a requirement of the labs.
 
-### Up-to-date version of labs for ISLP. 
+### Up-to-date version of labs for ISLP
 
 This repo will track labs for ISLP as their source code changes.  The
 intent is that building a virtual environment with
