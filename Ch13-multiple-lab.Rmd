@@ -102,7 +102,7 @@ truth = pd.Categorical(true_mean == 0,
 
 ```
 Since this is a simulated data set, we can create a $2 \times 2$ table
-similar to  Table~\ref{Ch12:tab-hypotheses}.
+similar to  Table 13.2.
 
 ```{python}
 pd.crosstab(decision,
@@ -113,7 +113,7 @@ pd.crosstab(decision,
 ```
 Therefore, at level $\alpha=0.05$, we reject 15 of the 50 false
 null hypotheses, and we incorrectly reject 5 of the true null
-hypotheses. Using the notation from Section~\ref{sec:fwer}, we have
+hypotheses. Using the notation from Section 13.3, we have
 $V=5$, $S=15$, $U=45$ and $W=35$.
 We have set $\alpha=0.05$, which means that we expect to reject around
 5% of the true null hypotheses. This is in line with the $2 \times 2$
@@ -151,12 +151,12 @@ pd.crosstab(decision,
 
 
 ## Family-Wise Error Rate
-Recall from  \eqref{eq:FWER.indep}  that if the null hypothesis is true
+Recall from  (13.5)  that if the null hypothesis is true
 for each of $m$ independent hypothesis tests, then the FWER is equal
 to $1-(1-\alpha)^m$. We can use this expression to compute the FWER
 for $m=1,\ldots, 500$ and $\alpha=0.05$, $0.01$, and $0.001$.
 We plot the FWER for these values of $\alpha$ in order to
-reproduce  Figure~\ref{Ch12:fwer}.
+reproduce  Figure 13.2.
 
 ```{python}
 m = np.linspace(1, 501)
@@ -274,7 +274,7 @@ However, we decided to perform this test only after examining the data
 and noting that Managers One and Two had the highest and lowest mean
 performances.  In a sense, this means that we have implicitly
 performed ${5 \choose 2} = 5(5-1)/2=10$ hypothesis tests, rather than
-just one, as discussed in  Section~\ref{tukey.sec}.  Hence, we use the
+just one, as discussed in  Section 13.3.2.  Hence, we use the
 `pairwise_tukeyhsd()`  function from
 `statsmodels.stats.multicomp` to apply Tukey’s method
   in order to adjust for multiple testing.  This function takes
@@ -361,7 +361,7 @@ null hypotheses!
 ```
 
 
-Figure~\ref{Ch12:fig:BonferroniBenjamini} displays the ordered
+Figure 13.6 displays the ordered
 $p$-values, $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(2000)}$, for
 the  `Fund`  dataset, as well as the threshold for rejection by the
 Benjamini--Hochberg procedure.  Recall that the Benjamini--Hochberg
@@ -390,7 +390,7 @@ else:
 
 ```
 
-We now reproduce  the middle panel of Figure~\ref{Ch12:fig:BonferroniBenjamini}.
+We now reproduce  the middle panel of Figure 13.6.
 
 ```{python}
 fig, ax = plt.subplots()
@@ -409,7 +409,7 @@ ax.axline((0, 0), (1,q/m), c='k', ls='--', linewidth=3);
 ## A Re-Sampling Approach
 Here, we implement the re-sampling approach to hypothesis testing
 using the  `Khan`  dataset, which we investigated in
-Section~\ref{sec:permutations}.  First, we merge the training and
+Section 13.5.  First, we merge the training and
 testing data, which results in observations on 83 patients for
 2,308 genes.
 
@@ -475,7 +475,7 @@ for b in range(B):
 This fraction, 0.0398,
 is our re-sampling-based $p$-value.
 It is almost identical to the $p$-value of  0.0412 obtained using the theoretical null distribution.
-We can plot  a histogram of the re-sampling-based test statistics in order to reproduce  Figure~\ref{Ch12:fig-permp-1}.
+We can plot  a histogram of the re-sampling-based test statistics in order to reproduce  Figure 13.7.
 
 ```{python}
 fig, ax = plt.subplots(figsize=(8,8))
@@ -498,7 +498,7 @@ ax.set_xlabel("Null Distribution of Test Statistic");
 The re-sampling-based null distribution is almost identical to the theoretical null distribution, which is displayed in red.
 
 Finally, we implement the plug-in re-sampling FDR approach outlined in
-Algorithm~\ref{Ch12:alg-plugin-fdr}. Depending on the speed of your
+Algorithm 13.4. Depending on the speed of your
 computer, calculating the FDR for all 2,308 genes in the `Khan`
 dataset may take a while.  Hence, we will illustrate the approach on a
 random subset of 100 genes.  For each gene, we first compute the
@@ -531,7 +531,7 @@ for j in range(m):
 Next, we compute the number of rejected null hypotheses $R$, the
 estimated number of false positives $\widehat{V}$, and the estimated
 FDR, for a range of threshold values $c$ in
-Algorithm~\ref{Ch12:alg-plugin-fdr}. The threshold values are chosen
+Algorithm 13.4. The threshold values are chosen
 using the absolute values of the test statistics from the 100 genes.
 
 ```{python}
@@ -570,8 +570,8 @@ sorted(idx[np.abs(T_vals) >= cutoffs[FDRs < 0.2].min()])
 
 ```
 
-The next line  generates  Figure~\ref{fig:labfdr}, which is similar
-to  Figure~\ref{Ch12:fig-plugin-fdr},
+The next line  generates  Figure 13.11, which is similar
+to  Figure 13.9,
 except that it is based on only  a subset of the genes.
 
 ```{python}
