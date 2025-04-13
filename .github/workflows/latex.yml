@@ -11,41 +11,57 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+    #- name: Set up Python
+    #  uses: actions/setup-python@v5
+    #  with:
+    #    python-version: '3.11'
 
-    - name: Install jupyter and nbconvert
-      run: |
-        python -m pip install --upgrade pip
-        pip install jupyter nbconvert
+    #- name: Install jupyter and nbconvert
+    #  run: |
+    #    python -m pip install --upgrade pip
+    #    pip install jupyter nbconvert
 
-    - name: Install pandoc
-      run: |
-        sudo apt-get install pandoc
+    #- name: Install pandoc
+    #  run: |
+    #    sudo apt-get install pandoc
 
     - name: Create artifact directory
       run: |
         mkdir -p artifacts/latex
         rm -rf artifacts/latex/*  # Clean any existing files
 
-    - name: Convert notebooks to LaTeX
+    - name: create file list
+      id: files_list
       run: |
+        #echo "Lorem ipsum" > lorem_1.md  # create two example files
+        #echo "dolor sit amet" > lorem_2.md
+        #mkdir output  # create output dir
+        #echo "files=$(printf '"%s" ' *.ipynb)" > $GITHUB_OUTPUT
+        echo "files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*") > $GITHUB_OUTPUT
+
+    - name: Convert notebooks to LaTeX
+      uses: docker://pandoc/latex:3.5
+      with:
+        args: --to latex --output="artifacts/latex" ${{ steps.files_list.outputs.files }}
+
+          #"$nb"
+
+          #--output "artifacts/latex/${base_name}"
+        #run: |
         # Find all notebooks in the repository
-        NOTEBOOKS=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
+        #NOTEBOOKS=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
 
         # Convert each notebook
-        for nb in $NOTEBOOKS; do
-          echo "Converting $nb to LaTeX..."
+        #for nb in $NOTEBOOKS; do
+        #  echo "Converting $nb to LaTeX..."
           # Get the base name without path and extension
-          base_name=$(basename "$nb" .ipynb)
+        #  base_name=$(basename "$nb" .ipynb)
           
           # Convert to Rmd in the artifacts directory
-          jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name}"
+            #--to latex "$nb" --output "artifacts/latex/${base_name}"
         
           # jupytext --to rmarkdown "$nb" --output "artifacts/latex/${base_name}.Rmd"
-        done
+        #done
 
     - name: GitHub Pages action
       uses: JamesIves/github-pages-deploy-action@v4
