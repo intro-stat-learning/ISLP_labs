@@ -34,25 +34,22 @@ jobs:
         mkdir -p artifacts/latex
         rm -rf artifacts/latex/*  # Clean any existing files
 
-    - name: Create file list
-      id: files_list
-      run: |
-        # Collect all .ipynb files (non-hidden directories and files)
-        files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
-        
-        # Format into a space-separated string with quoted filenames
-        formatted_files=$(printf '"%s" ' $files)
-        
-        # Set the output variable
-        echo "files=$formatted_files" >> $GITHUB_OUTPUT
-    
-        # Optional: echo for debugging
-        echo $formatted_files
-
     - name: Convert notebooks to LaTeX
       run: |
-        jupyter nbconvert --to latex --output="artifacts/latex" ${{ steps.files_list.outputs.files }}
+        # Find all notebooks in the repository
+        NOTEBOOKS=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
 
+        # Convert each notebook
+        for nb in $NOTEBOOKS; do
+          echo "Converting $nb to LaTeX..."
+          # Get the base name without path and extension
+          base_name=$(basename "$nb" .ipynb)
+          
+          # Convert to Rmd in the artifacts directory
+          jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name}"
+        
+          # jupytext --to rmarkdown "$nb" --output "artifacts/latex/${base_name}.Rmd"
+        done
 
     - name: GitHub Pages action
       uses: JamesIves/github-pages-deploy-action@v4
