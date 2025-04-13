@@ -1,4 +1,4 @@
-e: Convert Notebooks to LaTeX
+name: Convert Notebooks to LaTeX
 on:
   push
 
