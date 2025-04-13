@@ -42,7 +42,7 @@ jobs:
           base_name=$(basename "$nb" .ipynb)
           
           # Convert to Rmd in the artifacts directory
-          jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name)
+          jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name}"
         
           # jupytext --to rmarkdown "$nb" --output "artifacts/latex/${base_name}.Rmd"
         done
