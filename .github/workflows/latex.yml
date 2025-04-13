@@ -1,0 +1,60 @@
+name: Convert Notebooks to LaTeX
+on:
+  push
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install jupyter and nbconvert
+      run: |
+        python -m pip install --upgrade pip
+        pip install jupyter nbconvert
+
+    - name: Install pandoc
+      run: |
+        sudo apt-get install pandoc
+
+    - name: Install LateX
+      run: |
+        sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-plain-generic
+
+    - name: Create artifact directory
+      run: |
+        mkdir -p artifacts/latex
+        rm -rf artifacts/latex/*  # Clean any existing files
+
+    - name: Convert notebooks to LaTeX
+      run: |
+        # Find all notebooks in the repository
+        NOTEBOOKS=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*")
+
+        # Convert each notebook
+        for nb in $NOTEBOOKS; do
+          echo "Converting $nb to LaTeX..."
+          
+          # Get the base name without path and extension
+          base_name=$(basename "$nb" .ipynb)
+          
+          # Convert to Rmd in the artifacts directory
+          jupyter nbconvert --to latex "$nb" --output "artifacts/latex/${base_name}"
+        
+          # Do not activate this for now as more work is required to make it work
+          # xelatex artifacts/latex/${base_name}.tex -o artifacts/latex/${base_name}.pdf
+        done
+
+    - name: GitHub Pages action
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: latex-files         # The branch the action should deploy to.
+        folder: artifacts/latex     # The folder the action should deploy.
