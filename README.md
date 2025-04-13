@@ -10,6 +10,10 @@
 
 - Trevor Hastie
 
+- Gareth James
+
+- Jonathan Taylor
+
 - Robert Tibshirani
 
 - Daniela Witten
