@@ -89,7 +89,7 @@ Hitters.shape
 ```
 
 
-We first choose the best model using forward selection based on $C_p$ (\ref{Ch6:eq:cp}). This score
+We first choose the best model using forward selection based on $C_p$ (6.2). This score
 is not built in as a metric to `sklearn`. We therefore define a function to compute it ourselves, and use
 it as a scorer. By default, `sklearn` tries to maximize a score, hence
   our scoring function  computes the negative $C_p$ statistic.
@@ -114,7 +114,7 @@ sigma2 = OLS(Y,X).fit().scale
 
 ```
 
-The function `sklearn_selected()` expects a scorer with just three arguments --- the last three in the definition of `nCp()` above. We use the function `partial()` first seen in Section~\ref{Ch5-resample-lab:the-bootstrap} to freeze the first argument with our estimate of $\sigma^2$.
+The function `sklearn_selected()` expects a scorer with just three arguments --- the last three in the definition of `nCp()` above. We use the function `partial()` first seen in Section 5.3.3 to freeze the first argument with our estimate of $\sigma^2$.
 
 ```{python}
 neg_Cp = partial(nCp, sigma2)
@@ -366,7 +366,7 @@ Since we
 standardize first, in order to find coefficient
 estimates on the original scale, we must *unstandardize*
 the coefficient estimates. The parameter
-$\lambda$ in (\ref{Ch6:ridge}) and (\ref{Ch6:LASSO}) is called `alphas` in `sklearn`. In order to
+$\lambda$ in (6.5) and (6.7) is called `alphas` in `sklearn`. In order to
 be consistent with the rest of this chapter, we use `lambdas`
 rather than `alphas` in what follows.  {At the time of publication, ridge fits like the one in code chunk [22] issue unwarranted convergence warning messages; we expect these to disappear as this package matures.}
 
@@ -543,7 +543,7 @@ grid.best_params_['ridge__alpha']
 grid.best_estimator_
 
 ```
-Recall we set up the `kfold` object for 5-fold cross-validation on page~\pageref{line:choos-among-models}. We now plot the cross-validated MSE as a function of $-\log(\lambda)$, which has shrinkage decreasing from left
+Recall we set up the `kfold` object for 5-fold cross-validation on page 271. We now plot the cross-validated MSE as a function of $-\log(\lambda)$, which has shrinkage decreasing from left
 to right.
 
 ```{python}
@@ -643,7 +643,7 @@ not perform variable selection!
 ### Evaluating Test Error of Cross-Validated Ridge
 Choosing $\lambda$ using cross-validation provides a single regression
 estimator, similar to fitting a linear regression model as we saw in
-Chapter~\ref{Ch3:linreg}. It is therefore reasonable to estimate what its test error
+Chapter 3. It is therefore reasonable to estimate what its test error
 is. We run into a problem here in that cross-validation will have
 *touched* all of its data in choosing $\lambda$, hence we have no
 further data to estimate test error. A compromise is to do an initial
@@ -731,7 +731,7 @@ ax.set_ylabel('Standardized coefficiients', fontsize=20);
 ```
 The smallest cross-validated error is lower than the test set MSE of the null model
 and of least squares, and very similar to the test MSE of 115526.71 of ridge
-regression (page~\pageref{page:MSECVRidge}) with $\lambda$ chosen by cross-validation.
+regression (page 278) with $\lambda$ chosen by cross-validation.
 
 ```{python}
 np.min(tuned_lasso.mse_path_.mean(1))
@@ -779,11 +779,11 @@ Principal components regression (PCR) can be performed using
 `PCA()`  from the `sklearn.decomposition`
 module. We now apply PCR to the  `Hitters`  data, in order to
 predict `Salary`. Again, ensure that the missing values have
-been removed from the data, as described in Section~\ref{Ch6-varselect-lab:lab-1-subset-selection-methods}.
+been removed from the data, as described in Section 6.5.1.
 
 We use `LinearRegression()`  to fit the regression model
 here. Note that it fits an intercept by default, unlike
-the `OLS()` function seen earlier in Section~\ref{Ch6-varselect-lab:lab-1-subset-selection-methods}.
+the `OLS()` function seen earlier in Section 6.5.1.
 
 ```{python}
 pca = PCA(n_components=2)
@@ -867,7 +867,7 @@ cv_null = skm.cross_validate(linreg,
 The `explained_variance_ratio_`
 attribute of our `PCA` object provides the *percentage of variance explained* in the predictors and in the response using
 different numbers of components. This concept is discussed in greater
-detail in Section~\ref{Ch10:sec:pca}.
+detail in Section 12.2.
 
 ```{python}
 pipe.named_steps['pca'].explained_variance_ratio_
