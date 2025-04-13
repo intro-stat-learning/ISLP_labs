@@ -38,6 +38,7 @@ jobs:
         #mkdir output  # create output dir
         echo "files=$(printf '"%s" ' *.ipynb)" > $GITHUB_OUTPUT
         #echo "files=$(find . -name "*.ipynb" -not -path "*/\.*" -not -path "*/artifacts/*") > $GITHUB_OUTPUT
+        echo $files
 
     - name: Convert notebooks to LaTeX
       uses: docker://pandoc/latex:3.5
