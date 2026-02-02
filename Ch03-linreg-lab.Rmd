@@ -8,7 +8,7 @@ jupyter:
       extension: .Rmd
       format_name: rmarkdown
       format_version: '1.2'
-      jupytext_version: 1.16.7
+      jupytext_version: 1.19.1
 ---
 
 # Linear Regression
@@ -326,8 +326,8 @@ Let’s use our new function to add this regression line to a plot of
 ```{python}
 ax = Boston.plot.scatter('lstat', 'medv')
 abline(ax,
-       results.params[0],
-       results.params[1],
+       results.params['intercept'],
+       results.params['lstat'],
        'r--',
        linewidth=3)
 
