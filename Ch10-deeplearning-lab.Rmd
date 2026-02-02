@@ -3,12 +3,15 @@ jupyter:
   jupytext:
     cell_metadata_filter: -all
     formats: ipynb,Rmd
-    main_language: python
     text_representation:
       extension: .Rmd
       format_name: rmarkdown
       format_version: '1.2'
-      jupytext_version: 1.19.1
+      jupytext_version: 1.15.0
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
 ---
 
 # Deep Learning
@@ -1724,7 +1727,7 @@ our `Hitters` example.
 datasets = []
 for mask in [train, ~train]:
     X_rnn_t = torch.tensor(X_rnn[mask].astype(np.float32))
-    Y_t = torch.tensor(Y[mask].astype(np.float32))
+    Y_t = torch.tensor(np.asarray(Y[mask], np.float32))
     datasets.append(TensorDataset(X_rnn_t, Y_t))
 nyse_train, nyse_test = datasets
 
@@ -1861,3 +1864,7 @@ nl_trainer.test(nl_module, datamodule=day_dm)
 
  
 
+
+```{python}
+
+```
