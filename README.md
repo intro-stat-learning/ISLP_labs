@@ -34,7 +34,7 @@ intent is that building a virtual environment with
 To install the current version of the requirements run
 
 ```
-pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2/requirements.txt;
+pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2.1/requirements.txt;
 ```
 
 The labs can now be run via:
@@ -46,7 +46,7 @@ jupyter lab Ch02-statlearn-lab.ipynb
 
 # Zip / tarball
 
-You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.2)
+You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.2.1)
 
 
 ## Contributors ✨

@@ -2,22 +2,22 @@
 jupyter:
   jupytext:
     cell_metadata_filter: -all
-    formats: ipynb,Rmd
+    formats: Rmd
     main_language: python
     text_representation:
       extension: .Rmd
       format_name: rmarkdown
       format_version: '1.2'
-      jupytext_version: 1.16.7
+      jupytext_version: 1.19.1
 ---
 
 # Introduction to Python
 
-<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch02-statlearn-lab.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch02-statlearn-lab.ipynb">
 <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch02-statlearn-lab.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2.1?labpath=Ch02-statlearn-lab.ipynb)
 
 
 
@@ -83,7 +83,7 @@ print('fit a model with', 11, 'variables')
  The following command will provide information about the `print()` function.
 
 ```{python}
-# print?
+print?
 
 ```
 
@@ -233,7 +233,7 @@ documentation associated with the function `fun`, if it exists.
 We can try this for `np.array()`. 
 
 ```{python}
-# np.array?
+np.array?
 
 ```
 This documentation indicates that we could create a floating point array by passing a `dtype` argument into `np.array()`.
@@ -904,7 +904,6 @@ A[np.array([0,1,0,1])]
 
  By contrast, `keep_rows` retrieves only the second and fourth rows  of `A` --- i.e. the rows for which the Boolean equals `True`. 
 
-
 ```{python}
 A[keep_rows]
 
@@ -978,9 +977,10 @@ Auto
 The book website also has a whitespace-delimited version of this data, called `Auto.data`. This can be read in as follows:
 
 ```{python}
-Auto = pd.read_csv('Auto.data', delim_whitespace=True)
+Auto = pd.read_csv("Auto.data", sep="\\s+")
 
 ```
+
  Both `Auto.csv` and `Auto.data` are simply text
 files. Before loading data into `Python`, it is a good idea to view it using
 a text editor or other software, such as Microsoft Excel.
@@ -1015,11 +1015,10 @@ value `np.nan`, which means *not a number*:
 ```{python}
 Auto = pd.read_csv('Auto.data',
                    na_values=['?'],
-                   delim_whitespace=True)
+                   sep="\\s+")
 Auto['horsepower'].sum()
 
 ```
-
 
 The `Auto.shape`  attribute tells us that the data has 397
 observations, or rows, and nine variables, or columns.
@@ -1293,14 +1292,13 @@ because `Python` does not know to look in the  `Auto`  data set for those variab
 
 ```{python}
 fig, ax = subplots(figsize=(8, 8))
-ax.plot(horsepower, mpg, 'o');
+ax.plot(horsepower, mpg, 'o')
 ```
 We can address this by accessing the columns directly:
 
 ```{python}
 fig, ax = subplots(figsize=(8, 8))
 ax.plot(Auto['horsepower'], Auto['mpg'], 'o');
-
 ```
 Alternatively, we can use the `plot()` method with the call `Auto.plot()`.
 Using this method,
@@ -1402,8 +1400,7 @@ Auto['cylinders'].describe()
 Auto['mpg'].describe()
 
 ```
-To exit `Jupyter`,  select `File / Shut Down`.
 
- 
+```{python}
 
-
+```
