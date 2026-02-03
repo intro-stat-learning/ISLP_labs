@@ -24,5 +24,5 @@ jupyter: install  ## Install and start jupyter Lab
 
 .PHONY: marimo
 marimo: install ## Install and start marimo
-    @uv run pip install marimo
-    @uv run marimo edit --no-token --headless .
+	@uv run pip install marimo
+	@uv run marimo edit --no-token --headless .
