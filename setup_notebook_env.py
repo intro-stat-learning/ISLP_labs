@@ -21,10 +21,9 @@ def setup_env(outdir,
               python_version, 
               nbfiles,
               uv_executable,
-              nbmake_timeout,
-              nbmake_kernel,
-              nbmake_allow_errors,
-              nbmake_rerun):
+              timeout,
+              kernel,
+              nb_allow_errors):
     """
     Sets up a student environment for ISLP_labs.
 
@@ -37,17 +36,15 @@ def setup_env(outdir,
     python_version : str
         Python version to use for the virtual environment.
     nbfiles : list
-        List of notebook files to run with nbmake.
+        List of notebook files to run.
     uv_executable : str
         The `uv` executable.
-    nbmake_timeout : int
-        Timeout for running notebooks with nbmake.
-    nbmake_kernel : str
-        Kernel to use for running notebooks with nbmake.
-    nbmake_allow_errors : bool
-        Allow errors when running notebooks with nbmake.
-    nbmake_rerun : int
-        Number of times to rerun notebooks with nbmake.
+    timeout : int
+        Timeout for running notebooks.
+    kernel : str
+        Kernel to use for running notebooks.
+    nb_allow_errors : bool
+        Allow errors when running notebooks.
     """
     repo_url = 'https://github.com/intro-stat-learning/ISLP_labs.git'
 
@@ -58,13 +55,14 @@ def setup_env(outdir,
                       python_version, 
                       nbfiles,
                       uv_executable,
-                      nbmake_timeout,
-                      nbmake_kernel,
-                      nbmake_allow_errors,
-                      nbmake_rerun)
+                      timeout,
+                      nb_allow_errors)
         return
     
-    if not outdir.exists():
+    if outdir.exists():
+        if any(outdir.iterdir()): # Check if directory is not empty (including hidden files)
+            raise FileExistsError(f"Output directory '{outdir}' already exists and is not empty. Please specify an empty directory or a non-existent path.")
+    else:
         outdir.mkdir(parents=True)
 
     try:
@@ -91,24 +89,48 @@ def setup_env(outdir,
         run_command([str(uv_bin / 'pip'), 'install', '-r', 'requirements.txt', 'jupyterlab'], cwd=str(outdir))
         
         if nbfiles:
-            run_command([str(uv_bin / 'pip'), 'install', 'pytest', 'nbmake'], cwd=str(outdir))
-            for nbfile in nbfiles:
-                notebook_path = outdir / nbfile
-                if not notebook_path.exists():
-                    print(f"Error: Notebook '{nbfile}' not found in the repository.", file=sys.stderr)
-                    continue
+            if nb_allow_errors:
+                for nbfile in nbfiles:
+                    notebook_path = outdir / nbfile
+                    if not notebook_path.exists():
+                        print(f"Error: Notebook '{nbfile}' not found in the repository.", file=sys.stderr)
+                        continue
 
-                print(f"Running notebook {notebook_path}...")
-                pytest_command = [str(uv_bin / 'pytest'), '--nbmake', f'--nbmake-timeout={nbmake_timeout}', '-vv', str(nbfile)]
-                if nbmake_kernel:
-                    pytest_command.append(f'--nbmake-kernel={nbmake_kernel}')
-                if nbmake_allow_errors:
-                    pytest_command.append('--nbmake-allow-errors')
-                if nbmake_rerun > 0:
-                    pytest_command.append(f'--nbmake-rerun={nbmake_rerun}')
+                    print(f"Running notebook {notebook_path} with jupyter nbconvert...")
+                    nbconvert_command = [str(uv_bin / 'jupyter'), 
+                                         'nbconvert', 
+                                         '--to', 
+                                         'notebook', 
+                                         '--execute', 
+                                         '--inplace',
+                                         f'--ExecutePreprocessor.timeout={timeout}',
+                                         str(nbfile)]
 
-                run_command(pytest_command, cwd=str(outdir))
+                    if kernel:
+                        nbconvert_command.extend(['--kernel', kernel])
+                    nbconvert_command.append('--allow-errors')
 
+                    run_command(nbconvert_command, cwd=str(outdir))
+            else:
+                run_command([str(uv_bin / 'pip'), 'install', 'pytest', 'nbmake'], cwd=str(outdir))
+                for nbfile in nbfiles:
+                    notebook_path = outdir / nbfile
+                    if not notebook_path.exists():
+                        print(f"Error: Notebook '{nbfile}' not found in the repository.", file=sys.stderr)
+                        continue
+
+                    print(f"Running notebook {notebook_path} with pytest nbmake...")
+                    pytest_command = [str(uv_bin / 'pytest'), 
+                                      '--nbmake', 
+                                      f'--nbmake-timeout={timeout}', 
+                                      '-vv', 
+                                      str(nbfile)]
+                    if kernel:
+                        pytest_command.append(f'--nbmake-kernel={kernel}')
+                    # nbmake does not have --allow-errors in the same way as nbconvert
+                    # If errors are not allowed, nbmake will fail on first error naturally
+
+                    run_command(pytest_command, cwd=str(outdir))
         print("Setup completed successfully.")
         print(f"Environment is in: {outdir}")
         if sys.platform == 'win32':
@@ -127,12 +149,11 @@ def main():
     parser.add_argument('--commit', default='main', help='The git commit, tag, or branch to checkout (default: main)')
     parser.add_argument('--python-version', default='3.11', help='Python version to use (default: 3.11)')
     parser.add_argument('--uv-executable', default='uv', help='The `uv` executable to use (default: "uv")')
-    parser.add_argument('--nbmake-timeout', type=int, default=3600, help='Timeout for running notebooks with nbmake (default: 3600)')
-    parser.add_argument('--nbmake-kernel', default=None, help='Kernel to use for running notebooks with nbmake')
-    parser.add_argument('--nbmake-allow-errors', action='store_true', help='Allow errors when running notebooks with nbmake')
-    parser.add_argument('--nbmake-rerun', type=int, default=0, help='Number of times to rerun notebooks with nbmake')
+    parser.add_argument('--timeout', type=int, default=3600, help='Timeout for running notebooks (default: 3600)')
+    parser.add_argument('--kernel', default=None, help='Kernel to use for running notebooks')
+    parser.add_argument('--allow-errors', action='store_true', help='Allow errors when running notebooks')
 
-    parser.add_argument('nbfiles', nargs='*', help='Optional list of notebooks to run using nbmake.')
+    parser.add_argument('nbfiles', nargs='*', help='Optional list of notebooks to run.')
 
     args = parser.parse_args()
     
@@ -141,10 +162,9 @@ def main():
               args.python_version, 
               args.nbfiles,
               args.uv_executable,
-              args.nbmake_timeout,
-              args.nbmake_kernel,
-              args.nbmake_allow_errors,
-              args.nbmake_rerun)
+              args.timeout,
+              args.kernel,
+              args.allow_errors)
 
 if __name__ == '__main__':
     main()

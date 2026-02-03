@@ -48,6 +48,75 @@ uv run jupyter lab Ch02-statlearn-lab.ipynb
 
 You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.2.1)
 
+# Setup script
+
+We've added a setup script that ensures precisely the desired labs are checked out along with a `uv` virtual environment being created. Follow
+these instructions:
+
+To set up a local environment to run the notebooks for a specific version of the labs, you can use the `setup_notebook_env.py` script. This script will create a directory, download the labs, and set up a Python virtual environment with all the necessary packages.
+
+## Prerequisites
+
+This script relies on `uv` for managing Python environments. If you don't have `uv` installed, you can install it using `pipx` or `cargo`:
+
+*   **Using `pipx` (recommended):**
+    ```bash
+    pip install pipx
+    pipx ensurepath
+    pipx install uv
+    ```
+
+*   **Using `cargo` (if you have Rust installed):**
+    ```bash
+    cargo install uv
+    ```
+
+For more detailed installation instructions, please refer to the [uv documentation](https://github.com/astral-sh/uv#installation).
+
+## Instructions
+
+### 1. Download the setup script
+
+You can find the raw Python script here: [`setup_notebook_env.py`](https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/main/setup_notebook_env.py)
+
+To download and run it, first ensure `uv` is installed (see Prerequisites above), then execute the following commands in your terminal:
+
+```bash
+curl -LO https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/main/setup_notebook_env.py
+uv run python setup_notebook_env.py --outdir ISLP_v2.2.1 --commit v2.2.1 --python-version 3.12
+```
+
+### 2. Run the setup script
+
+Open your terminal and run the following command to set up the environment for version `v2.2.1` of the labs with Python `3.12`. You can also specify one or more notebooks to run automatically after setup.
+
+*   `--outdir ISLP_v2.2.1`: This will create a directory named `ISLP_v2.2.1` for your labs.
+*   `--commit v2.2.1`: This specifies that you want to use version `v2.2.1` of the labs.
+*   `--python-version 3.12`: This will use Python 3.12 for the environment.
+*   `Ch02-statlearn-lab.ipynb`: This is an optional argument to run a specific notebook after the setup is complete. It is meant for testing to be sure given notebooks run but is not required. You can list more than one notebook.
+
+### 2. Activate the environment
+
+Once the script is finished, you can activate the virtual environment to run other notebooks or work with the lab materials.
+
+*   **On macOS and Linux:**
+    ```bash
+    source ISLP_v2.2.1/.venv/bin/activate
+    ```
+
+*   **On Windows:**
+    ```bash
+    ISLP_v2.2.1\.venv\Scripts\activate
+    ```
+
+### 3. Run other notebooks
+
+After activating the environment, you can start Jupyter Lab to run other notebooks.
+
+```bash
+jupyter lab
+```
+
 
 ## Contributors ✨
 
