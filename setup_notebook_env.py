@@ -23,7 +23,7 @@ def setup_env(outdir,
               uv_executable,
               timeout,
               kernel,
-              nb_allow_errors):
+              allow_errors):
     """
     Sets up a student environment for ISLP_labs.
 
@@ -43,7 +43,7 @@ def setup_env(outdir,
         Timeout for running notebooks.
     kernel : str
         Kernel to use for running notebooks.
-    nb_allow_errors : bool
+    allow_errors : bool
         Allow errors when running notebooks.
     """
     repo_url = 'https://github.com/intro-stat-learning/ISLP_labs.git'
@@ -56,7 +56,8 @@ def setup_env(outdir,
                       nbfiles,
                       uv_executable,
                       timeout,
-                      nb_allow_errors)
+                      kernel,
+                      allow_errors)
         return
     
     if outdir.exists():
@@ -89,7 +90,7 @@ def setup_env(outdir,
         run_command([str(uv_bin / 'pip'), 'install', '-r', 'requirements.txt', 'jupyterlab'], cwd=str(outdir))
         
         if nbfiles:
-            if nb_allow_errors:
+            if allow_errors:
                 for nbfile in nbfiles:
                     notebook_path = outdir / nbfile
                     if not notebook_path.exists():
