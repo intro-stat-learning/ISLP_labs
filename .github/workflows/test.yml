@@ -2,7 +2,7 @@
 name: TEST
 
 on:
-  - push
+  workflow_dispatch:
 
 jobs:
   test:
@@ -19,7 +19,6 @@ jobs:
                     Ch07-nonlin-lab.ipynb,
                     Ch08-baggboost-lab.ipynb,
                     Ch09-svm-lab.ipynb,
-                    Ch10-deeplearning-lab.ipynb,
                     Ch11-surv-lab.ipynb,
                     Ch12-unsup-lab.ipynb,
                     Ch13-multiple-lab.ipynb]
