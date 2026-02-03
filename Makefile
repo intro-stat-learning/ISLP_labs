@@ -6,6 +6,7 @@ venv:
 	@curl -LsSf https://astral.sh/uv/install.sh | sh
 	@uv venv --python $(PYTHON_VERSION)
 
+
 .PHONY: install
 install: venv ## Install all dependencies (in the virtual environment) defined in requirements.txt
 	@uv pip install --upgrade pip
