@@ -151,7 +151,7 @@ def main():
     parser.add_argument('--uv-executable', default='uv', help='The `uv` executable to use (default: "uv")')
     parser.add_argument('--timeout', type=int, default=3600, help='Timeout for running notebooks (default: 3600)')
     parser.add_argument('--kernel', default=None, help='Kernel to use for running notebooks')
-    parser.add_argument('--allow-errors', action='store_true', help='Allow errors when running notebooks')
+    parser.add_argument('--allow-errors', action='store_true', help='Allow errors when running notebooks. For older commits, Ch02-statlearn-lab.ipynb raises exceptions. Since v2.2.1 these are handled by appropriate tags in the .ipynb cells.')
 
     parser.add_argument('nbfiles', nargs='*', help='Optional list of notebooks to run.')
 
