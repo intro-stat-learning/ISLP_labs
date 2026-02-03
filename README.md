@@ -40,7 +40,7 @@ uv pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_lab
 The labs can now be run via:
 
 ```
-jupyter lab Ch02-statlearn-lab.ipynb
+uv run jupyter lab Ch02-statlearn-lab.ipynb
 ```
 
 
