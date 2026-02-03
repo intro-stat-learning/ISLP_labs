@@ -1,23 +1,26 @@
 ---
 jupyter:
   jupytext:
-    cell_metadata_filter: -all
+    cell_metadata_filter: language,-all
     formats: Rmd
-    main_language: python
     text_representation:
       extension: .Rmd
       format_name: rmarkdown
       format_version: '1.2'
       jupytext_version: 1.19.1
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
 ---
 
 # Linear Models and Regularization Methods
 
-<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2/Ch06-varselect-lab.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch06-varselect-lab.ipynb">
 <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2?labpath=Ch06-varselect-lab.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/intro-stat-learning/ISLP_labs/v2.2.1?labpath=Ch06-varselect-lab.ipynb)
 
 
 In this lab we implement many of the techniques discussed in this chapter.
@@ -39,7 +42,7 @@ from functools import partial
 ```
 
 We again collect the new imports
-needed for this lab. Readers will also have to have installed `l0bnb` using `pip install l0bnb`.
+needed for this lab. Readers will have installed `l0bnb` when installing the requirements.
 
 ```{python}
 from sklearn.pipeline import Pipeline
@@ -51,6 +54,14 @@ from ISLP.models import \
       sklearn_selection_path)
 from l0bnb import fit_path
 
+```
+
+Using `skl.ElasticNet` to fit ridge regression
+throws up many warnings. We will suppress them below by a call to `warnings.simplefilter()`.
+
+```{python}
+import warnings
+warnings.simplefilter("ignore")
 ```
 
 ## Subset Selection Methods
@@ -368,7 +379,7 @@ estimates on the original scale, we must *unstandardize*
 the coefficient estimates. The parameter
 $\lambda$ in (\ref{Ch6:ridge}) and (\ref{Ch6:LASSO}) is called `alphas` in `sklearn`. In order to
 be consistent with the rest of this chapter, we use `lambdas`
-rather than `alphas` in what follows.  {At the time of publication, ridge fits like the one in code chunk [22] issue unwarranted convergence warning messages; we expect these to disappear as this package matures.}
+rather than `alphas` in what follows.  {At the time of publication, ridge fits like the one in code chunk [23] issue unwarranted convergence warning messages; we suppressed these when we filtered the warnings above.}
 
 ```{python}
 Xs = X - X.mean(0)[None,:]
