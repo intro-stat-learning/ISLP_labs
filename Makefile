@@ -21,3 +21,8 @@ help:  ## Display this help screen
 jupyter: install  ## Install and start jupyter Lab
 	@uv run pip install jupyterlab
 	@uv run jupyter lab
+
+.PHONY: marimo
+marimo: install ## Install and start marimo
+    @uv run pip install marimo
+    @uv run marimo edit --no-token --headless .
