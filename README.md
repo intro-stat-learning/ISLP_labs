@@ -34,7 +34,7 @@ intent is that building a virtual environment with
 To install the current version of the requirements run
 
 ```
-pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2.1/requirements.txt;
+uv pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2.1/requirements.txt;
 ```
 
 The labs can now be run via:
