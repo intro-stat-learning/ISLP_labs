@@ -10,13 +10,11 @@
 #   "ISLP"
 # ]
 # requires-python = ">=3.12"
-# [tool.uv.sources]
-#   ISLP = { git = "https://github.com/intro-stat-learning/ISLP_labs.git" }
 # ///
 
 import marimo
 
-__generated_with = "0.19.7"
+__generated_with = "0.19.6"
 app = marimo.App()
 
 with app.setup:
@@ -24,6 +22,7 @@ with app.setup:
     import numpy as np
     import pandas as pd
     import statsmodels.api as sm
+
 
 @app.cell
 def _():
@@ -48,7 +47,7 @@ def _():
     #import numpy as np
     #import pandas as pd
     from matplotlib.pyplot import subplots
-    return subplots
+    return (subplots,)
 
 
 @app.cell(hide_code=True)
