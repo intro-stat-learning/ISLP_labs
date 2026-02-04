@@ -2,8 +2,6 @@
 # dependencies = [
 #   "marimo==0.19.6",
 #   "numpy==2.3.1",
-#   "plotly==6.2.0",
-#   "polars==1.32.2",
 #   "pandas",
 #   "matplotlib",
 #   "statsmodels",
@@ -21,11 +19,10 @@ with app.setup:
     import marimo as mo
     import numpy as np
     import pandas as pd
-    import statsmodels.api as sm
-    
-    # plotting
+
     from matplotlib.pyplot import subplots
-    
+
+    import statsmodels.api as sm
     from statsmodels.stats.outliers_influence import variance_inflation_factor as VIF
     from statsmodels.stats.anova import anova_lm
     
