@@ -5,9 +5,13 @@
 #   "plotly==6.2.0",
 #   "polars==1.32.2",
 #   "pandas",
-#   "matplotlib"
+#   "matplotlib",
+#   "statsmodels",
+#   "ISLP"
 # ]
 # requires-python = ">=3.12"
+# [tool.uv.sources]
+#   ISLP = { git = "https://github.com/intro-stat-learning/ISLP_labs.git" }
 # ///
 
 import marimo
@@ -17,7 +21,10 @@ app = marimo.App()
 
 with app.setup:
     import marimo as mo
-    
+    import numpy as np
+    import pandas as pd
+    import statsmodels.api as sm
+
 @app.cell
 def _():
     mo.md(r"""
@@ -38,10 +45,10 @@ def _():
 
 @app.cell
 def _():
-    import numpy as np
-    import pandas as pd
+    #import numpy as np
+    #import pandas as pd
     from matplotlib.pyplot import subplots
-    return np, pd, subplots
+    return subplots
 
 
 @app.cell(hide_code=True)
@@ -55,12 +62,6 @@ def _():
     lines tells us what libraries are used.
     """)
     return
-
-
-@app.cell
-def _():
-    import statsmodels.api as sm
-    return (sm,)
 
 
 @app.cell(hide_code=True)
@@ -142,7 +143,7 @@ def _():
 
 
 @app.cell
-def _(np):
+def _():
     A = np.array([3,5,11])
     dir(A)
     return (A,)
@@ -213,7 +214,7 @@ def _():
 
 
 @app.cell
-def _(Boston, np, pd):
+def _(Boston):
     X = pd.DataFrame({'intercept': np.ones(Boston.shape[0]),
                       'lstat': Boston['lstat']})
     X[:4]
@@ -229,7 +230,7 @@ def _():
 
 
 @app.cell
-def _(Boston, X, sm):
+def _(Boston, X):
     y = Boston['medv']
     _model = sm.OLS(y, X)
     results = _model.fit()
@@ -376,7 +377,7 @@ def _():
 
 
 @app.cell
-def _(design_1, pd):
+def _(design_1):
     new_df = pd.DataFrame({'lstat': [5, 10, 15]})
     newX = design_1.transform(new_df)
     newX
@@ -458,9 +459,9 @@ def _():
 @app.function
 def abline(ax, b, m):
     """Add a line with slope m and intercept b to ax"""
-    xlim = _ax.get_xlim()
+    xlim = ax.get_xlim()
     ylim = [m * xlim[0] + b, m * xlim[1] + b]
-    _ax.plot(xlim, ylim)
+    ax.plot(xlim, ylim)
 
 
 @app.cell(hide_code=True)
@@ -563,7 +564,7 @@ def _():
 
 
 @app.cell
-def _(X_2, np, results, subplots):
+def _(X_2, results, subplots):
     infl = results.get_influence()
     _ax = subplots(figsize=(8, 8))[1]
     _ax.scatter(np.arange(X_2.shape[0]), infl.hat_matrix_diag)
@@ -598,7 +599,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, sm, summarize, y):
+def _(Boston, MS, summarize, y):
     X_3 = MS(['lstat', 'age']).fit_transform(Boston)
     _model1 = sm.OLS(y, X_3)
     results1 = _model1.fit()
@@ -635,7 +636,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, sm, summarize, terms, y):
+def _(Boston, MS, summarize, terms, y):
     X_4 = MS(terms).fit_transform(Boston)
     _model = sm.OLS(y, X_4)
     results_1 = _model.fit()
@@ -655,7 +656,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, sm, summarize, y):
+def _(Boston, MS, summarize, y):
     minus_age = Boston.columns.drop(['medv', 'age'])
     Xma = MS(minus_age).fit_transform(Boston)
     _model1 = sm.OLS(y, Xma)
@@ -695,7 +696,7 @@ def _():
 
 
 @app.cell
-def _(VIF, X_4, pd):
+def _(VIF, X_4):
     _vals = [VIF(X_4, i) for i in range(1, X_4.shape[1])]
     vif = pd.DataFrame({'vif': _vals}, index=X_4.columns[1:])
     vif
@@ -736,7 +737,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, sm, summarize, y):
+def _(Boston, MS, summarize, y):
     X_5 = MS(['lstat', 'age', ('lstat', 'age')]).fit_transform(Boston)
     model2 = sm.OLS(y, X_5)
     summarize(model2.fit())
@@ -757,7 +758,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, poly, sm, summarize, y):
+def _(Boston, MS, poly, summarize, y):
     X_6 = MS([poly('lstat', degree=2), 'age']).fit_transform(Boston)
     model3 = sm.OLS(y, X_6)
     results3 = model3.fit()
@@ -884,7 +885,7 @@ def _():
 
 
 @app.cell
-def _(Carseats, MS, sm, summarize):
+def _(Carseats, MS, summarize):
     allvars = list(Carseats.columns.drop('Sales'))
     y_1 = Carseats['Sales']
     final = allvars + [('Income', 'Advertising'), ('Price', 'Age')]
