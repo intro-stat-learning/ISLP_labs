@@ -1,8 +1,10 @@
 .DEFAULT_GOAL := help
 
+PYTHON_VERSION := $(shell cat .python-version)
+
 venv:
 	@curl -LsSf https://astral.sh/uv/install.sh | sh
-	@uv venv --python 3.12
+	@uv venv --python $(PYTHON_VERSION)
 
 
 .PHONY: install
@@ -22,7 +24,8 @@ jupyter: install  ## Install and start jupyter Lab
 	@uv run pip install jupyterlab
 	@uv run jupyter lab
 
+
 .PHONY: marimo
 marimo: install ## Install and start marimo
-    @uv run pip install marimo
-    @uv run marimo edit --no-token --headless .
+	@uv run pip install marimo
+	@uv run marimo edit --no-token --headless .
