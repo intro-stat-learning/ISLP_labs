@@ -4,6 +4,8 @@
 #   "numpy==2.3.1",
 #   "plotly==6.2.0",
 #   "polars==1.32.2",
+#   "pandas",
+#   "matplotlib"
 # ]
 # requires-python = ">=3.12"
 # ///
@@ -13,15 +15,11 @@ import marimo
 __generated_with = "0.19.7"
 app = marimo.App()
 
-
+with app.setup:
+    import marimo as mo
+    
 @app.cell
 def _():
-    import marimo as mo
-    return (mo,)
-
-
-@app.cell
-def _(mo):
     mo.md(r"""
     # Linear Regression
     """)
@@ -29,7 +27,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ## Importing packages
     We import our standard libraries at this top
@@ -47,7 +45,7 @@ def _():
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ### New imports
     Throughout this lab we will introduce new functions and libraries. However,
@@ -66,7 +64,7 @@ def _():
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     We will provide relevant details about the
     functions below as they are needed.
@@ -89,7 +87,7 @@ def _():
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     As one of the import statements above is quite a long line, we inserted a line break `\` to
     ease readability.
@@ -110,7 +108,7 @@ def _():
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ### Inspecting Objects and Namespaces
     The
@@ -128,7 +126,7 @@ def _():
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     This shows you everything that `Python` can find at the top level.
     There are certain objects like `__builtins__` that contain references to built-in
@@ -151,7 +149,7 @@ def _(np):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     This indicates that the object `A.sum` exists. In this case it is a method
     that can be used to compute the sum of the array `A` as can be seen by typing `A.sum?`.
@@ -166,7 +164,7 @@ def _(A):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
  
     """)
@@ -174,7 +172,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ## Simple Linear Regression
     In this section we will  construct model
@@ -202,7 +200,7 @@ def _(load_data):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Type `Boston?` to find out more about these data.
 
@@ -223,7 +221,7 @@ def _(Boston, np, pd):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     We extract the response, and fit the model.
     """)
@@ -239,7 +237,7 @@ def _(Boston, X, sm):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Note that `sm.OLS()` does
     not fit the model; it specifies the model, and then `model.fit()` does the actual fitting.
@@ -260,7 +258,7 @@ def _(results, summarize):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Before we describe other methods for working with fitted models, we outline a more useful and general framework for constructing a model matrix~`X`.
     ### Using Transformations: Fit and Transform
@@ -305,7 +303,7 @@ def _(Boston, MS):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     In this simple case, the `fit()`  method does very little; it simply checks that the variable `'lstat'` specified in `design` exists in `Boston`. Then `transform()` constructs the model matrix with two columns: an `intercept` and the variable `lstat`.
 
@@ -324,7 +322,7 @@ def _(Boston, MS):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Note that, as in the previous code chunk when the two steps were done separately, the `design` object is changed as a result of the `fit()` operation. The power of this pipeline will become clearer when we fit more complex models that involve interactions and transformations.
     """)
@@ -332,7 +330,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Let's return to our fitted regression model.
     The object
@@ -351,7 +349,7 @@ def _(results):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The fitted coefficients can also be retrieved as the
     `params` attribute of `results`.
@@ -366,7 +364,7 @@ def _(results):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The `get_prediction()`  method can be used to obtain predictions, and produce confidence intervals and
     prediction intervals for the prediction of  `medv`  for  given values of  `lstat`.
@@ -386,7 +384,7 @@ def _(design_1, pd):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Next we compute the predictions at `newX`, and view them by extracting the `predicted_mean` attribute.
     """)
@@ -401,7 +399,7 @@ def _(newX, results):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     We can produce confidence intervals for the predicted values.
     """)
@@ -415,7 +413,7 @@ def _(new_predictions):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Prediction intervals are computed by setting `obs=True`:
     """)
@@ -429,7 +427,7 @@ def _(new_predictions):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     For instance, the 95% confidence interval associated with an
      `lstat`  value of 10 is (24.47, 25.63), and the 95% prediction
@@ -447,7 +445,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ### Defining Functions
     While there is a function
@@ -466,7 +464,7 @@ def abline(ax, b, m):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     A few things are illustrated above. First we see the syntax for defining a function:
     `def funcname(...)`. The function has arguments `ax, b, m`
@@ -486,7 +484,7 @@ def abline_1(ax, b, m, *args, **kwargs):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The addition of `*args` allows any number of
     non-named arguments to `abline`, while `**kwargs` allows any
@@ -511,7 +509,7 @@ def _(Boston, results):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Thus, the final call to `ax.plot()` is `ax.plot(xlim, ylim, 'r--', linewidth=3)`.
     We have used the argument `'r--'` to produce a red dashed line, and added
@@ -524,7 +522,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Next we examine some diagnostic plots, several of which were discussed
     in Section~\ref{Ch3:problems.sec}.
@@ -550,7 +548,7 @@ def _(results, subplots):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     We add a horizontal line at 0 for reference using the
      `ax.axhline()`   method, indicating
@@ -576,7 +574,7 @@ def _(X_2, np, results, subplots):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The `np.argmax()`  function identifies the index of the largest element of an array, optionally computed over an axis of the array.
     In this case, we maximized over the entire array
@@ -586,7 +584,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ## Multiple Linear Regression
     In order to fit a multiple linear regression model using least squares, we again use
@@ -609,7 +607,7 @@ def _(Boston, MS, sm, summarize, y):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Notice how we have compacted the first line into a succinct expression describing the construction of `X`.
 
@@ -628,7 +626,7 @@ def _(Boston):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     We can now fit the model with all the variables in `terms` using
     the same model matrix builder.
@@ -646,7 +644,7 @@ def _(Boston, MS, sm, summarize, terms, y):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     What if we would like to perform a regression using all of the variables but one?  For
     example, in the above regression output,   `age`  has a high $p$-value.
@@ -666,7 +664,7 @@ def _(Boston, MS, sm, summarize, y):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ## Multivariate Goodness of Fit
     We can access the individual components of `results` by name
@@ -705,7 +703,7 @@ def _(VIF, X_4, pd):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The function `VIF()` takes two arguments: a dataframe or array,
     and a variable column index. In the code above we call `VIF()` on the fly for all columns in `X`.
@@ -725,7 +723,7 @@ def _(VIF, X_4):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     List comprehension allows us to perform such repetitive operations in a more straightforward way.
     ## Interaction Terms
@@ -746,7 +744,7 @@ def _(Boston, MS, sm, summarize, y):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ## Non-linear Transformations of the Predictors
     The model matrix builder can include terms beyond
@@ -768,7 +766,7 @@ def _(Boston, MS, poly, sm, summarize, y):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The effectively zero *p*-value associated with the quadratic term
     (i.e. the third row above) suggests that it leads to an improved model.
@@ -798,7 +796,7 @@ def _(anova_lm, results1, results3):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     Here `results1` represents the linear submodel containing
     predictors `lstat` and `age`,
@@ -837,7 +835,7 @@ def _(results3, subplots):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     We see that when the quadratic term is included in the model,
     there is little discernible pattern in the residuals.
@@ -848,7 +846,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ## Qualitative Predictors
     Here we use the  `Carseats`  data, which is included in the
@@ -867,7 +865,7 @@ def _(load_data):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     The `Carseats`
      data includes qualitative predictors such as
@@ -897,7 +895,7 @@ def _(Carseats, MS, sm, summarize):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     In the first line above, we made `allvars` a list, so that we
     could add the interaction terms two lines down.
