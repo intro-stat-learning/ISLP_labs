@@ -22,8 +22,18 @@ with app.setup:
     import numpy as np
     import pandas as pd
     import statsmodels.api as sm
-
-
+    
+    # plotting
+    from matplotlib.pyplot import subplots
+    
+    from statsmodels.stats.outliers_influence import variance_inflation_factor as VIF
+    from statsmodels.stats.anova import anova_lm
+    
+    from ISLP import load_data
+    from ISLP.models import (ModelSpec as MS,
+                             summarize,
+                             poly)
+    
 @app.cell
 def _():
     mo.md(r"""
@@ -40,14 +50,6 @@ def _():
     level.
     """)
     return
-
-
-@app.cell
-def _():
-    #import numpy as np
-    #import pandas as pd
-    from matplotlib.pyplot import subplots
-    return (subplots,)
 
 
 @app.cell(hide_code=True)
@@ -78,14 +80,6 @@ def _():
     return
 
 
-@app.cell
-def _():
-    from statsmodels.stats.outliers_influence \
-         import variance_inflation_factor as VIF
-    from statsmodels.stats.anova import anova_lm
-    return VIF, anova_lm
-
-
 @app.cell(hide_code=True)
 def _():
     mo.md(r"""
@@ -96,15 +90,6 @@ def _():
     package.
     """)
     return
-
-
-@app.cell
-def _():
-    from ISLP import load_data
-    from ISLP.models import (ModelSpec as MS,
-                             summarize,
-                             poly)
-    return MS, load_data, poly, summarize
 
 
 @app.cell(hide_code=True)
@@ -193,7 +178,7 @@ def _():
 
 
 @app.cell
-def _(load_data):
+def _():
     Boston = load_data("Boston")
     Boston.columns
     return (Boston,)
@@ -252,7 +237,7 @@ def _():
 
 
 @app.cell
-def _(results, summarize):
+def _(results):
     summarize(results)
     return
 
@@ -294,7 +279,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS):
+def _(Boston):
     design = MS(['lstat'])
     design = design.fit(Boston)
     X_1 = design.transform(Boston)
@@ -314,7 +299,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS):
+def _(Boston):
     design_1 = MS(['lstat'])
     X_2 = design_1.fit_transform(Boston)
     X_2[:4]
@@ -538,7 +523,7 @@ def _():
 
 
 @app.cell
-def _(results, subplots):
+def _(results):
     _ax = subplots(figsize=(8, 8))[1]
     _ax.scatter(results.fittedvalues, results.resid)
     _ax.set_xlabel('Fitted value')
@@ -563,7 +548,7 @@ def _():
 
 
 @app.cell
-def _(X_2, results, subplots):
+def _(X_2, results):
     infl = results.get_influence()
     _ax = subplots(figsize=(8, 8))[1]
     _ax.scatter(np.arange(X_2.shape[0]), infl.hat_matrix_diag)
@@ -598,7 +583,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, summarize, y):
+def _(Boston, y):
     X_3 = MS(['lstat', 'age']).fit_transform(Boston)
     _model1 = sm.OLS(y, X_3)
     results1 = _model1.fit()
@@ -635,7 +620,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, summarize, terms, y):
+def _(Boston, terms, y):
     X_4 = MS(terms).fit_transform(Boston)
     _model = sm.OLS(y, X_4)
     results_1 = _model.fit()
@@ -655,7 +640,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, summarize, y):
+def _(Boston, y):
     minus_age = Boston.columns.drop(['medv', 'age'])
     Xma = MS(minus_age).fit_transform(Boston)
     _model1 = sm.OLS(y, Xma)
@@ -695,7 +680,7 @@ def _():
 
 
 @app.cell
-def _(VIF, X_4):
+def _(X_4):
     _vals = [VIF(X_4, i) for i in range(1, X_4.shape[1])]
     vif = pd.DataFrame({'vif': _vals}, index=X_4.columns[1:])
     vif
@@ -715,7 +700,7 @@ def _():
 
 
 @app.cell
-def _(VIF, X_4):
+def _(X_4):
     _vals = []
     for i in range(1, X_4.values.shape[1]):
         _vals.append(VIF(X_4.values, i))
@@ -736,7 +721,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, summarize, y):
+def _(Boston, y):
     X_5 = MS(['lstat', 'age', ('lstat', 'age')]).fit_transform(Boston)
     model2 = sm.OLS(y, X_5)
     summarize(model2.fit())
@@ -757,7 +742,7 @@ def _():
 
 
 @app.cell
-def _(Boston, MS, poly, summarize, y):
+def _(Boston, y):
     X_6 = MS([poly('lstat', degree=2), 'age']).fit_transform(Boston)
     model3 = sm.OLS(y, X_6)
     results3 = model3.fit()
@@ -790,7 +775,7 @@ def _():
 
 
 @app.cell
-def _(anova_lm, results1, results3):
+def _(results1, results3):
     anova_lm(results1, results3)
     return
 
@@ -825,7 +810,7 @@ def _():
 
 
 @app.cell
-def _(results3, subplots):
+def _(results3):
     _ax = subplots(figsize=(8, 8))[1]
     _ax.scatter(results3.fittedvalues, results3.resid)
     _ax.set_xlabel('Fitted value')
@@ -858,7 +843,7 @@ def _():
 
 
 @app.cell
-def _(load_data):
+def _():
     Carseats = load_data('Carseats')
     Carseats.columns
     return (Carseats,)
@@ -884,7 +869,7 @@ def _():
 
 
 @app.cell
-def _(Carseats, MS, summarize):
+def _(Carseats):
     allvars = list(Carseats.columns.drop('Sales'))
     y_1 = Carseats['Sales']
     final = allvars + [('Income', 'Advertising'), ('Price', 'Age')]
