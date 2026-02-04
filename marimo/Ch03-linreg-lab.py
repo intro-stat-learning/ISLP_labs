@@ -1,3 +1,13 @@
+# /// script
+# dependencies = [
+#   "marimo==0.19.6",
+#   "numpy==2.3.1",
+#   "plotly==6.2.0",
+#   "polars==1.32.2",
+# ]
+# requires-python = ">=3.12"
+# ///
+
 import marimo
 
 __generated_with = "0.19.7"
