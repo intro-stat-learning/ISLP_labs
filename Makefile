@@ -24,6 +24,11 @@ jupyter: install  ## Install and start jupyter Lab
 	@uv run pip install jupyterlab
 	@uv run jupyter lab
 
+.PHONY: Rmd
+Rmd: install  ## Install and start jupyter Lab
+	@uv run pip install jupytext
+	@uv run jupytext --to Rmd Ch*nb
+
 
 .PHONY: marimo
 marimo: install ## Install and start marimo
