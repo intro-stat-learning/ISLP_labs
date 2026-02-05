@@ -95,7 +95,7 @@ Open your terminal and run the following command to set up the environment for v
 *   `--python-version 3.12`: This will use Python 3.12 for the environment.
 *   `Ch02-statlearn-lab.ipynb`: This is an optional argument to run a specific notebook after the setup is complete. It is meant for testing to be sure given notebooks run but is not required. You can list more than one notebook.
 
-### 2. Activate the environment
+### 3. Activate the environment
 
 Once the script is finished, you can activate the virtual environment to run other notebooks or work with the lab materials.
 
@@ -109,7 +109,7 @@ Once the script is finished, you can activate the virtual environment to run oth
     ISLP_v2.2.2\.venv\Scripts\activate
     ```
 
-### 3. Run other notebooks
+### 4. Run other notebooks
 
 After activating the environment, you can start Jupyter Lab to run other notebooks.
 
@@ -117,6 +117,14 @@ After activating the environment, you can start Jupyter Lab to run other noteboo
 jupyter lab
 ```
 
+# R Markdown files
+
+Earlier versions of this repo maintained R Markdown versions of the lab next to the Jupyter notebooks. These have been removed from the repo but can be built from the
+notebooks at any time by
+
+```bash
+make Rmd
+```
 
 ## Contributors ✨
 
