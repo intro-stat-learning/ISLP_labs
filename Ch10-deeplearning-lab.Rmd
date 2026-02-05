@@ -1,5 +1,4 @@
 
-
 # Deep Learning
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch10-deeplearning-lab.ipynb">
@@ -21,7 +20,8 @@ Much of our code is adapted from there, as well as the `pytorch_lightning` docum
 We start with several standard imports that we have  seen before.
 
 ```{python}
-import numpy as np, pandas as pd
+import numpy as np
+import pandas as pd
 from matplotlib.pyplot import subplots
 from sklearn.linear_model import \
      (LinearRegression,
@@ -57,7 +57,7 @@ the `torchmetrics` package has utilities to compute
 various metrics to evaluate performance when fitting
 a model. The `torchinfo` package provides a useful
 summary of the layers of a model. We use the `read_image()`
-function when loading test images in Section~\ref{Ch13-deeplearning-lab:using-pretrained-cnn-models}.
+function when loading test images in Section 10.9.4.
 
 If you have not already installed the packages `torchvision`
 and `torchinfo` you can install them by running
@@ -153,17 +153,19 @@ in our example applying the `ResNet50` model
 to some of our own images.
 The `json` module will be used to load
 a JSON file for looking up classes to identify the labels of the
-pictures in the `ResNet50` example.
+pictures in the `ResNet50` example. We'll also import `warnings` to filter
+out warnings when fitting the LASSO to the IMDB data.
 
 ```{python}
 from glob import glob
 import json
+import warnings
 
 ```
 
 
 ## Single Layer Network on Hitters Data
-We start by fitting the models in Section~\ref{Ch13:sec:when-use-deep} on the `Hitters` data.
+We start by fitting the models in Section 10.6 on the `Hitters` data.
 
 ```{python}
 Hitters = load_data('Hitters').dropna()
@@ -217,7 +219,7 @@ np.abs(Yhat_test - Y_test).mean()
 
 Next we fit the lasso using `sklearn`. We are using
 mean absolute error to select and evaluate a model, rather than mean squared error.
-The specialized solver we used in Section~\ref{Ch6-varselect-lab:lab-2-ridge-regression-and-the-lasso} uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.  
+The specialized solver we used in Section 6.5.2 uses only mean squared error. So here, with a bit more work,  we create a cross-validation grid and perform the cross-validation directly.  
 
 We encode a pipeline with two steps: we first normalize the features using a `StandardScaler()` transform,
 and then fit the lasso without further normalization. 
@@ -439,7 +441,7 @@ hit_module = SimpleModule.regression(hit_model,
 ```
 
  By using the `SimpleModule.regression()` method,  we indicate that we will use squared-error loss as in
-(\ref{Ch13:eq:4}).
+(10.23).
 We have also asked for mean absolute error to be tracked as well
 in the metrics that are logged.
 
@@ -476,7 +478,7 @@ hit_trainer = Trainer(deterministic=True,
 hit_trainer.fit(hit_module, datamodule=hit_dm)
 ```
 At each step of SGD, the algorithm randomly selects 32 training observations for
-the computation of the gradient. Recall from Section~\ref{Ch13:sec:fitt-neur-netw}
+the computation of the gradient. Recall from Section 10.7
 that an epoch amounts to the number of SGD steps required to process $n$
 observations. Since the training set has
 $n=175$, and we specified a `batch_size` of 32 in the construction of  `hit_dm`, an epoch is $175/32=5.5$ SGD steps.
@@ -765,8 +767,8 @@ mnist_trainer.test(mnist_module,
                    datamodule=mnist_dm)
 ```
 
-Table~\ref{Ch13:tab:mnist} also reports the error rates resulting from LDA (Chapter~\ref{Ch4:classification}) and multiclass logistic
-regression. For LDA we refer the reader to Section~\ref{Ch4-classification-lab:linear-discriminant-analysis}.
+Table 10.1 also reports the error rates resulting from LDA (Chapter 4) and multiclass logistic
+regression. For LDA we refer the reader to Section 4.7.3.
 Although we could use the `sklearn` function `LogisticRegression()` to fit  
 multiclass logistic regression, we are set up here to fit such a model
 with `torch`.
@@ -871,7 +873,7 @@ for idx, (X_ ,Y_) in enumerate(cifar_dm.train_dataloader()):
 
 
 Before we start, we look at some of the training images; similar code produced
-Figure~\ref{Ch13:fig:cifar100} on page \pageref{Ch13:fig:cifar100}. The example below also illustrates
+Figure 10.5 on page 406. The example below also illustrates
 that `TensorDataset` objects can be indexed with integers --- we are choosing
 random images from the training data by indexing `cifar_train`. In order to display correctly,
 we must reorder the dimensions by a call to `np.transpose()`.
@@ -894,7 +896,7 @@ for i in range(5):
 Here the `imshow()` method recognizes from the shape of its argument that it is a 3-dimensional array, with the last dimension indexing the three RGB color channels.
 
 We specify a moderately-sized  CNN for
-demonstration purposes, similar in structure to Figure~\ref{Ch13:fig:DeepCNN}.
+demonstration purposes, similar in structure to Figure 10.8.
 We use several layers, each consisting of  convolution, ReLU, and max-pooling steps.
 We first define a module that defines one of these layers. As in our
 previous examples, we overwrite the `__init__()` and `forward()` methods
@@ -1034,7 +1036,7 @@ summary_plot(cifar_results,
              ax,
              col='accuracy',
              ylabel='Accuracy')
-ax.set_xticks(np.linspace(0, 10, 6).astype(int))
+ax.set_xticks(np.linspace(0, 30, 7).astype(int))
 ax.set_ylabel('Accuracy')
 ax.set_ylim([0, 1]);
 ```
@@ -1083,7 +1085,7 @@ clauses; if it works, we get the speedup, if it fails, nothing happens.
 
 ## Using Pretrained CNN Models
 We now show how to use a CNN pretrained on the  `imagenet` database to classify natural
-images, and demonstrate how we produced Figure~\ref{Ch13:fig:homeimages}.
+images, and demonstrate how we produced Figure 10.10.
 We copied six JPEG images from a digital photo album into the
 directory `book_images`. These images are available
 from the data section of  <www.statlearning.com>, the ISLP book website. Download `book_images.zip`; when
@@ -1192,7 +1194,7 @@ del(cifar_test,
 
 
 ## IMDB Document Classification
-We now implement models for sentiment classification (Section~\ref{Ch13:sec:docum-class})  on the `IMDB`
+We now implement models for sentiment classification (Section 10.4)  on the `IMDB`
 dataset. As mentioned above code block~8, we are using
 a preprocessed version of the `IMDB` dataset found in the
 `keras` package. As `keras` uses `tensorflow`, a different
@@ -1346,7 +1348,7 @@ matrix that is recognized by `sklearn.`
 ```
 
 Similar to what we did in
-Section~\ref{Ch13-deeplearning-lab:single-layer-network-on-hitters-data},
+Section 10.9.1,
 we construct a series of 50 values for the lasso reguralization parameter $\lambda$.
 
 ```{python}
@@ -1369,16 +1371,20 @@ logit = LogisticRegression(penalty='l1',
 
 ```
 The path of 50 values takes approximately 40 seconds to run.
+As in Chapter 6, we will filter out warnings, this time using a context manager.
 
 ```{python}
-coefs = []
-intercepts = []
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    
+    coefs = []
+    intercepts = []
 
-for l in lam_val:
-    logit.C = 1/l
-    logit.fit(X_train, Y_train)
-    coefs.append(logit.coef_.copy())
-    intercepts.append(logit.intercept_)
+    for l in lam_val:
+        logit.C = 1/l
+        logit.fit(X_train, Y_train)
+        coefs.append(logit.coef_.copy())
+        intercepts.append(logit.intercept_)
 
 ```
 
@@ -1454,16 +1460,16 @@ del(imdb_model,
 
 ## Recurrent Neural Networks
 In this lab we fit the models illustrated in
-Section~\ref{Ch13:sec:recurr-neur-netw}.
+Section 10.5.
 
 
 ### Sequential Models for Document Classification
 Here we  fit a simple  LSTM RNN for sentiment prediction to
-the `IMDb` movie-review data, as discussed in Section~\ref{Ch13:sec:sequ-models-docum}.
+the `IMDb` movie-review data, as discussed in Section 10.5.1.
 For an RNN we use the sequence of words in a document, taking their
 order into account. We loaded the preprocessed 
 data at the beginning of
-Section~\ref{Ch13-deeplearning-lab:imdb-document-classification}.
+Section 10.9.5.
 A script that details the preprocessing can be found in the
 `ISLP` library. Notably, since more than 90% of the documents
 had fewer than 500 words, we set the document length to 500. For
@@ -1578,7 +1584,7 @@ del(lstm_model,
 
 
 ### Time Series Prediction
-We now show how to fit the models in Section~\ref{Ch13:sec:time-seri-pred}
+We now show how to fit the models in Section 10.5.2
 for  time series prediction.
 We first load and standardize the data.
 

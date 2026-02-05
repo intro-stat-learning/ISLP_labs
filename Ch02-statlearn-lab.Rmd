@@ -36,8 +36,8 @@ Please see the `Python` resources page on the book website [statlearning.com](ht
 You will need to install the `ISLP` package, which provides access to the datasets and custom-built functions that we provide.
 Inside a macOS or Linux terminal type `pip install ISLP`; this also installs most other packages needed in the labs. The `Python` resources page has a link to the `ISLP` documentation website.
 
-To run this lab, download the file `Ch2-statlearn-lab.ipynb` from the `Python` resources page. 
-Now run the following code at the command line: `jupyter lab Ch2-statlearn-lab.ipynb`.
+To run this lab, download the file `Ch02-statlearn-lab.ipynb` from the `Python` resources page. 
+Now run the following code at the command line: `jupyter lab Ch02-statlearn-lab.ipynb`.
 
 If you're using Windows, you can use the `start menu` to access `anaconda`, and follow the links. For example, to install `ISLP` and run this lab, you can run the same code above in an `anaconda` shell.
 
@@ -72,7 +72,7 @@ print('fit a model with', 11, 'variables')
  The following command will provide information about the `print()` function.
 
 ```{python}
-print?
+# print?
 
 ```
 
@@ -222,7 +222,7 @@ documentation associated with the function `fun`, if it exists.
 We can try this for `np.array()`. 
 
 ```{python}
-np.array?
+# np.array?
 
 ```
 This documentation indicates that we could create a floating point array by passing a `dtype` argument into `np.array()`.

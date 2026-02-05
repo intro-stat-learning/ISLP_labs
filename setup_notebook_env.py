@@ -23,7 +23,8 @@ def setup_env(outdir,
               uv_executable,
               timeout,
               kernel,
-              allow_errors):
+              allow_errors,
+              overwrite):
     """
     Sets up a student environment for ISLP_labs.
 
@@ -45,6 +46,8 @@ def setup_env(outdir,
         Kernel to use for running notebooks.
     allow_errors : bool
         Allow errors when running notebooks.
+    overwrite: bool
+        Save notebook outputs in place?
     """
     repo_url = 'https://github.com/intro-stat-learning/ISLP_labs.git'
 
@@ -110,7 +113,8 @@ def setup_env(outdir,
                     if kernel:
                         nbconvert_command.extend(['--kernel', kernel])
                     nbconvert_command.append('--allow-errors')
-
+                    if overwrite:
+                        nbconvert_command.append('--inplace')
                     run_command(nbconvert_command, cwd=str(outdir))
             else:
                 run_command([str(uv_bin / 'pip'), 'install', 'pytest', 'nbmake'], cwd=str(outdir))
@@ -128,6 +132,9 @@ def setup_env(outdir,
                                       str(nbfile)]
                     if kernel:
                         pytest_command.append(f'--nbmake-kernel={kernel}')
+                    if overwrite:
+                        pytest_command.append('--overwrite')
+                        
                     # nbmake does not have --allow-errors in the same way as nbconvert
                     # If errors are not allowed, nbmake will fail on first error naturally
 
@@ -152,7 +159,8 @@ def main():
     parser.add_argument('--uv-executable', default='uv', help='The `uv` executable to use (default: "uv")')
     parser.add_argument('--timeout', type=int, default=3600, help='Timeout for running notebooks (default: 3600)')
     parser.add_argument('--kernel', default=None, help='Kernel to use for running notebooks')
-    parser.add_argument('--allow-errors', action='store_true', help='Allow errors when running notebooks. For older commits, Ch02-statlearn-lab.ipynb raises exceptions. Since v2.2.1 these are handled by appropriate tags in the .ipynb cells.')
+    parser.add_argument('--allow-errors', action='store_true', default=False, help='Allow errors when running notebooks. For older commits, Ch02-statlearn-lab.ipynb raises exceptions. Since v2.2.1 these are handled by appropriate tags in the .ipynb cells.')
+    parser.add_argument('--overwrite', action='store_true', default=False, help='If True, store output of cells in notebook(s).')
 
     parser.add_argument('nbfiles', nargs='*', help='Optional list of notebooks to run.')
 
@@ -165,7 +173,8 @@ def main():
               args.uv_executable,
               args.timeout,
               args.kernel,
-              args.allow_errors)
+              args.allow_errors,
+              args.overwrite)
 
 if __name__ == '__main__':
     main()
