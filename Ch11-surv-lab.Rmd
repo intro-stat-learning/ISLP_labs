@@ -1,5 +1,4 @@
 
-
 # Survival Analysis
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch11-surv-lab.ipynb">
@@ -10,9 +9,9 @@
 
 
  In this lab, we perform survival analyses on three separate data
-sets. In  Section~\ref{brain.cancer.sec} we analyze the  `BrainCancer` 
-data  that was first described in Section~\ref{sec:KM}. In Section~\ref{time.to.pub.sec}, we examine the  `Publication` 
-data  from Section~\ref{sec:pub}. Finally,  Section~\ref{call.center.sec}  explores
+sets. In  Section 11.8.1 we analyze the  `BrainCancer` 
+data  that was first described in Section 11.3. In Section 11.8.2, we examine the  `Publication` 
+data  from Section 11.5.4. Finally,  Section 11.8.3  explores
 a simulated call-center data set.
 
 We begin by importing some of our libraries at this top
@@ -82,7 +81,7 @@ observation. But some scientists might use the opposite coding. For
 the  `BrainCancer`  data set 35 patients died before the end of
 the study, so we are using the conventional coding.
 
-To begin the analysis, we re-create  the Kaplan-Meier survival curve shown in Figure~\ref{fig:survbrain}. The main
+To begin the analysis, we re-create  the Kaplan-Meier survival curve shown in Figure 11.2. The main
 package we will use for survival analysis
 is `lifelines`.
 The variable  `time`  corresponds to $y_i$, the time to the $i$th event (either censoring or
@@ -102,7 +101,7 @@ km_brain.plot(label='Kaplan Meier estimate', ax=ax)
 ```
 
 Next we create Kaplan-Meier survival curves that are stratified by
-`sex`, in order to reproduce  Figure~\ref{fig:survbrain2}.
+`sex`, in order to reproduce  Figure 11.3.
 We  do this using the `groupby()` method of  a  dataframe.
 This  method returns a generator that can
 be  iterated over in the `for` loop. In this case,
@@ -130,7 +129,7 @@ for sex, df in BrainCancer.groupby('sex'):
 
 ```
 
-As discussed in Section~\ref{sec:logrank}, we can perform a
+As discussed in Section 11.4, we can perform a
 log-rank test to compare the survival of males to females. We use
 the `logrank_test()` function from the `lifelines.statistics` module.
 The first two arguments are the event times, with the second
@@ -266,9 +265,9 @@ predicted_survival.plot(ax=ax);
 
 
 ## Publication Data
-The  `Publication`  data   presented in Section~\ref{sec:pub}  can be
+The  `Publication`  data   presented in Section 11.5.4  can be
 found in the `ISLP` package.
-We first reproduce Figure~\ref{fig:lauersurv}  by plotting the Kaplan-Meier curves
+We first reproduce Figure 11.5  by plotting the Kaplan-Meier curves
 stratified on the  `posres`  variable, which records whether the
 study had a positive or negative result.
 
@@ -323,7 +322,7 @@ of the study, and whether the study had positive or negative results.
 
 In this section, we will simulate survival data using the relationship
 between cumulative hazard and
-the survival function explored in Exercise \ref{ex:all3}.
+the survival function explored in Exercise 8.
 Our simulated data will represent the observed
 wait times (in seconds) for 2,000 customers who have phoned a call
 center.  In this context, censoring occurs if a customer hangs up
@@ -394,7 +393,7 @@ that the risk of a call being answered at Center B is 0.74 times the
 risk that it will be answered at Center A; in other words, the wait
 times are a bit longer at Center B.
 
-Recall from Section~\ref{Ch2-statlearn-lab:loading-data} the use of `lambda`
+Recall from Section 2.3.7 the use of `lambda`
 for creating short functions on the fly.
 We use the function
 `sim_time()` from the `ISLP.survival` package. This function

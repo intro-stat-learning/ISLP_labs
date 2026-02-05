@@ -1,5 +1,4 @@
 
-
 # Support Vector Machines
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch09-svm-lab.ipynb">
@@ -255,9 +254,9 @@ kernel we use `kernel="poly"`, and to fit an SVM with a
 radial kernel  we use
 `kernel="rbf"`.  In the former case we also use the
 `degree` argument to specify a degree for the polynomial kernel
-(this is $d$ in (\ref{Ch9:eq:polyd})), and in the latter case we use
+(this is $d$ in (9.22)), and in the latter case we use
 `gamma` to specify a value of $\gamma$ for the radial basis
-kernel  (\ref{Ch9:eq:radial}).
+kernel  (9.24).
 
 We first generate some data with a non-linear class boundary, as follows:
 
@@ -377,7 +376,7 @@ classifier, the fitted value for an observation $X= (X_1, X_2, \ldots,
 X_p)^T$ takes the form $\hat{\beta}_0 + \hat{\beta}_1 X_1 +
 \hat{\beta}_2 X_2 + \ldots + \hat{\beta}_p X_p$. For an SVM with a
 non-linear kernel, the equation that yields the fitted value is given
-in  (\ref{Ch9:eq:svmip}). The sign of the fitted value
+in  (9.23). The sign of the fitted value
 determines on which side of the decision boundary the observation
 lies. Therefore, the relationship between the fitted value and the
 class prediction for a given observation is simple: if the fitted

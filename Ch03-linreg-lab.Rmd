@@ -1,5 +1,4 @@
 
-
 # Linear Regression
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch03-linreg-lab.ipynb">
@@ -332,7 +331,7 @@ As mentioned above, there is an existing function to add a line to a plot --- `a
 
 
 Next we examine some diagnostic plots, several of which were discussed
-in Section~\ref{Ch3:problems.sec}.
+in Section 3.3.3.
 We can find the fitted values and residuals
 of the fit as attributes of the `results` object.
 Various influence measures describing the regression model
@@ -429,7 +428,7 @@ We can access the individual components of `results` by name
 and
 `np.sqrt(results.scale)` gives us the RSE.
 
-Variance inflation factors (section~\ref{Ch3:problems.sec}) are sometimes useful
+Variance inflation factors (section 3.3.3) are sometimes useful
 to assess the effect of collinearity in the model matrix of a regression model.
 We will compute the VIFs in our multiple regression fit, and use the opportunity to introduce the idea of *list comprehension*.
 

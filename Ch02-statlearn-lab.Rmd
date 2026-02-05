@@ -1,5 +1,4 @@
 
-
 # Introduction to Python
 
 <a target="_blank" href="https://colab.research.google.com/github/intro-stat-learning/ISLP_labs/blob/v2.2.1/Ch02-statlearn-lab.ipynb">
@@ -72,7 +71,7 @@ print('fit a model with', 11, 'variables')
  The following command will provide information about the `print()` function.
 
 ```{python}
-print?
+# print?
 
 ```
 
@@ -222,7 +221,7 @@ documentation associated with the function `fun`, if it exists.
 We can try this for `np.array()`. 
 
 ```{python}
-np.array?
+# np.array?
 
 ```
 This documentation indicates that we could create a floating point array by passing a `dtype` argument into `np.array()`.
