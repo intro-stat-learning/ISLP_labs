@@ -1,3 +1,16 @@
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,Rmd
+    main_language: python
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.19.1
+---
+
 
 # Survival Analysis
 

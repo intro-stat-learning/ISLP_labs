@@ -1,3 +1,16 @@
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,Rmd
+    main_language: python
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.19.1
+---
+
 
 # Non-Linear Modeling
 
@@ -76,7 +89,7 @@ for feature transformations such as `PCA()` seen in Section 6.5.3) which
 allows for easy evaluation of the polynomial at new data points. Here `poly()` is referred to as a *helper* function, and sets up the transformation; `Poly()` is the actual workhorse that computes the transformation. See also 
 the 
 discussion of transformations on
-page 3.6.2. 
+page 118.
 
 In the code above, the first line executes the `fit()` method
 using the dataframe
