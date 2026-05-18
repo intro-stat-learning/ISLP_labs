@@ -83,12 +83,17 @@ To download and run it, first ensure `uv` is installed (see Prerequisites above)
 
 ```bash
 curl -LO https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/main/setup_notebook_env.py
-uv run python setup_notebook_env.py --outdir ISLP_v2.2.2 --commit v2.2.2 --python-version 3.12
 ```
 
 ### 2. Run the setup script
 
-Open your terminal and run the following command to set up the environment for version `v2.2.2` of the labs with Python `3.12`. You can also specify one or more notebooks to run automatically after setup.
+Open your terminal and run the following command to set up the environment for version `v2.2.2` of the labs with Python `3.12`.
+
+```
+uv run python setup_notebook_env.py --outdir ISLP_v2.2.2 --commit v2.2.2 --python-version 3.12
+```
+
+You can also specify one or more notebooks to run automatically after setup.
 
 *   `--outdir ISLP_v2.2.2`: This will create a directory named `ISLP_v2.2.2` for your labs.
 *   `--commit v2.2.2`: This specifies that you want to use version `v2.2.2` of the labs.
