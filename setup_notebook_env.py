@@ -87,10 +87,11 @@ def setup_env(outdir,
         run_command([uv_executable, 'venv', '--python', python_version, '--seed'], cwd=str(outdir))
 
         print("Installing requirements...")
-        venv_dir = Path('.venv')
-        uv_bin = venv_dir / 'Scripts' if sys.platform == 'win32' else venv_dir / 'bin' 
+        venv_dir = outdir / '.venv'
+        uv_bin = venv_dir / 'Scripts' if sys.platform == 'win32' else venv_dir / 'bin'
+        uv_pip = (uv_bin / 'pip').resolve()
         
-        run_command([str(uv_bin / 'pip'), 'install', '-r', 'requirements.txt', 'jupyterlab'], cwd=str(outdir))
+        run_command([str(uv_pip), 'install', '-r', 'requirements.txt', 'jupyterlab'], cwd=str(outdir))
         
         if nbfiles:
             if allow_errors:
