@@ -34,7 +34,7 @@ intent is that building a virtual environment with
 To install the current version of the requirements run
 
 ```
-uv pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2.3/requirements.txt;
+uv pip install -r https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/v2.2.4/requirements.txt;
 ```
 
 The labs can now be run via:
@@ -46,7 +46,7 @@ uv run jupyter lab Ch02-statlearn-lab.ipynb
 
 # Zip / tarball
 
-You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.2.3)
+You can download all the labs as a `.zip` or `.tar.gz` [here](https://github.com/intro-stat-learning/ISLP_labs/releases/tag/v2.2.4)
 
 # Setup script
 
@@ -83,15 +83,15 @@ To download and run it, first ensure `uv` is installed (see Prerequisites above)
 
 ```bash
 curl -LO https://raw.githubusercontent.com/intro-stat-learning/ISLP_labs/main/setup_notebook_env.py
-uv run python setup_notebook_env.py --outdir ISLP --commit v2.2.3 --python-version 3.12
+uv run python setup_notebook_env.py --outdir ISLP --commit v2.2.4 --python-version 3.12
 ```
 
 ### 2. Run the setup script
 
-Open your terminal and run the following command to set up the environment for version `v2.2.3` of the labs with Python `3.12`. You can also specify one or more notebooks to run automatically after setup.
+Open your terminal and run the following command to set up the environment for version `v2.2.4` of the labs with Python `3.12`. You can also specify one or more notebooks to run automatically after setup.
 
 *   `--outdir ISLP`: This will create a directory named `ISLP` for your labs.
-*   `--commit v2.2.3`: This specifies that you want to use version `v2.2.3` of the labs.
+*   `--commit v2.2.4`: This specifies that you want to use version `v2.2.4` of the labs.
 *   `--python-version 3.12`: This will use Python 3.12 for the environment.
 *   `Ch02-statlearn-lab.ipynb`: This is an optional argument to run a specific notebook after the setup is complete. It is meant for testing to be sure given notebooks run but is not required. You can list more than one notebook.
 
