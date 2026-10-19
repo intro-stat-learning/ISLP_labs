@@ -1,0 +1,100 @@
+# This file is part of the jebel-quant/rhiza repository
+# (https://github.com/jebel-quant/rhiza).
+#
+# Workflow: Marimo Notebooks
+#
+# Purpose: This workflow discovers and executes all Marimo notebooks in the
+#          repository. It builds a dynamic matrix to run each notebook in
+#          parallel to surface errors early and keep notebooks reproducible.
+#
+# Trigger: This workflow runs on every push and on pull requests to main/master
+#          branches (including from forks)
+#
+# Components:
+#   - 🔎 Discover notebooks in book/marimo
+#   - 🧪 Run each notebook in parallel using a matrix strategy
+#   - ✅ Fail-fast disabled to report all failing notebooks
+
+name: "(RHIZA) MARIMO"
+
+permissions:
+  contents: read
+
+on:
+  push
+
+jobs:
+  # Build a matrix of notebooks to test
+  list-notebooks:
+    runs-on: ubuntu-latest
+    outputs:
+      notebook-list: ${{ steps.notebooks.outputs.matrix }}
+    steps:
+      # Check out the repository code
+      - uses: actions/checkout@v6.0.2
+
+      # Find all Python files in the marimo folder and create a matrix for parallel execution
+      - name: Find notebooks and build matrix
+        id: notebooks
+        run: |
+          # Extract MARIMO_FOLDER from the project configuration (via Makefile)
+          # shellcheck disable=SC2016 # Single quotes intentional - Make syntax, not shell expansion
+          NOTEBOOK_DIR=$(make -s -f Makefile -f - <<< 'print: ; @echo $(or $(MARIMO_FOLDER),marimo)' print)
+
+          echo "Searching notebooks in: $NOTEBOOK_DIR"
+          # Check if directory exists
+          if [ ! -d "$NOTEBOOK_DIR" ]; then
+            echo "Directory $NOTEBOOK_DIR does not exist. Setting empty matrix."
+            echo "matrix=[]" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Find notebooks and handle empty results
+          if [ -z "$(find "$NOTEBOOK_DIR" -maxdepth 1 -name "*.py" 2>/dev/null)" ]; then
+            echo "No notebooks found in $NOTEBOOK_DIR. Setting empty matrix."
+            echo "matrix=[]" >> "$GITHUB_OUTPUT"
+          else
+            notebooks=$(find "$NOTEBOOK_DIR" -maxdepth 1 -name "*.py" -print0 | xargs -0 -n1 echo | jq -R -s -c 'split("\n")[:-1]')
+            echo "matrix=$notebooks" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+  # Create one job per notebook using the matrix strategy for parallel execution
+  test-notebooks:
+    if: needs.list-notebooks.outputs.notebook-list != '[]'
+    runs-on: ubuntu-latest
+    needs: list-notebooks
+    strategy:
+      matrix:
+        notebook: ${{ fromJson(needs.list-notebooks.outputs.notebook-list) }}
+      # Don't fail the entire workflow if one notebook fails
+      fail-fast: false
+    name: Run notebook ${{ matrix.notebook }}
+    steps:
+      # Check out the repository code
+      - uses: actions/checkout@v6.0.2
+        with:
+          lfs: true
+
+      # Install uv/uvx
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7.2.1
+        with:
+          version: "0.9.28"
+
+      # Execute the notebook with the appropriate runner based on its content
+      - name: Run notebook
+        env:
+          UV_EXTRA_INDEX_URL: ${{ secrets.UV_EXTRA_INDEX_URL }}
+        run: |
+          uvx uv run "${{ matrix.notebook }}"
+          # uvx → creates a fresh ephemeral environment
+          # uv run → runs the notebook as a script in that ephemeral env
+          # No project packages are pre-installed
+          # ✅ This forces the notebook to explicitly handle dependencies (e.g., uv install ., or pip install inside the script).
+          # ✅ It’s a true integration smoke test.
+          # Benefits of this pattern
+          # Confirms the notebook can bootstrap itself in a fresh environment
+          # Catches missing uv install or pip steps early
+          # Ensures CI/other users can run the notebook without manual setup
+        shell: bash
